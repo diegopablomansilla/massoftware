@@ -1,4 +1,4 @@
-package com.massoftware.ui.widgets;
+package com.massoftware.ui.views;
 
 import java.util.List;
 import java.util.Optional;
@@ -133,20 +133,18 @@ public abstract class GridCustom<T> extends Grid<T> {
 		Button buttonRemove = new Button("");
 		buttonRemove.setIcon(new Icon(VaadinIcon.TRASH));
 		buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
-		
+
 		contextMenu.addItem(buttonRemove, event -> {
 			event.getItem().ifPresent(item -> {
 				removeItemListener(item, this.toStringSelected);
 			});
 		});
-		
+
 //		contextMenu.addItem("Borrar", event -> {
 //			event.getItem().ifPresent(item -> {
 //				removeItemListener(item);
 //			});
 //		});
-		
-		
 
 		contextMenu.add(separatorMenuConfigStyleCHKMenuItem);
 
@@ -179,7 +177,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 		setBorder(false);
 		setRowStripes(false);
 		setRowBorder(false);
-//		addThemeNames("no-border", "no-row-borders", "row-stripes");		
+//		addThemeNames("no-border", "no-row-borders", "row-stripes");				 
 	}
 
 	protected String getCaptionBorder() {
@@ -325,7 +323,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 			}
 		});
 		confirmationDialog.open();
-		
+
 //		EntityId b = new EntityId();
 //		b.setId(idSelected);
 //
