@@ -17,8 +17,8 @@ public class Banco extends EntityId {
 	// CUIT
 	private Long cuit;
 
-	// Obsoleto
-	private Boolean bloqueado = false;
+	// Vigente
+	private Boolean vigente = true;
 
 	// Hoja
 	private Integer hoja;
@@ -91,14 +91,14 @@ public class Banco extends EntityId {
 		this.cuit = cuit;
 	}
 
-	// GET Obsoleto
-	public Boolean getBloqueado() {
-		return this.bloqueado;
+	// GET Vigente
+	public Boolean getVigente() {
+		return this.vigente;
 	}
 
-	// SET Obsoleto
-	public void setBloqueado(Boolean bloqueado) {
-		this.bloqueado = (bloqueado == null) ? false : bloqueado;
+	// SET Vigente
+	public void setVigente(Boolean vigente) {
+		this.vigente = (vigente == null) ? false : vigente;
 	}
 
 	// GET Hoja

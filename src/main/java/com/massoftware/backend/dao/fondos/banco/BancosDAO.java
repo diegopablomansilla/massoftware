@@ -30,7 +30,7 @@ public class BancosDAO {
 				objRow.setNumero((Integer) row[++c]);
 				objRow.setNombre((String) row[++c]);
 				objRow.setCuit((Long) row[++c]);
-				objRow.setBloqueado((Boolean) row[++c]);
+				objRow.setVigente((Boolean) row[++c]);
 
 				r.add(objRow);
 

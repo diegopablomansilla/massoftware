@@ -39,7 +39,7 @@ public class BackendContextPG extends AbstractContext {
 	}
 
 	public synchronized DataBase getDataBase() {
-		return new DataBase(dataSourceWrapper, "geo");
+		return new DataBase(dataSourceWrapper, "massoftware");
 	}
 
 	public synchronized String getIconosPath() {

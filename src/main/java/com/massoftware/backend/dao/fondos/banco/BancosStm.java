@@ -50,23 +50,34 @@ public class BancosStm extends StatementParam {
 		//-----------------
 		
 		if (f.getNumeroFrom() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " banco.numero >= ?";
 			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
 		}
 		
 		if (f.getNumeroTo() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " banco.numero <= ?";
 			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
 		}
 
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
-			where += " TRANSLATE(LOWER(TRIM(banco.nombre))" + translate + ") LIKE ?";
-			this.addArg(buildArgTrimLower(f.getNombre(), String.class));
+			
+			String[] words =  f.getNombre().trim().split(" ");
+			
+			for(String word : words) {				
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(banco.nombre))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));	
+			}
+			
+			
 		}
 		
-		if (f.getBloqueado() != null) {
+		if (f.getVigente() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " banco.bloqueado = ?";
-			this.addArg(buildArgTrimLower(f.getBloqueado(), Boolean.class));
+			this.addArg(buildArgTrimLower(f.getVigente(), Boolean.class));
 		}
 		
 		//-----------------

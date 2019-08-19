@@ -9,11 +9,11 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.JavaScript;
+import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.ItemDoubleClickEvent;
 import com.vaadin.flow.component.grid.contextmenu.GridContextMenu;
-import com.vaadin.flow.component.grid.contextmenu.GridMenuItem;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -39,6 +39,9 @@ public abstract class GridCustom<T> extends Grid<T> {
 	private String lastToStringSelected;
 
 	private boolean showContextMenuConfigStyle = true;
+	private boolean showToolBarColumn = true;
+	private boolean showContextMenuDelete = true;
+	private boolean showContextMenuOpen = true;
 	private boolean border = false;
 	private boolean rowStripes = false;
 	private boolean rowBorder = false;
@@ -47,16 +50,20 @@ public abstract class GridCustom<T> extends Grid<T> {
 	private Checkbox borderCHK;
 	private Checkbox rowStripesCHK;
 	private Checkbox rowBorderCHK;
-	private Hr separatorMenuConfigStyleCHKMenuItem;
-	private GridMenuItem<T> borderCHKMenuItem;
-	private GridMenuItem<T> rowStripesCHKMenuItem;
-	private GridMenuItem<T> rowBorderCHKMenuItem;
 
-	public GridCustom(Class<T> beanType) {
+	public GridCustom(Class<T> beanType, boolean showToolBarColumn, boolean showContextMenuConfigStyle,
+			boolean showContextMenuDelete, boolean showContextMenuOpen) {
 		super(beanType, false);
+
+		this.showToolBarColumn = showToolBarColumn;
+		this.showContextMenuConfigStyle = showContextMenuConfigStyle;
+		this.showContextMenuDelete = showContextMenuDelete;
+		this.showContextMenuOpen = showContextMenuOpen;
+
 		init();
 		confProperties();
 		addColumns();
+		addColumnToolBar();
 		addListeners();
 		this.focus();
 //		laodItems();		
@@ -102,17 +109,6 @@ public abstract class GridCustom<T> extends Grid<T> {
 		return this;
 	}
 
-	public GridCustom<T> setShowContextMenuConfigStyle(boolean showContextMenuConfigStyle) {
-		this.showContextMenuConfigStyle = showContextMenuConfigStyle;
-
-		separatorMenuConfigStyleCHKMenuItem.setVisible(this.showContextMenuConfigStyle);
-		borderCHKMenuItem.setVisible(this.showContextMenuConfigStyle);
-		rowStripesCHKMenuItem.setVisible(this.showContextMenuConfigStyle);
-		rowBorderCHKMenuItem.setVisible(this.showContextMenuConfigStyle);
-
-		return this;
-	}
-
 	// ----------------------------------------------------------------------
 
 	protected abstract Integer countFromService();
@@ -124,60 +120,95 @@ public abstract class GridCustom<T> extends Grid<T> {
 	// ----------------------------------------------------------------------
 
 	protected void init() {
-		contextMenu = new GridContextMenu<T>(this);
-		separatorMenuConfigStyleCHKMenuItem = new Hr();
-		borderCHK = new Checkbox(getCaptionBorder());
-		rowStripesCHK = new Checkbox(getCaptionRowStripes());
-		rowBorderCHK = new Checkbox(getCaptionRowBorder());
 
-		Button buttonRemove = new Button("");
-		buttonRemove.setIcon(new Icon(VaadinIcon.TRASH));
-		buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
+		if (showContextMenuConfigStyle || showContextMenuOpen || showContextMenuDelete) {
 
-		contextMenu.addItem(buttonRemove, event -> {
-			event.getItem().ifPresent(item -> {
-				removeItemListener(item, this.toStringSelected);
-			});
-		});
+			contextMenu = new GridContextMenu<T>(this);
 
-//		contextMenu.addItem("Borrar", event -> {
-//			event.getItem().ifPresent(item -> {
-//				removeItemListener(item);
+			if (showContextMenuConfigStyle) {
+
+				Hr separatorMenuConfigStyleCHKMenuItem = new Hr();
+
+				contextMenu.add(separatorMenuConfigStyleCHKMenuItem);
+
+				borderCHK = new Checkbox(getCaptionBorder());
+				rowStripesCHK = new Checkbox(getCaptionRowStripes());
+				rowBorderCHK = new Checkbox(getCaptionRowBorder());
+
+//			contextMenu.addItem(borderCHK, e -> setBorder(borderCHK.getValue()));		
+				borderCHK.addValueChangeListener(event -> setBorder(event.getValue()));
+				borderCHK.setValue(this.border);
+				contextMenu.addItem(borderCHK);
+
+//			contextMenu.addItem(rowStripesCHK, e -> setRowStripes(rowStripesCHK.getValue()));
+				rowStripesCHK.addValueChangeListener(event -> setRowStripes(event.getValue()));
+				rowStripesCHK.setValue(this.rowStripes);
+				contextMenu.addItem(rowStripesCHK);
+
+				// contextMenu.addItem(rowBorderCHK, e ->
+				// setRowBorder(rowBorderCHK.getValue()));
+				rowBorderCHK.addValueChangeListener(event -> setRowBorder(event.getValue()));
+				rowBorderCHK.setValue(this.rowBorder);
+				contextMenu.addItem(rowBorderCHK);
+			}
+
+			if (showContextMenuOpen) {
+
+				Hr separator1 = new Hr();
+
+				contextMenu.add(separator1);
+
+				Button buttonOpen = new Button("Abrir");
+				buttonOpen.setSizeFull();
+				buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
+				buttonOpen.addThemeVariants(ButtonVariant.LUMO_SMALL);
+				contextMenu.addItem(buttonOpen, event -> {
+					event.getItem().ifPresent(item -> {
+//					removeItemListener(item, this.toStringSelected);
+					});
+				});
+
+			}
+
+			if (showContextMenuDelete) {
+				Hr separator2 = new Hr();
+
+				contextMenu.add(separator2);
+
+				Button buttonRemove = new Button("Borrar");
+				buttonRemove.setSizeFull();
+				buttonRemove.setIcon(new Icon(VaadinIcon.TRASH));
+				buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
+				buttonRemove.addThemeVariants(ButtonVariant.LUMO_SMALL);
+				contextMenu.addItem(buttonRemove, event -> {
+					event.getItem().ifPresent(item -> {
+						removeItemListener(item, this.toStringSelected);
+					});
+				});
+
+//			contextMenu.addItem("Borrar", event -> {
+//				event.getItem().ifPresent(item -> {
+//					removeItemListener(item);
+//				});
 //			});
-//		});
+			}
 
-		contextMenu.add(separatorMenuConfigStyleCHKMenuItem);
+		}
 
-//		contextMenu.addItem(borderCHK, e -> setBorder(borderCHK.getValue()));
-		borderCHK.addValueChangeListener(event -> setBorder(event.getValue()));
-		borderCHK.setValue(this.border);
-		borderCHKMenuItem = contextMenu.addItem(borderCHK);
-
-//		contextMenu.addItem(rowStripesCHK, e -> setRowStripes(rowStripesCHK.getValue()));
-		rowStripesCHK.addValueChangeListener(event -> setRowStripes(event.getValue()));
-		rowStripesCHK.setValue(this.rowStripes);
-		rowStripesCHKMenuItem = contextMenu.addItem(rowStripesCHK);
-
-		// contextMenu.addItem(rowBorderCHK, e ->
-		// setRowBorder(rowBorderCHK.getValue()));
-		rowBorderCHK.addValueChangeListener(event -> setRowBorder(event.getValue()));
-		rowBorderCHK.setValue(this.rowBorder);
-		rowBorderCHKMenuItem = contextMenu.addItem(rowBorderCHK);
 	}
 
 	protected void confProperties() {
-		setSelectionMode(SelectionMode.SINGLE);
+		this.setSelectionMode(SelectionMode.SINGLE);
 //		GridSingleSelectionModel<T> singleSelect = (GridSingleSelectionModel<T>) getSelectionModel();
 //		singleSelect.setDeselectAllowed(false);
 
-		setMultiSort(false);
-		setColumnReorderingAllowed(true);
-
-		setShowContextMenuConfigStyle(true);
-		setBorder(false);
-		setRowStripes(false);
-		setRowBorder(false);
-//		addThemeNames("no-border", "no-row-borders", "row-stripes");				 
+		this.setMultiSort(false);
+		this.setColumnReorderingAllowed(true);
+		this.setBorder(false);
+		this.setRowStripes(false);
+		this.setRowBorder(false);
+//		addThemeNames("no-border", "no-row-borders", "row-stripes");
+//		this.setHeightFull();
 	}
 
 	protected String getCaptionBorder() {
@@ -194,6 +225,13 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 	protected abstract void addColumns();
 
+	protected void addColumnToolBar() {
+		if (showToolBarColumn) {
+			this.addComponentColumn(item -> createActionsColumn(this, item)).setKey("toolBar").setHeader("")
+					.setTextAlign(ColumnTextAlign.END);
+		}
+	}
+
 	protected void addListeners() {
 //		SingleSelect<Grid<T>, T> personSelect = asSingleSelect();
 //		// personSelect can now be used with Binder or HasValue interface
@@ -207,6 +245,18 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 		addSelectionListener(event -> selectItemListener(event));
 		addItemDoubleClickListener(event -> doubleClickListener(event));
+
+//		this.getElement().addEventListener("keyup", event -> {
+//
+//			JsonObject eventData = event.getEventData();
+//
+//			boolean shiftKey = eventData.getBoolean("event.shiftKey");
+//			if ("Enter".equals(eventData.getString("event.key"))) {
+//				enterListener();
+//			}
+//
+//		}).addEventData("event.shiftKey").addEventData("element.offsetWidth").addEventData("event.key")
+//				.addEventData("element.innerText").addEventData("event.key");
 
 //		Element helloButton = this.getElement();
 //		helloButton.addEventListener("keyup", event -> {
@@ -273,7 +323,8 @@ public abstract class GridCustom<T> extends Grid<T> {
 		EntityId b = new EntityId();
 		b.setId(idSelected);
 
-		this.getSelectionModel().selectFromClient((T) b);
+		this.getSelectionModel().selectFromClient((T) b);		
+		
 	}
 
 //	protected void removeItemListener(String item) {
@@ -313,16 +364,20 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 //		dialog.open();
 
-		ConfirmationDialog confirmationDialog = new ConfirmationDialog();
-		confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem ?");
+		if (this.showContextMenuDelete || this.showToolBarColumn) {
+
+			ConfirmationDialog confirmationDialog = new ConfirmationDialog();
+			confirmationDialog.setTitle("¿ Estás seguro, quieres borrar el ítem ?");
 //		confirmationDialog.setQuestion(item != null ? item.toString() : "");
-		confirmationDialog.setQuestion(item != null ? msg : "");
-		confirmationDialog.addConfirmationListener(buttonClickEvent -> {
-			if (removeItemFromService(item)) {
-				this.getDataProvider().refreshAll();
-			}
-		});
-		confirmationDialog.open();
+			confirmationDialog.setQuestion(item != null ? msg : "");
+			confirmationDialog.addConfirmationListener(buttonClickEvent -> {
+				if (removeItemFromService(item)) {
+					this.getDataProvider().refreshAll();
+				}
+			});
+			confirmationDialog.open();
+
+		}
 
 //		EntityId b = new EntityId();
 //		b.setId(idSelected);
@@ -341,11 +396,18 @@ public abstract class GridCustom<T> extends Grid<T> {
 	}
 
 	protected void doubleClickListener(ItemDoubleClickEvent<T> event) {
-		doubleClickListener(event.getItem());
+		if (this.showContextMenuOpen || this.showToolBarColumn) {
+			open(event.getItem());		
+		}
 	}
-
-	protected void doubleClickListener(T item) {
-		Notification.show("doubleClickListener: " + item.toString());
+	
+	protected void open(T item) {
+		EntityId e = (EntityId) item;
+		open(e.getId());
+	}
+	
+	protected void open(String id) {
+		Notification.show("Open: " + id);	
 	}
 
 //	protected void enterListener() {
@@ -368,7 +430,11 @@ public abstract class GridCustom<T> extends Grid<T> {
 		this.getSelectionModel().selectFromClient((T) b);
 
 //		Notification.show("Enter: " + this.idSelected + " ::: " + this.firstId + " ::: " + this.lastId);
-		Notification.show("Enter: " + this.idSelected);
+//		Notification.show("Enter: " + this.idSelected);
+		if (this.showContextMenuOpen || this.showToolBarColumn) {
+			open(idSelected);		
+		}
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -506,13 +572,13 @@ public abstract class GridCustom<T> extends Grid<T> {
 		buttonRemove.setIcon(new Icon(VaadinIcon.TRASH));
 		buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-		Button buttonEnter = new Button("", clickEvent -> {
+		Button buttonOpen = new Button("", clickEvent -> {
 			removeItemListener(item, item.toString());
 
 		});
-		buttonEnter.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
+		buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));
 
-		hl.add(buttonRemove, buttonEnter);
+		hl.add(buttonRemove, buttonOpen);
 
 		return hl;
 	}

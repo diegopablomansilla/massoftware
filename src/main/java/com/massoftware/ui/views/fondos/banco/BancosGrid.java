@@ -9,11 +9,11 @@ import com.massoftware.service.fondos.banco.BancosFiltro;
 import com.massoftware.ui.components.UIUtils;
 import com.massoftware.ui.views.GridCustom;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.grid.ColumnTextAlign;
-import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.TemplateRenderer;
 
 public class BancosGrid extends GridCustom<Bancos> {
 
@@ -21,47 +21,60 @@ public class BancosGrid extends GridCustom<Bancos> {
 	private BancoService service;
 
 	public BancosGrid(BancoService service, BancosFiltro filter) {
-		super(Bancos.class);
+		super(Bancos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();		
+		laodItems();
 	}
 
 	protected void addColumns() {
 
 		// --------------------------------------------------------------------------------------------------
 
-		addColumn(Bancos::getId, "id").setKey("id").setSortProperty("1").setHeader("ID")
+		addColumn(Bancos::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
+
+		addColumn(Bancos::toString, "toString").setKey("toString").setSortProperty("2").setHeader("Banco")
 				.setVisible(false);
 
-		addColumn(Bancos::toString, "toString").setKey("toString").setSortProperty("2")
-				.setHeader("Banco").setVisible(false);
+		addColumn(
+				TemplateRenderer.<Bancos>of("<div>[[item.cuit]]<br><small>[[item.nombre]]</small></div>")
+						.withProperty("cuit", Bancos::getCuit).withProperty("nombre", Bancos::getNombre),
+				"cuit", "nombre").setKey("toString2").setSortProperty("2").setHeader("Banco").setVisible(false);
 
 		// --------------------------------------------------------------------------------------------------
 
 		addColumn(Bancos::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2")
 				.setHeader("Número");
 
-		addColumn(Bancos::getNombre, "nombre").setKey("nombre").setResizable(true).setSortProperty("3")
-				.setHeader("Nombre");
+		addColumn(TemplateRenderer.<Bancos>of("<b>[[item.nombre]]</b>").withProperty("nombre", Bancos::getNombre))
+				.setKey("nombre").setResizable(true).setSortProperty("3").setHeader("Nombre");
 
-		addColumn(Bancos::getCuit, "cuit").setKey("cuit").setResizable(true).setSortProperty("4")
-				.setHeader("CUIT");
+//		addColumn(Bancos::getCuit, "cuit").setKey("cuit").setResizable(true).setSortProperty("4").setHeader("CUIT");
+		addColumn(new ComponentRenderer<>(this::createRendererCuit)).setKey("cuit").setResizable(true).setSortProperty("4").setHeader("CUIT");
 
-		addColumn(new ComponentRenderer<>(this::createBloqueado)).setKey("bloqueado").setResizable(true)
-				.setSortProperty("5").setHeader("Vigente").setTextAlign(ColumnTextAlign.CENTER);
-
-		// --------------------------------------------------------------------------------------------------
-
-		this.addComponentColumn(item -> createActionsColumn(this, item)).setHeader("").setTextAlign(ColumnTextAlign.END);
+		addColumn(new ComponentRenderer<>(this::createRendererVigente)).setKey("vigente").setResizable(true)
+				.setSortProperty("5").setHeader("Vigente"); // .setTextAlign(ColumnTextAlign.CENTER);
 
 		// --------------------------------------------------------------------------------------------------
 
 	}
 
-	private Component createBloqueado(Bancos item) {
-		return (item.getBloqueado() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK)
+	private Component createRendererVigente(Bancos item) {
+		return (item.getVigente() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK)
 				: UIUtils.createDisabledIcon(VaadinIcon.CLOSE);
+	}
+
+	private Component createRendererCuit(Bancos item) {
+		String cuit = "";
+		if(item.getCuit() != null) {
+			cuit = item.getCuit().toString();
+			String prefix = cuit.substring(0, 2);
+			String body = cuit.substring(2, cuit.length()-2);
+			String sufix = cuit.substring(cuit.length()-2, cuit.length()-1);
+			cuit = prefix + "-" + body + "-" + sufix;
+		}
+		
+		return new Label(cuit);
 	}
 
 	// --------------------------------------------------------------------------------------------------
@@ -69,11 +82,10 @@ public class BancosGrid extends GridCustom<Bancos> {
 	protected Integer countFromService() {
 
 		try {
-
 			return service.count(filter);
-
 		} catch (Exception e) {
 			e.printStackTrace();
+			Notification.show("No se pudo contar la cantidad ítems !!");
 		}
 
 		return 0;
@@ -97,29 +109,29 @@ public class BancosGrid extends GridCustom<Bancos> {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			Notification.show("No se pudo buscar los ítems !!");
 		}
 
 		return new ArrayList<Bancos>();
 	}
 
 	protected boolean removeItemFromService(Bancos item) {
+
+		boolean r = false;
+
 		try {
-
-			if (item == null) {
-//				throw new IllegalArgumentException("Se esperaba un objeto Banco no nulo.");
-			}
-
-			if (item.getId() == null || item.getId().trim().length() == 0) {
-				// ALERT: throw new IllegalArgumentException("Se esperaba un id (Banco.id) no
-				// nulo/vacio.");
-			}
-
-			return service.deleteById(item.getId());
+			r = service.deleteById(item.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
+			r = false;
 		}
 
-		return false;
+		if (r) {
+			Notification.show("El ítem '" + item + "' se borró con éxito");
+		} else {
+			Notification.show("No se pudo borrar el ítem !!");
+		}
+
+		return r;
 	}
 
 	// --------------------------------------------------------------------------------------------------

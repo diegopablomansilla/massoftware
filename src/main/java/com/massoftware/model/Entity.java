@@ -11,7 +11,7 @@ import java.util.List;
 public class Entity implements Cloneable {
 
 	@Override
-	public Object clone() throws CloneNotSupportedException {
+	public Object clone() {
 
 		return clone(this.getClass());
 	}

@@ -1,6 +1,7 @@
 package com.massoftware.service.fondos.banco;
 
 import com.massoftware.service.AbstractFilter;
+import com.massoftware.service.FBoolean;
 
 public class BancosFiltro extends AbstractFilter {
 
@@ -15,10 +16,10 @@ public class BancosFiltro extends AbstractFilter {
 	// Nombre
 	private String nombre;
 
-	// Obsoleto
-	private Boolean bloqueado = false;
+	// Vigente
+	private Boolean vigente;
 
-	private Integer bloqueadoInt = 0;
+	private FBoolean vigenteX;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -52,27 +53,30 @@ public class BancosFiltro extends AbstractFilter {
 		this.nombre = (nombre != null && nombre.trim().length() == 0) ? null : nombre;
 	}
 
-	// GET Obsoleto
-	public Boolean getBloqueado() {
-		return this.bloqueado;
+	// GET Vigente
+	public Boolean getVigente() {
+		return this.vigente;
 	}
 
-	// GET Obsoleto
-	public Integer getBloqueadoInt() {
-		return this.bloqueadoInt;
+	// GET Vigente
+	public FBoolean getVigenteX() {
+		return this.vigenteX;
 	}
 
-	// SET Obsoleto
-	public void setBloqueado(Boolean bloqueado) {
-		this.bloqueado = bloqueado;
-		this.bloqueadoInt = ((this.bloqueado == null) ? null : ((this.bloqueado == false) ? 0 : 1));
+	// SET Vigente
+	public void setVigente(Boolean vigente) {
+		this.vigente = vigente;
+		this.vigenteX = new FBoolean(vigente);
 	}
 
-	// SET Obsoleto
-	public void setBloqueadoInt(Integer bloqueadoInt) {
-		this.bloqueadoInt = bloqueadoInt;
-		this.bloqueado = ((this.bloqueadoInt == null || bloqueadoInt == 2) ? null
-				: ((this.bloqueadoInt == 0) ? false : true));
+	// SET Vigente
+	public void setVigenteX(FBoolean vigenteX) {
+		this.vigenteX = vigenteX;
+		if(vigenteX == null) {
+			this.vigente = null;
+		} else {
+			this.vigente = vigenteX.getValue();	
+		}		
 	}
 
 	public boolean equals(Object obj) {
@@ -143,17 +147,17 @@ public class BancosFiltro extends AbstractFilter {
 
 		// -------------------------------------------------------------------
 
-		if (other.getBloqueado() == null && this.getBloqueado() != null) {
+		if (other.getVigente() == null && this.getVigente() != null) {
 			return false;
 		}
 
-		if (other.getBloqueado() != null && this.getBloqueado() == null) {
+		if (other.getVigente() != null && this.getVigente() == null) {
 			return false;
 		}
 
-		if (other.getBloqueado() != null && this.getBloqueado() != null) {
+		if (other.getVigente() != null && this.getVigente() != null) {
 
-			if (other.getBloqueado().equals(this.getBloqueado()) == false) {
+			if (other.getVigente().equals(this.getVigente()) == false) {
 				return false;
 			}
 
