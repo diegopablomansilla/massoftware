@@ -4,6 +4,8 @@ import com.massoftware.model.EntityId;
 
 public class Bancos extends EntityId {
 
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	private String id;
 
 	// Nº banco
@@ -16,19 +18,18 @@ public class Bancos extends EntityId {
 	private Long cuit;
 
 	// Vigente
-	private Boolean vigente = true;
+	private Boolean vigente;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
 	// GET ID
 	public String getId() {
-		this.id = (id != null && id.trim().length() > 0) ? id.trim() : null;
 		return this.id;
 	}
-
 	// SET ID
-	public void setId(String id) {		
-		this.id = (id != null && id.trim().length() > 0) ? id.trim() : null;
+	public void setId(String id){
+		this.id = (id == null || id.trim().length() == 0) ? null : id.trim();
 	}
 
 	// GET Nº banco
@@ -37,7 +38,7 @@ public class Bancos extends EntityId {
 	}
 
 	// SET Nº banco
-	public void setNumero(Integer numero) {
+	public void setNumero(Integer numero ){
 		this.numero = numero;
 	}
 
@@ -47,8 +48,8 @@ public class Bancos extends EntityId {
 	}
 
 	// SET Nombre
-	public void setNombre(String nombre) {
-		this.nombre = (nombre != null && nombre.trim().length() > 0) ? nombre.trim() : null;
+	public void setNombre(String nombre ){
+		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
 
 	// GET CUIT
@@ -57,7 +58,7 @@ public class Bancos extends EntityId {
 	}
 
 	// SET CUIT
-	public void setCuit(Long cuit) {
+	public void setCuit(Long cuit ){
 		this.cuit = cuit;
 	}
 
@@ -67,20 +68,22 @@ public class Bancos extends EntityId {
 	}
 
 	// SET Vigente
-	public void setVigente(Boolean vigente) {
+	public void setVigente(Boolean vigente ){
 		this.vigente = (vigente == null) ? false : vigente;
 	}
-	
+
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public String toString() {
-		if (this.getNumero() != null && this.getNombre() != null) {
-			return this.getNumero() + " - " + this.getNombre();
-		} else if (this.getNumero() != null && this.getNombre() == null) {
+		if(this.getNumero() != null && this.getNombre() != null){
+			return this.getNumero() + " - " +  this.getNombre();
+		} else if(this.getNumero() != null && this.getNombre() == null){
 			return this.getNumero().toString();
-		} else if (this.getNumero() == null && this.getNombre() != null) {
+		} else if(this.getNumero() == null && this.getNombre() != null){
 			return this.getNombre();
 		} else {
 			return super.toString();
 		}
 	}
 
-}
+} // END CLASS ----------------------------------------------------------------------------------------------------------

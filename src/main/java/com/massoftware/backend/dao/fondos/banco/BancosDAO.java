@@ -7,6 +7,7 @@ import org.dsw.jdbc.ConnectionWrapper;
 
 import com.massoftware.service.fondos.banco.Bancos;
 import com.massoftware.service.fondos.banco.BancosFiltro;
+import com.massoftware.service.fondos.banco.XBancosStm;
 
 public class BancosDAO {
 
@@ -14,7 +15,7 @@ public class BancosDAO {
 
 		List<Bancos> r = new ArrayList<Bancos>();
 
-		BancosStm stm = new BancosStm(f, false);
+		XBancosStm stm = new XBancosStm(f, false);
 
 		Object[][] table = connectionWrapper.findToTable(stm.getSql(), stm.getArgs());
 
@@ -42,7 +43,7 @@ public class BancosDAO {
 
 	public Integer count(ConnectionWrapper connectionWrapper, BancosFiltro f) throws Exception {
 
-		BancosStm stm = new BancosStm(f, true);
+		XBancosStm stm = new XBancosStm(f, true);
 
 		Object[][] table = connectionWrapper.findToTable(stm.getSql(), stm.getArgs());
 

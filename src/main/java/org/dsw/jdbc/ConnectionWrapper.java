@@ -1,6 +1,5 @@
 package org.dsw.jdbc;
 
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
@@ -26,7 +25,7 @@ public class ConnectionWrapper {
 	private final String OPERATION_TYPE_INSERT = "INSERT";
 	private final String OPERATION_TYPE_UPDATE = "UPDATE";
 	private final String OPERATION_TYPE_DELETE = "DELETE";
-	private final String OPERATION_TYPE_EXECUTE = "EXECUTE";
+//	private final String OPERATION_TYPE_EXECUTE = "EXECUTE";
 
 	private final String TITLE_BEGIN_TRANSACTION = "Comienzo de Transacción";
 	private final String TITLE_COMMIT_TRANSACTION = "Fin de Transacción";
@@ -36,7 +35,7 @@ public class ConnectionWrapper {
 	private final String TITLE_INSERT = "Insertando un Registro";
 	private final String TITLE_UPDATE = "Actualizando un Registro";
 	private final String TITLE_DELETE = "Borrando un Registro";
-	private final String TITLE_EXECUTE = "Modificando la base de datos";
+//	private final String TITLE_EXECUTE = "Modificando la base de datos";
 
 	private final String SUBJECT_BEGIN_TRANSACTION = "Error al intentar iniciar una transacción.";
 	private final String SUBJECT_COMMIT_TRANSACTION = "Fin de Transacción";
@@ -46,7 +45,7 @@ public class ConnectionWrapper {
 	private final String SUBJECT_INSERT = "Error al intentar insertar un registro.";
 	private final String SUBJECT_UPDATE = "Error al intentar actualizar un registro.";
 	private final String SUBJECT_DELETE = "Error al intentar borrar un registro.";
-	private final String SUBJECT_EXECUTE = "Error al intentar modificar la base de datos.";
+//	private final String SUBJECT_EXECUTE = "Error al intentar modificar la base de datos.";
 
 	private final String MSG_1 = "Se pretende agregar un parámetro a una sentencia sql que posee un tipo de dato desconocido. Se recibió [${value}] de tipo ${class}, y se espera String | Boolean | Short | Integer | Long | Float | Double | BigDecimal | Date | Timestamp | Time";
 
@@ -188,82 +187,6 @@ public class ConnectionWrapper {
 	// ===================================================================================================
 	// ===================================================================================================
 
-	@SuppressWarnings("rawtypes")
-	public List findToListByCendraConvention(String sql) throws SQLExceptionWrapper, Exception {
-		return findToListByCendraConvention(sql, new Object[0]);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public List findToListByCendraConvention(String sql, Object... args) throws SQLExceptionWrapper {
-
-		try {
-
-			PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
-
-			printSQLWarning(preparedStatement.getWarnings());
-
-			if (args != null) {
-				for (int i = 0; i < args.length; i++) {
-					set(preparedStatement, args[i], (i + 1));
-				}
-			}
-
-			sql = formatSQL(preparedStatement, args, sql);
-
-			addSqlStatement(sql);
-
-			return executeQueryToListByCendraConvention(preparedStatement, sql);
-
-		} catch (SQLException e) {
-			printSQLEnd(buildPrintSQLStart(formatSQL(args, sql)), null, false);
-			throw this.buildSQLExceptionWrapper(e, OPERATION_TYPE_SELECT, TITLE_SELECT, SUBJECT_SELECT);
-		}
-
-	}
-
-	@SuppressWarnings("rawtypes")
-	private List executeQueryToListByCendraConvention(PreparedStatement preparedStatement, String sql)
-			throws SQLException {
-
-		String msg = buildPrintSQLStart(sql);
-
-		// System.out.println("SQL 1 " + sql);
-		ZonedDateTime startTime = ZonedDateTime.now();
-		ResultSet resultSet = preparedStatement.executeQuery();
-		ZonedDateTime endTime = ZonedDateTime.now();
-		// System.out.println("SQL 2 " + sql);
-		printSQLWarning(resultSet.getWarnings());
-
-		printSQLEnd(msg, Duration.between(startTime, endTime), true);
-
-		MapperCendraConvention mapper = new MapperCendraConvention();
-		List list = new ArrayList();
-		try {
-			list = mapper.listMapper(resultSet);
-		} catch (IllegalAccessException e) {
-			throw new SQLExceptionByCendraConvention(e);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace(); // 666
-			throw new SQLExceptionByCendraConvention(e);
-		} catch (InvocationTargetException e) {
-			throw new SQLExceptionByCendraConvention(e);
-		} catch (InstantiationException e) {
-			throw new SQLExceptionByCendraConvention(e);
-		} catch (ClassNotFoundException e) {
-			throw new SQLExceptionByCendraConvention(e);
-		}
-
-		// if (resultSet != null && resultSet.isClosed() == false) {
-		// resultSet.close();
-		// }
-
-		// if (preparedStatement != null && preparedStatement.isClosed() ==
-		// false) {
-		// preparedStatement.close();
-		// }
-
-		return list;
-	}
 
 	public Object[][] findToTable(String sql) throws SQLExceptionWrapper, Exception {
 		return findToTable(sql, new Object[0]);
@@ -345,90 +268,90 @@ public class ConnectionWrapper {
 		return table;
 	}
 
-	public ResultSet findToResultSet(String sql, Object... args) throws SQLExceptionWrapper, SQLException {
+//	private ResultSet findToResultSet(String sql, Object... args) throws SQLExceptionWrapper, SQLException {
+//
+//		try {
+//
+//			PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+//
+//			printSQLWarning(preparedStatement.getWarnings());
+//
+//			if (args != null) {
+//				for (int i = 0; i < args.length; i++) {
+//					set(preparedStatement, args[i], (i + 1));
+//				}
+//			}
+//
+//			sql = formatSQL(preparedStatement, args, sql);
+//
+//			addSqlStatement(sql);
+//
+//			return executeQueryToResultSet(preparedStatement, sql);
+//
+//		} catch (SQLException e) {
+//			printSQLEnd(buildPrintSQLStart(formatSQL(args, sql)), null, false);
+//			throw this.buildSQLExceptionWrapper(e, OPERATION_TYPE_SELECT, TITLE_SELECT, SUBJECT_SELECT);
+//		}
+//
+//	}
 
-		try {
+//	private ResultSet executeQueryToResultSet(PreparedStatement preparedStatement, String sql) throws SQLException {
+//
+//		String msg = buildPrintSQLStart(sql);
+//
+//		ZonedDateTime startTime = ZonedDateTime.now();
+//
+//		ResultSet resultSet = preparedStatement.executeQuery();
+//
+//		ZonedDateTime endTime = ZonedDateTime.now();
+//
+//		printSQLWarning(resultSet.getWarnings());
+//
+//		printSQLEnd(msg, Duration.between(startTime, endTime), true);
+//
+//		// if (resultSet != null && resultSet.isClosed() == false) {
+//		// resultSet.close();
+//		// }
+//
+//		// if (preparedStatement != null && preparedStatement.isClosed() ==
+//		// false) {
+//		// preparedStatement.close();
+//		// }
+//
+//		return resultSet;
+//	}
 
-			PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+//	private int genericExecute(String sql) throws SQLExceptionWrapper, SQLException {
+//		return genericExecute(sql, new Object[0]);
+//	}
 
-			printSQLWarning(preparedStatement.getWarnings());
-
-			if (args != null) {
-				for (int i = 0; i < args.length; i++) {
-					set(preparedStatement, args[i], (i + 1));
-				}
-			}
-
-			sql = formatSQL(preparedStatement, args, sql);
-
-			addSqlStatement(sql);
-
-			return executeQueryToResultSet(preparedStatement, sql);
-
-		} catch (SQLException e) {
-			printSQLEnd(buildPrintSQLStart(formatSQL(args, sql)), null, false);
-			throw this.buildSQLExceptionWrapper(e, OPERATION_TYPE_SELECT, TITLE_SELECT, SUBJECT_SELECT);
-		}
-
-	}
-
-	private ResultSet executeQueryToResultSet(PreparedStatement preparedStatement, String sql) throws SQLException {
-
-		String msg = buildPrintSQLStart(sql);
-
-		ZonedDateTime startTime = ZonedDateTime.now();
-
-		ResultSet resultSet = preparedStatement.executeQuery();
-
-		ZonedDateTime endTime = ZonedDateTime.now();
-
-		printSQLWarning(resultSet.getWarnings());
-
-		printSQLEnd(msg, Duration.between(startTime, endTime), true);
-
-		// if (resultSet != null && resultSet.isClosed() == false) {
-		// resultSet.close();
-		// }
-
-		// if (preparedStatement != null && preparedStatement.isClosed() ==
-		// false) {
-		// preparedStatement.close();
-		// }
-
-		return resultSet;
-	}
-
-	public int genericExecute(String sql) throws SQLExceptionWrapper, SQLException {
-		return genericExecute(sql, new Object[0]);
-	}
-
-	public int genericExecute(String sql, Object... args) throws SQLExceptionWrapper, SQLException {
-
-		try {
-
-			// PreparedStatement preparedStatement = this.getConnection()
-			// .prepareStatement(sql);
-			// printSQLWarning(preparedStatement.getWarnings());
-			//
-			// if (args != null) {
-			// for (int i = 0; i < args.length; i++) {
-			// set(preparedStatement, args[i], (i + 1));
-			// }
-			// }
-			//
-			// sql = this.formatSQL(preparedStatement, args, sql);
-			//
-			// this.addSqlStatement(sql);
-			//
-			// return executeUpdateByExample(preparedStatement, sql);
-
-			return execute(sql, args);
-
-		} catch (SQLException e) {
-			printSQLEnd(buildPrintSQLStart(formatSQL(args, sql)), null, false);
-			throw this.buildSQLExceptionWrapper(e, OPERATION_TYPE_EXECUTE, TITLE_EXECUTE, SUBJECT_EXECUTE);
-		}
-	}
+//	private int genericExecute(String sql, Object... args) throws SQLExceptionWrapper, SQLException {
+//
+//		try {
+//
+//			// PreparedStatement preparedStatement = this.getConnection()
+//			// .prepareStatement(sql);
+//			// printSQLWarning(preparedStatement.getWarnings());
+//			//
+//			// if (args != null) {
+//			// for (int i = 0; i < args.length; i++) {
+//			// set(preparedStatement, args[i], (i + 1));
+//			// }
+//			// }
+//			//
+//			// sql = this.formatSQL(preparedStatement, args, sql);
+//			//
+//			// this.addSqlStatement(sql);
+//			//
+//			// return executeUpdateByExample(preparedStatement, sql);
+//
+//			return execute(sql, args);
+//
+//		} catch (SQLException e) {
+//			printSQLEnd(buildPrintSQLStart(formatSQL(args, sql)), null, false);
+//			throw this.buildSQLExceptionWrapper(e, OPERATION_TYPE_EXECUTE, TITLE_EXECUTE, SUBJECT_EXECUTE);
+//		}
+//	}
 
 	public int insert(String sql) throws SQLExceptionWrapper, SQLException {
 		return insert(sql, new Object[0]);
