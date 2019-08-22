@@ -16,11 +16,11 @@ public class CiudadesStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 	
 		if (f.getProvincia() == null || f.getProvincia().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
 		}
 
 
@@ -30,7 +30,7 @@ public class CiudadesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Ciudad.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -78,13 +78,13 @@ public class CiudadesStm extends StatementParam {
 		if (f.getPais() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Pais = ?";
-			this.addArg(buildArgTrimLower(f.getPais(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getPais(), String.class));
 		}
 	
 		if (f.getProvincia() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Provincia = ?";
-			this.addArg(buildArgTrimLower(f.getProvincia(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getProvincia(), String.class));
 		}
 
 		

@@ -1,6 +1,6 @@
 package com.massoftware.service.logistica;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.logistica.Carga;
 import com.massoftware.service.geo.Ciudad;
 

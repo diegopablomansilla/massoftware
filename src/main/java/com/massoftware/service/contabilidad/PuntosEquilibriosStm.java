@@ -16,7 +16,7 @@ public class PuntosEquilibriosStm extends StatementParam {
 		
 	
 		if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + PuntosEquilibriosFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + PuntosEquilibriosFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class PuntosEquilibriosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "PuntoEquilibrio.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -74,7 +74,7 @@ public class PuntosEquilibriosStm extends StatementParam {
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " PuntoEquilibrio.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
 		}
 
 		

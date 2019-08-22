@@ -22,7 +22,7 @@ public class AsientosContablesModulosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "AsientoContableModulo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

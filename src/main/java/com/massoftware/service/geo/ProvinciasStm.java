@@ -16,7 +16,7 @@ public class ProvinciasStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class ProvinciasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Provincia.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -83,7 +83,7 @@ public class ProvinciasStm extends StatementParam {
 		if (f.getPais() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Provincia.Pais = ?";
-			this.addArg(buildArgTrimLower(f.getPais(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getPais(), String.class));
 		}
 
 		

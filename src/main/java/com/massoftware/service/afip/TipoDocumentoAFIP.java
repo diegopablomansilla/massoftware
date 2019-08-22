@@ -1,6 +1,6 @@
 package com.massoftware.service.afip;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class TipoDocumentoAFIP extends EntityId {
 

@@ -1,6 +1,6 @@
 package com.massoftware.service.fondos;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.CuentaContable;
 import com.massoftware.service.fondos.CuentaFondoGrupo;
 import com.massoftware.service.fondos.CuentaFondoTipo;

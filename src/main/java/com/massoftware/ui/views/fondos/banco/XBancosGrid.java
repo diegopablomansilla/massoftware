@@ -3,9 +3,9 @@ package com.massoftware.ui.views.fondos.banco;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.service.fondos.banco.XBancoService;
-import com.massoftware.service.fondos.banco.XBancos;
-import com.massoftware.service.fondos.banco.XBancosFiltro;
+import com.massoftware.service.fondos.banco.BancoService;
+import com.massoftware.service.fondos.banco.Bancos;
+import com.massoftware.service.fondos.banco.BancosFiltro;
 import com.massoftware.ui.components.UIUtils;
 import com.massoftware.ui.views.GridCustom;
 import com.vaadin.flow.component.Component;
@@ -15,13 +15,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
 
-public class XBancosGrid extends GridCustom<XBancos> {
+public class XBancosGrid extends GridCustom<Bancos> {
 
-	private XBancosFiltro filter;
-	private XBancoService service;
+	private BancosFiltro filter;
+	private BancoService service;
 
-	public XBancosGrid(XBancoService service, XBancosFiltro filter) {
-		super(XBancos.class, true, true, true, true);
+	public XBancosGrid(BancoService service, BancosFiltro filter) {
+		super(Bancos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
 		laodItems();
@@ -31,22 +31,22 @@ public class XBancosGrid extends GridCustom<XBancos> {
 
 		// --------------------------------------------------------------------------------------------------
 
-		addColumn(XBancos::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
+		addColumn(Bancos::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
 
-		addColumn(XBancos::toString, "toString").setKey("toString").setSortProperty("2").setHeader("Banco")
+		addColumn(Bancos::toString, "toString").setKey("toString").setSortProperty("2").setHeader("Banco")
 				.setVisible(false);
 
 		addColumn(
-				TemplateRenderer.<XBancos>of("<div>[[item.cuit]]<br><small>[[item.nombre]]</small></div>")
-						.withProperty("cuit", XBancos::getCuit).withProperty("nombre", XBancos::getNombre),
+				TemplateRenderer.<Bancos>of("<div>[[item.cuit]]<br><small>[[item.nombre]]</small></div>")
+						.withProperty("cuit", Bancos::getCuit).withProperty("nombre", Bancos::getNombre),
 				"cuit", "nombre").setKey("toString2").setSortProperty("2").setHeader("Banco").setVisible(false);
 
 		// --------------------------------------------------------------------------------------------------
 
-		addColumn(XBancos::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2")
+		addColumn(Bancos::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2")
 				.setHeader("Número");
 
-		addColumn(TemplateRenderer.<XBancos>of("<b>[[item.nombre]]</b>").withProperty("nombre", XBancos::getNombre))
+		addColumn(TemplateRenderer.<Bancos>of("<b>[[item.nombre]]</b>").withProperty("nombre", Bancos::getNombre))
 				.setKey("nombre").setResizable(true).setSortProperty("3").setHeader("Nombre");
 
 //		addColumn(Bancos::getCuit, "cuit").setKey("cuit").setResizable(true).setSortProperty("4").setHeader("CUIT");
@@ -59,12 +59,12 @@ public class XBancosGrid extends GridCustom<XBancos> {
 
 	}
 
-	private Component createRendererVigente(XBancos item) {
+	private Component createRendererVigente(Bancos item) {
 		return (item.getVigente() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK)
 				: UIUtils.createDisabledIcon(VaadinIcon.CLOSE);
 	}
 
-	private Component createRendererCuit(XBancos item) {
+	private Component createRendererCuit(Bancos item) {
 		String cuit = "";
 		if(item.getCuit() != null) {
 			cuit = item.getCuit().toString();
@@ -91,7 +91,7 @@ public class XBancosGrid extends GridCustom<XBancos> {
 		return 0;
 	}
 
-	protected List<XBancos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
+	protected List<Bancos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
 
@@ -100,7 +100,7 @@ public class XBancosGrid extends GridCustom<XBancos> {
 			filter.setOrderBy(orderBy);
 			filter.setOrderByDesc(orderByDesc);
 
-			List<XBancos> items = service.find(filter);
+			List<Bancos> items = service.find(filter);
 
 			Notification.show("offset: " + offset + ", limit: " + limit + ", orderBy: " + orderBy + ", orderByDesc: "
 					+ orderByDesc + ", items.size(): " + items.size());
@@ -112,10 +112,10 @@ public class XBancosGrid extends GridCustom<XBancos> {
 			Notification.show("No se pudo buscar los ítems !!");
 		}
 
-		return new ArrayList<XBancos>();
+		return new ArrayList<Bancos>();
 	}
 
-	protected boolean removeItemFromService(XBancos item) {
+	protected boolean removeItemFromService(Bancos item) {
 
 		boolean r = false;
 

@@ -22,7 +22,7 @@ public class MonedasAFIPStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "MonedaAFIP.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

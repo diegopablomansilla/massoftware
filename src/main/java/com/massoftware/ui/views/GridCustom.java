@@ -3,7 +3,7 @@ package com.massoftware.ui.views;
 import java.util.List;
 import java.util.Optional;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;

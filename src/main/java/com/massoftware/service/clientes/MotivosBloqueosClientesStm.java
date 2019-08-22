@@ -22,7 +22,7 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "MotivoBloqueoCliente.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -70,7 +70,7 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 		if (f.getClasificacionCliente() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MotivoBloqueoCliente.ClasificacionCliente = ?";
-			this.addArg(buildArgTrimLower(f.getClasificacionCliente(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getClasificacionCliente(), String.class));
 		}
 
 		

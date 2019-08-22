@@ -22,7 +22,7 @@ public class CuentasFondosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "CuentaFondo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -70,7 +70,7 @@ public class CuentasFondosStm extends StatementParam {
 		if (f.getBanco() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondo.Banco = ?";
-			this.addArg(buildArgTrimLower(f.getBanco(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getBanco(), String.class));
 		}
 
 		

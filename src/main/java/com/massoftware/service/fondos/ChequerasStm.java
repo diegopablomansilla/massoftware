@@ -16,7 +16,7 @@ public class ChequerasStm extends StatementParam {
 		
 	
 		if (f.getCuentaFondo() == null || f.getCuentaFondo().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ChequerasFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ChequerasFiltro.class.getCanonicalName() + ".cuentaFondo para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class ChequerasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Chequera.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -74,7 +74,7 @@ public class ChequerasStm extends StatementParam {
 		if (f.getCuentaFondo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Chequera.CuentaFondo = ?";
-			this.addArg(buildArgTrimLower(f.getCuentaFondo(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getCuentaFondo(), String.class));
 		}
 
 		

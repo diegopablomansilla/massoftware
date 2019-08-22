@@ -1,6 +1,6 @@
 package com.massoftware.service.seguridad;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.seguridad.SeguridadModulo;
 
 public class SeguridadPuerta extends EntityId {

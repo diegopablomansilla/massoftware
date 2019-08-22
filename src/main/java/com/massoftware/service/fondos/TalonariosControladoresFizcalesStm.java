@@ -22,7 +22,7 @@ public class TalonariosControladoresFizcalesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "TalonarioControladorFizcal.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

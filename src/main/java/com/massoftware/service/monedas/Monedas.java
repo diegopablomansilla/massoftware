@@ -1,6 +1,6 @@
 package com.massoftware.service.monedas;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class Monedas extends EntityId {
 

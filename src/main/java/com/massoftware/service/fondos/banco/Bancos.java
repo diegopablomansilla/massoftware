@@ -1,6 +1,6 @@
 package com.massoftware.service.fondos.banco;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class Bancos extends EntityId {
 

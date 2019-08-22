@@ -22,7 +22,7 @@ public class NotasCreditoMotivoStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "NotaCreditoMotivo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

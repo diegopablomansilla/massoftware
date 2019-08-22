@@ -1,6 +1,6 @@
 package com.massoftware.service.geo;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.Ciudad;
 
 public class CodigoPostal extends EntityId {

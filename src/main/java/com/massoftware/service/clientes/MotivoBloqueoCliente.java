@@ -1,6 +1,6 @@
 package com.massoftware.service.clientes;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.clientes.ClasificacionCliente;
 
 public class MotivoBloqueoCliente extends EntityId {

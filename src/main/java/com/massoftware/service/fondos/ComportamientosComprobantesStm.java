@@ -22,7 +22,7 @@ public class ComportamientosComprobantesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "ComportamientoComprobante.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

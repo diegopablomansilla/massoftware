@@ -1,6 +1,6 @@
 package com.massoftware.service.fondos;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class ComportamientosComprobantes extends EntityId {
 

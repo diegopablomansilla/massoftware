@@ -22,7 +22,7 @@ public class CuentasFondosRubrosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "CuentaFondoRubro.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

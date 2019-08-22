@@ -16,7 +16,7 @@ public class AsientosContablesStm extends StatementParam {
 		
 	
 		if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class AsientosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "AsientoContable.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -74,37 +74,37 @@ public class AsientosContablesStm extends StatementParam {
 		if (f.getFechaFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Fecha >= ?";
-			this.addArg(buildArgTrimLower(f.getFechaFrom(), Date.class));
+			this.addArg(buildArgTrimLower(f.getFechaFrom(), java.util.Date.class));
 		}
 	
 		if (f.getFechaTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Fecha <= ?";
-			this.addArg(buildArgTrimLower(f.getFechaTo(), Date.class));
+			this.addArg(buildArgTrimLower(f.getFechaTo(), java.util.Date.class));
 		}
 	
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
 		}
 	
 		if (f.getMinutaContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.MinutaContable = ?";
-			this.addArg(buildArgTrimLower(f.getMinutaContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getMinutaContable(), String.class));
 		}
 	
 		if (f.getAsientoContableModulo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.AsientoContableModulo = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoContableModulo(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getAsientoContableModulo(), String.class));
 		}
 	
 		if (f.getSucursal() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Sucursal = ?";
-			this.addArg(buildArgTrimLower(f.getSucursal(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getSucursal(), String.class));
 		}
 
 		

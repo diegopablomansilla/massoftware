@@ -16,11 +16,11 @@ public class CentrosCostosContablesStm extends StatementParam {
 		
 	
 		if (f.getAbreviatura() == null || f.getAbreviatura().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".abreviatura para filtrar la consulta");
 		}
 	
 		if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
 		}
 
 
@@ -30,7 +30,7 @@ public class CentrosCostosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "CentroCostoContable.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -87,7 +87,7 @@ public class CentrosCostosContablesStm extends StatementParam {
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CentroCostoContable.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
 		}
 
 		

@@ -22,7 +22,7 @@ public class SeguridadModulosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "SeguridadModulo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -22,7 +22,7 @@ public class DepositosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Deposito.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -70,7 +70,7 @@ public class DepositosStm extends StatementParam {
 		if (f.getSucursal() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Deposito.Sucursal = ?";
-			this.addArg(buildArgTrimLower(f.getSucursal(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getSucursal(), String.class));
 		}
 
 		

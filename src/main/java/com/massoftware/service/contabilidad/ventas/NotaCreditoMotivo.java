@@ -1,6 +1,6 @@
 package com.massoftware.service.contabilidad.ventas;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class NotaCreditoMotivo extends EntityId {
 

@@ -16,7 +16,7 @@ public class CuentasContablesStm extends StatementParam {
 		
 	
 		if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CuentasContablesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CuentasContablesFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class CuentasContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "CuentaContable.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -71,7 +71,7 @@ public class CuentasContablesStm extends StatementParam {
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaContable.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
 		}
 
 		

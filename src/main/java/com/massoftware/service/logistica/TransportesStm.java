@@ -22,7 +22,7 @@ public class TransportesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Transporte.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

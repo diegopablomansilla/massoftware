@@ -1,6 +1,6 @@
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
 import com.massoftware.service.contabilidad.CuentaContableEstado;
 import com.massoftware.service.contabilidad.CentroCostoContable;

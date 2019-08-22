@@ -1,6 +1,6 @@
 package com.massoftware.service.empresa;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.empresa.TipoSucursal;
 
 public class Sucursal extends EntityId {

@@ -1,8 +1,8 @@
 package com.massoftware.ui.views.fondos.banco;
 
+import com.massoftware.service.AppCX;
 import com.massoftware.service.FBoolean;
-import com.massoftware.service.fondos.banco.XBancoService;
-import com.massoftware.service.fondos.banco.XBancosFiltro;
+import com.massoftware.service.fondos.banco.BancosFiltro;
 import com.massoftware.ui.components.UIUtils;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
@@ -38,9 +38,9 @@ public class XBancosView extends VerticalLayout {
 	// botonera no ordenable no movible
 
 	// Binder
-	private XBancosFiltro lastFilter;
-	private XBancosFiltro filter;
-	private Binder<XBancosFiltro> binder;
+	private BancosFiltro lastFilter;
+	private BancosFiltro filter;
+	private Binder<BancosFiltro> binder;
 
 	// Filter control
 	private HorizontalLayout filterRow1;
@@ -54,7 +54,7 @@ public class XBancosView extends VerticalLayout {
 	// Grid
 	private XBancosGrid grid;
 
-	public XBancosView() {
+	public XBancosView() throws Exception {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
@@ -62,8 +62,8 @@ public class XBancosView extends VerticalLayout {
 	}
 
 	private void buildBinder() {
-		filter = new XBancosFiltro();
-		binder = new Binder<>(XBancosFiltro.class);
+		filter = new BancosFiltro();
+		binder = new Binder<>(BancosFiltro.class);
 		binder.setBean(filter);
 	}
 
@@ -94,7 +94,7 @@ public class XBancosView extends VerticalLayout {
 				.withValidator(value -> (value != null) ? value > 1 : true, "El valor tiene que ser >= 1")
 				.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,
 						"El valor tiene que ser <= " + Integer.MAX_VALUE)
-				.bind(XBancosFiltro::getNumeroFrom, XBancosFiltro::setNumeroFrom);
+				.bind(BancosFiltro::getNumeroFrom, BancosFiltro::setNumeroFrom);
 
 		// Nº banco (hasta)
 		numeroTo = new NumberField();
@@ -119,7 +119,7 @@ public class XBancosView extends VerticalLayout {
 				.withValidator(value -> (value != null) ? value > 1 : true, "El valor tiene que ser >= 1")
 				.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,
 						"El valor tiene que ser <= " + Integer.MAX_VALUE)
-				.bind(XBancosFiltro::getNumeroTo, XBancosFiltro::setNumeroTo);
+				.bind(BancosFiltro::getNumeroTo, BancosFiltro::setNumeroTo);
 
 		// Vigente
 		ComboBox<FBoolean> vigente = new ComboBox<>();
@@ -155,7 +155,7 @@ public class XBancosView extends VerticalLayout {
 		nombre.addBlurListener(event -> {
 			search();
 		});
-		binder.bind(nombre, XBancosFiltro::getNombre, XBancosFiltro::setNombre);
+		binder.bind(nombre, BancosFiltro::getNombre, BancosFiltro::setNombre);
 
 		// Button New ítem
 		newBTN = new Button();
@@ -180,8 +180,8 @@ public class XBancosView extends VerticalLayout {
 
 	}
 
-	private void buildGrid() {
-		grid = new XBancosGrid(new XBancoService(), filter);
+	private void buildGrid() throws Exception {
+		grid = new XBancosGrid(AppCX.services().buildBancoService(), filter);
 		grid.addFocusShortcut(Key.DIGIT_5, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -193,7 +193,7 @@ public class XBancosView extends VerticalLayout {
 
 	private void search() {
 		if (this.filter.equals(this.lastFilter) == false) {
-			this.lastFilter = (XBancosFiltro) this.filter.clone();
+			this.lastFilter = (BancosFiltro) this.filter.clone();
 			if (binder.isValid()) {
 				grid.refreshAll();
 			} else {

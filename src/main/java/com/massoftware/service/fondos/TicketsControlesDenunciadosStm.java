@@ -22,7 +22,7 @@ public class TicketsControlesDenunciadosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "TicketControlDenunciados.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

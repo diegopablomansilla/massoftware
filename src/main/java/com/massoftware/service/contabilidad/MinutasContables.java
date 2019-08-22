@@ -1,6 +1,6 @@
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class MinutasContables extends EntityId {
 

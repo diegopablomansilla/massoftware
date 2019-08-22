@@ -1,6 +1,6 @@
 package com.massoftware.service.empresa;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.empresa.Sucursal;
 import com.massoftware.service.empresa.DepositoModulo;
 import com.massoftware.service.seguridad.SeguridadPuerta;

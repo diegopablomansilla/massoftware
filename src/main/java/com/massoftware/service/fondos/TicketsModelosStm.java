@@ -16,7 +16,7 @@ public class TicketsModelosStm extends StatementParam {
 		
 	
 		if (f.getTicket() == null || f.getTicket().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TicketsModelosFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TicketsModelosFiltro.class.getCanonicalName() + ".ticket para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class TicketsModelosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "TicketModelo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -74,7 +74,7 @@ public class TicketsModelosStm extends StatementParam {
 		if (f.getTicket() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TicketModelo.Ticket = ?";
-			this.addArg(buildArgTrimLower(f.getTicket(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getTicket(), String.class));
 		}
 
 		

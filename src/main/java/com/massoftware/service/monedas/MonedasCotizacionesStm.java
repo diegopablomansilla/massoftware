@@ -16,11 +16,11 @@ public class MonedasCotizacionesStm extends StatementParam {
 		
 	
 		if (f.getCotizacionFechaFrom() == null || f.getCotizacionFechaFrom().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaFrom para filtrar la consulta");
 		}
 	
-		if (f.getCotizacionFechato() == null || f.getCotizacionFechato().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+		if (f.getCotizacionFechaTo() == null || f.getCotizacionFechaTo().toString().trim().isEmpty()) {
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaTo para filtrar la consulta");
 		}
 
 
@@ -30,7 +30,7 @@ public class MonedasCotizacionesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "MonedaCotizacion.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -57,19 +57,19 @@ public class MonedasCotizacionesStm extends StatementParam {
 		if (f.getMoneda() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.Moneda = ?";
-			this.addArg(buildArgTrimLower(f.getMoneda(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getMoneda(), String.class));
 		}
 	
 		if (f.getCotizacionFechaFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha >= ?";
-			this.addArg(buildArgTrimLower(f.getCotizacionFechaFrom(), Timestamp.class));
+			this.addArg(buildArgTrimLower(f.getCotizacionFechaFrom(), java.sql.Timestamp.class));
 		}
 	
 		if (f.getCotizacionFechaTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha <= ?";
-			this.addArg(buildArgTrimLower(f.getCotizacionFechaTo(), Timestamp.class));
+			this.addArg(buildArgTrimLower(f.getCotizacionFechaTo(), java.sql.Timestamp.class));
 		}
 
 		

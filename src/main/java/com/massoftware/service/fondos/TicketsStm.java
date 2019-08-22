@@ -22,7 +22,7 @@ public class TicketsStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Ticket.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

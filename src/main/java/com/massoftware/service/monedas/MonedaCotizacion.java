@@ -1,6 +1,6 @@
 package com.massoftware.service.monedas;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.monedas.Moneda;
 import com.massoftware.service.seguridad.Usuario;
 

@@ -16,7 +16,7 @@ public class CuentasFondosGruposStm extends StatementParam {
 		
 	
 		if (f.getCuentaFondoRubro() == null || f.getCuentaFondoRubro().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CuentasFondosGruposFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CuentasFondosGruposFiltro.class.getCanonicalName() + ".cuentaFondoRubro para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class CuentasFondosGruposStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "CuentaFondoGrupo.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -74,7 +74,7 @@ public class CuentasFondosGruposStm extends StatementParam {
 		if (f.getCuentaFondoRubro() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondoGrupo.CuentaFondoRubro = ?";
-			this.addArg(buildArgTrimLower(f.getCuentaFondoRubro(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getCuentaFondoRubro(), String.class));
 		}
 
 		

@@ -16,7 +16,7 @@ public class BancosStm extends StatementParam {
 		
 	
 		if (f.getVigente() == null || f.getVigente().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + BancosFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + BancosFiltro.class.getCanonicalName() + ".vigente para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class BancosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Banco.numero, Banco.nombre, Banco.cuit, Banco.vigente";
+			atts = "Banco.id, Banco.numero, Banco.nombre, Banco.cuit, Banco.vigente";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

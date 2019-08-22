@@ -22,7 +22,7 @@ public class SeguridadPuertasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "SeguridadPuerta.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -16,7 +16,7 @@ public class AsientosModelosItemsStm extends StatementParam {
 		
 	
 		if (f.getAsientoModelo() == null || f.getAsientoModelo().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosModelosItemsFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosModelosItemsFiltro.class.getCanonicalName() + ".asientoModelo para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class AsientosModelosItemsStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "AsientoModeloItem.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -53,7 +53,7 @@ public class AsientosModelosItemsStm extends StatementParam {
 		if (f.getAsientoModelo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoModeloItem.AsientoModelo = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoModelo(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getAsientoModelo(), String.class));
 		}
 
 		

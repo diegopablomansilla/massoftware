@@ -16,15 +16,15 @@ public class AsientosContablesItemsStm extends StatementParam {
 		
 	
 		if (f.getNumeroFrom() == null || f.getNumeroFrom().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroFrom para filtrar la consulta");
 		}
 	
-		if (f.getNumeroto() == null || f.getNumeroto().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+		if (f.getNumeroTo() == null || f.getNumeroTo().toString().trim().isEmpty()) {
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroTo para filtrar la consulta");
 		}
 	
 		if (f.getAsientoContable() == null || f.getAsientoContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".asientoContable para filtrar la consulta");
 		}
 
 
@@ -34,7 +34,7 @@ public class AsientosContablesItemsStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "AsientoContableItem.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -82,7 +82,7 @@ public class AsientosContablesItemsStm extends StatementParam {
 		if (f.getAsientoContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContableItem.AsientoContable = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoContable(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getAsientoContable(), String.class));
 		}
 
 		

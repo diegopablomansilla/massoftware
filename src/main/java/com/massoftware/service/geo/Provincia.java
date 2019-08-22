@@ -1,6 +1,6 @@
 package com.massoftware.service.geo;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.Pais;
 
 public class Provincia extends EntityId {

@@ -22,7 +22,7 @@ public class PaisesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "Pais.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

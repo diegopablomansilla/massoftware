@@ -22,7 +22,7 @@ public class MinutasContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "MinutaContable.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

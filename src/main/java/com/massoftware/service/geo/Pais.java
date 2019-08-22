@@ -1,6 +1,6 @@
 package com.massoftware.service.geo;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class Pais extends EntityId {
 

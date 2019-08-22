@@ -1,6 +1,6 @@
 package com.massoftware.service.logistica;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.logistica.Transporte;
 
 public class Carga extends EntityId {

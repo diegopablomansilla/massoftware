@@ -1,6 +1,6 @@
 package com.massoftware.service.fondos;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 
 public class Caja extends EntityId {

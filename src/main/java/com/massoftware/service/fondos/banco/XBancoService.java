@@ -3,8 +3,8 @@ package com.massoftware.service.fondos.banco;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.backend.BackendContextPG;
-import com.massoftware.backend.DataBase;
+import com.massoftware.service.BackendContextPG;
+import com.massoftware.service.DataBase;
 
 public class XBancoService {
 
@@ -13,7 +13,7 @@ public class XBancoService {
 	public Banco insert(Banco obj) throws Exception {
 
 		if (obj == null) {
-			throw new IllegalArgumentException("Se esperaba un objeto Banco no nulo.");
+			throw new IllegalArgumentException("Se esperaba un objeto " + Banco.class.getCanonicalName() + " no nulo.");
 		}
 
 		DataBase db = BackendContextPG.get().getDataBase();
@@ -24,7 +24,7 @@ public class XBancoService {
 
 			boolean b = db.insertObject(obj);
 			if (b == false) {
-				throw new IllegalStateException("No se pudo guardar el Banco " + obj);
+				throw new IllegalStateException("No se pudo guardar el " + Banco.class.getCanonicalName() + " " + obj);
 			}
 
 			db.commit();
@@ -45,10 +45,10 @@ public class XBancoService {
 	public Banco update(Banco obj) throws Exception {
 
 		if (obj == null) {
-			throw new IllegalArgumentException("Se esperaba un objeto Banco no nulo.");
+			throw new IllegalArgumentException("Se esperaba un objeto " + Banco.class.getCanonicalName() + " no nulo.");
 		}
 		if (obj.getId() == null || obj.getId().trim().length() == 0) {
-			throw new IllegalArgumentException("Se esperaba un objeto Banco con id no nulo/vacio.");
+			throw new IllegalArgumentException("Se esperaba un objeto " + Banco.class.getCanonicalName() + " con id no nulo/vacio.");
 		}
 
 		DataBase db = BackendContextPG.get().getDataBase();
@@ -59,7 +59,7 @@ public class XBancoService {
 
 			boolean b = db.updateObject(obj);
 			if (b == false) {
-				throw new IllegalStateException("No se pudo guardar el Banco " + obj);
+				throw new IllegalStateException("No se pudo guardar el " + Banco.class.getCanonicalName() + " " + obj);
 			}
 
 			db.commit();
@@ -80,7 +80,7 @@ public class XBancoService {
 	public boolean deleteById(String id) throws Exception {
 
 		if (id == null || id.trim().length() == 0) {
-			throw new IllegalArgumentException("Se esperaba un id (Banco.id) no nulo/vacio.");
+			throw new IllegalArgumentException("Se esperaba un id (" + Banco.class.getCanonicalName() + ".id) no nulo/vacio.");
 		}
 
 		id = id.trim();
@@ -93,7 +93,7 @@ public class XBancoService {
 
 			boolean b = db.deleteObjectById(id, Banco.class);
 			if (b == false) {
-				throw new IllegalStateException("No se pudo borrar el Banco con id " + id);
+				throw new IllegalStateException("No se pudo borrar el " + Banco.class.getCanonicalName() + " " + id);
 			}
 
 			db.commit();
@@ -114,7 +114,7 @@ public class XBancoService {
 	public Banco findById(String id) throws Exception {
 
 		if (id == null || id.trim().length() == 0) {
-			throw new IllegalArgumentException("Se esperaba un id (Banco.id) no nulo/vacio.");
+			throw new IllegalArgumentException("Se esperaba un id (" + Banco.class.getCanonicalName() + ".id) no nulo/vacio.");
 		}
 
 		id = id.trim();
@@ -129,7 +129,7 @@ public class XBancoService {
 
 			obj = (Banco) db.fillObjectById(id, Banco.class, 4);
 			if (obj == null) {
-				throw new IllegalStateException("No se pudo encontrar el Banco con id " + obj);
+				throw new IllegalStateException("No se pudo encontrar el " + Banco.class.getCanonicalName() + " con id " + obj);				
 			}
 
 			db.commit();

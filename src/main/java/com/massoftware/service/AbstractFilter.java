@@ -1,7 +1,5 @@
 package com.massoftware.service;
 
-import com.massoftware.model.Entity;
-
 public class AbstractFilter extends Entity {
 
 	// ---------------------------------------------------------------------------------------------------------------------------

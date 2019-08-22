@@ -1,6 +1,6 @@
 package com.massoftware.service.logistica;
 
-import com.massoftware.model.EntityId;
+import com.massoftware.service.EntityId;
 
 public class TransportesTarifas extends EntityId {
 

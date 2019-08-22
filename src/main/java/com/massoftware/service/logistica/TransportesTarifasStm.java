@@ -16,7 +16,7 @@ public class TransportesTarifasStm extends StatementParam {
 		
 	
 		if (f.getTransporte() == null || f.getTransporte().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TransportesTarifasFiltro.class.getCanonicalName() + ".name para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TransportesTarifasFiltro.class.getCanonicalName() + ".transporte para filtrar la consulta");
 		}
 
 
@@ -26,7 +26,7 @@ public class TransportesTarifasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "";
+			atts = "TransporteTarifa.id, ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -53,7 +53,7 @@ public class TransportesTarifasStm extends StatementParam {
 		if (f.getTransporte() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TransporteTarifa.Transporte = ?";
-			this.addArg(buildArgTrimLower(f.getTransporte(), java.lang.String.class));
+			this.addArg(buildArgTrimLower(f.getTransporte(), String.class));
 		}
 
 		
