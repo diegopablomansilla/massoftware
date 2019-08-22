@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class TalonarioLetra extends EntityId {
+public class TalonarioLetra extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -41,6 +41,20 @@ public class TalonarioLetra extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TalonarioLetra clone() {
+		
+		TalonarioLetra other = (TalonarioLetra) super.clone();
+		
+		other.setId(this.getId());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

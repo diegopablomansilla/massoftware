@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.*;
 import com.massoftware.service.fondos.CuentaFondoRubro;
 
-public class CuentasFondosGruposFiltro extends AbstractFilter {
+public class CuentasFondosGruposFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,33 @@ public class CuentasFondosGruposFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public CuentasFondosGruposFiltro clone() {
+		
+		CuentasFondosGruposFiltro other = new CuentasFondosGruposFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoRubro() != null) {
+			other.setCuentaFondoRubro(this.getCuentaFondoRubro().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

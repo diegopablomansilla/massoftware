@@ -22,7 +22,7 @@ public class CajasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Caja.id, ";
+			atts = "Caja.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

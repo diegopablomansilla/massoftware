@@ -2,7 +2,7 @@ package com.massoftware.service.empresa;
 
 import com.massoftware.service.*;
 
-public class DepositosModulosFiltro extends AbstractFilter {
+public class DepositosModulosFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +119,27 @@ public class DepositosModulosFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public DepositosModulosFiltro clone() {
+		
+		DepositosModulosFiltro other = new DepositosModulosFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

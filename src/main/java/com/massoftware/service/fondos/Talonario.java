@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.TalonarioLetra;
 import com.massoftware.service.fondos.TalonarioControladorFizcal;
 
-public class Talonario extends EntityId {
+public class Talonario extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -242,6 +242,45 @@ public class Talonario extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Talonario clone() {
+		
+		Talonario other = (Talonario) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTalonarioLetra() != null) {
+			other.setTalonarioLetra(this.getTalonarioLetra().clone());
+		}
+		other.setPuntoVenta(this.getPuntoVenta());
+		other.setAutonumeracion(this.getAutonumeracion());
+		other.setNumeracionPreImpresa(this.getNumeracionPreImpresa());
+		other.setAsociadoRG10098(this.getAsociadoRG10098());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTalonarioControladorFizcal() != null) {
+			other.setTalonarioControladorFizcal(this.getTalonarioControladorFizcal().clone());
+		}
+		other.setPrimerNumero(this.getPrimerNumero());
+		other.setProximoNumero(this.getProximoNumero());
+		other.setUltimoNumero(this.getUltimoNumero());
+		other.setCantidadMinimaComprobantes(this.getCantidadMinimaComprobantes());
+		other.setFecha(this.getFecha());
+		other.setNumeroCAI(this.getNumeroCAI());
+		other.setVencimiento(this.getVencimiento());
+		other.setDiasAvisoVencimiento(this.getDiasAvisoVencimiento());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.ComprobanteFondoModelo;
 import com.massoftware.service.fondos.CuentaFondo;
 
-public class ComprobanteFondoModeloItem extends EntityId {
+public class ComprobanteFondoModeloItem extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -86,6 +86,33 @@ public class ComprobanteFondoModeloItem extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public ComprobanteFondoModeloItem clone() {
+		
+		ComprobanteFondoModeloItem other = (ComprobanteFondoModeloItem) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setDebe(this.getDebe());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getComprobanteFondoModelo() != null) {
+			other.setComprobanteFondoModelo(this.getComprobanteFondoModelo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondo() != null) {
+			other.setCuentaFondo(this.getCuentaFondo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

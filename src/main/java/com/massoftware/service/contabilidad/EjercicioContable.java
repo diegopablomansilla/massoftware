@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
 
-public class EjercicioContable extends EntityId {
+public class EjercicioContable extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -110,6 +110,25 @@ public class EjercicioContable extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public EjercicioContable clone() {
+		
+		EjercicioContable other = (EjercicioContable) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setApertura(this.getApertura());
+		other.setCierre(this.getCierre());
+		other.setCerrado(this.getCerrado());
+		other.setCerradoModulos(this.getCerradoModulos());
+		other.setComentario(this.getComentario());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

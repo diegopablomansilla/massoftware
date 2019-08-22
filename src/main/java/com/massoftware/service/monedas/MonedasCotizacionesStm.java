@@ -30,7 +30,7 @@ public class MonedasCotizacionesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MonedaCotizacion.id, ";
+			atts = "MonedaCotizacion.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -2,7 +2,7 @@ package com.massoftware.service.clientes;
 
 import com.massoftware.service.EntityId;
 
-public class TipoCliente extends EntityId {
+public class TipoCliente extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class TipoCliente extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TipoCliente clone() {
+		
+		TipoCliente other = (TipoCliente) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

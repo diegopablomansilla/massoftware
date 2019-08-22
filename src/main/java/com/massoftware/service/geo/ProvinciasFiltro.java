@@ -3,7 +3,7 @@ package com.massoftware.service.geo;
 import com.massoftware.service.*;
 import com.massoftware.service.geo.Pais;
 
-public class ProvinciasFiltro extends AbstractFilter {
+public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -182,6 +182,34 @@ public class ProvinciasFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public ProvinciasFiltro clone() {
+		
+		ProvinciasFiltro other = new ProvinciasFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPais() != null) {
+			other.setPais(this.getPais().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

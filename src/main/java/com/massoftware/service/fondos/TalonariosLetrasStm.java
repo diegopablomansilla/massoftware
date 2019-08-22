@@ -22,7 +22,7 @@ public class TalonariosLetrasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TalonarioLetra.id, ";
+			atts = "TalonarioLetra.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

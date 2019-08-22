@@ -3,7 +3,7 @@ package com.massoftware.service.contabilidad;
 import com.massoftware.service.*;
 import com.massoftware.service.contabilidad.AsientoModelo;
 
-public class AsientosModelosItemsFiltro extends AbstractFilter {
+public class AsientosModelosItemsFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,30 @@ public class AsientosModelosItemsFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public AsientosModelosItemsFiltro clone() {
+		
+		AsientosModelosItemsFiltro other = new AsientosModelosItemsFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getAsientoModelo() != null) {
+			other.setAsientoModelo(this.getAsientoModelo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

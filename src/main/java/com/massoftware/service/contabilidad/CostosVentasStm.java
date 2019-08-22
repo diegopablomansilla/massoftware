@@ -22,7 +22,7 @@ public class CostosVentasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CostoVenta.id, ";
+			atts = "CostoVenta.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

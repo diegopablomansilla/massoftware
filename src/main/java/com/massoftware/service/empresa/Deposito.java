@@ -6,7 +6,7 @@ import com.massoftware.service.empresa.DepositoModulo;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 
-public class Deposito extends EntityId {
+public class Deposito extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -127,6 +127,46 @@ public class Deposito extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Deposito clone() {
+		
+		Deposito other = (Deposito) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSucursal() != null) {
+			other.setSucursal(this.getSucursal().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getDepositoModulo() != null) {
+			other.setDepositoModulo(this.getDepositoModulo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPuertaOperativo() != null) {
+			other.setPuertaOperativo(this.getPuertaOperativo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPuertaConsulta() != null) {
+			other.setPuertaConsulta(this.getPuertaConsulta().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

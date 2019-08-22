@@ -22,7 +22,7 @@ public class MonedasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Moneda.id, ";
+			atts = "Moneda.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -2,7 +2,7 @@ package com.massoftware.service.clientes;
 
 import com.massoftware.service.*;
 
-public class ClasificacionesClientesFiltro extends AbstractFilter {
+public class ClasificacionesClientesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +119,27 @@ public class ClasificacionesClientesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public ClasificacionesClientesFiltro clone() {
+		
+		ClasificacionesClientesFiltro other = new ClasificacionesClientesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

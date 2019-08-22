@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.*;
 import com.massoftware.service.fondos.CuentaFondo;
 
-public class ChequerasFiltro extends AbstractFilter {
+public class ChequerasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,33 @@ public class ChequerasFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public ChequerasFiltro clone() {
+		
+		ChequerasFiltro other = new ChequerasFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondo() != null) {
+			other.setCuentaFondo(this.getCuentaFondo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

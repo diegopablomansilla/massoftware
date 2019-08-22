@@ -3,7 +3,7 @@ package com.massoftware.service.geo;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.Pais;
 
-public class Provincia extends EntityId {
+public class Provincia extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -124,6 +124,31 @@ public class Provincia extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Provincia clone() {
+		
+		Provincia other = (Provincia) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		other.setNumeroAFIP(this.getNumeroAFIP());
+		other.setNumeroIngresosBrutos(this.getNumeroIngresosBrutos());
+		other.setNumeroRENATEA(this.getNumeroRENATEA());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPais() != null) {
+			other.setPais(this.getPais().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

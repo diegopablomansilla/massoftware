@@ -6,7 +6,7 @@ import com.massoftware.service.contabilidad.MinutaContable;
 import com.massoftware.service.contabilidad.AsientoContableModulo;
 import com.massoftware.service.empresa.Sucursal;
 
-public class AsientosContablesFiltro extends AbstractFilter {
+public class AsientosContablesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -309,6 +309,53 @@ public class AsientosContablesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public AsientosContablesFiltro clone() {
+		
+		AsientosContablesFiltro other = new AsientosContablesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setDetalle(this.getDetalle());
+		other.setFechaFrom(this.getFechaFrom());
+		other.setFechaTo(this.getFechaTo());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMinutaContable() != null) {
+			other.setMinutaContable(this.getMinutaContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getAsientoContableModulo() != null) {
+			other.setAsientoContableModulo(this.getAsientoContableModulo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSucursal() != null) {
+			other.setSucursal(this.getSucursal().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

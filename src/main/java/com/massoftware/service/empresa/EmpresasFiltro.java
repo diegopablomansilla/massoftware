@@ -2,7 +2,7 @@ package com.massoftware.service.empresa;
 
 import com.massoftware.service.*;
 
-public class EmpresasFiltro extends AbstractFilter {
+public class EmpresasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -26,6 +26,24 @@ public class EmpresasFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public EmpresasFiltro clone() {
+		
+		EmpresasFiltro other = new EmpresasFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

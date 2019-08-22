@@ -14,10 +14,6 @@ public class BancosStm extends StatementParam {
 		}
 		
 		
-	
-		if (f.getVigente() == null || f.getVigente().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + BancosFiltro.class.getCanonicalName() + ".vigente para filtrar la consulta");
-		}
 
 
 		String atts = " COUNT(*)::INTEGER ";
@@ -26,7 +22,7 @@ public class BancosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Banco.id, Banco.numero, Banco.nombre, Banco.cuit, Banco.vigente";
+			atts = "Banco.id , Banco.numero, Banco.nombre, Banco.cuit, Banco.vigente";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -62,6 +58,12 @@ public class BancosStm extends StatementParam {
 			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
 		}
 	
+		if (f.getVigente() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " Banco.Vigente = ?";
+			this.addArg(buildArgTrimLower(f.getVigente(), Boolean.class));
+		}
+	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
 			String[] words =  f.getNombre().trim().split(" ");
 			for(String word : words) {
@@ -70,12 +72,6 @@ public class BancosStm extends StatementParam {
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
 	}
-	
-		if (f.getVigente() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " Banco.Vigente = ?";
-			this.addArg(buildArgTrimLower(f.getVigente(), Boolean.class));
-		}
 
 		
 		//-----------------

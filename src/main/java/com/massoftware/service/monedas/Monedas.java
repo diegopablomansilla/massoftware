@@ -2,7 +2,7 @@ package com.massoftware.service.monedas;
 
 import com.massoftware.service.EntityId;
 
-public class Monedas extends EntityId {
+public class Monedas extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class Monedas extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public Monedas clone() {
+		
+		Monedas other = (Monedas) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

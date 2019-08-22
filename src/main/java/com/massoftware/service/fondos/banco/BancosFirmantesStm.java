@@ -22,7 +22,7 @@ public class BancosFirmantesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "BancoFirmante.id, ";
+			atts = "BancoFirmante.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

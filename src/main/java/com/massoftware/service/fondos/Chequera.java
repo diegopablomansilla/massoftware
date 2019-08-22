@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.CuentaFondo;
 
-public class Chequera extends EntityId {
+public class Chequera extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -150,6 +150,33 @@ public class Chequera extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Chequera clone() {
+		
+		Chequera other = (Chequera) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondo() != null) {
+			other.setCuentaFondo(this.getCuentaFondo().clone());
+		}
+		other.setPrimerNumero(this.getPrimerNumero());
+		other.setUltimoNumero(this.getUltimoNumero());
+		other.setProximoNumero(this.getProximoNumero());
+		other.setBloqueado(this.getBloqueado());
+		other.setImpresionDiferida(this.getImpresionDiferida());
+		other.setFormato(this.getFormato());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

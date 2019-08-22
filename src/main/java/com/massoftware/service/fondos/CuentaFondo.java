@@ -13,7 +13,7 @@ import com.massoftware.service.seguridad.SeguridadPuerta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 
-public class CuentaFondo extends EntityId {
+public class CuentaFondo extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -394,6 +394,101 @@ public class CuentaFondo extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CuentaFondo clone() {
+		
+		CuentaFondo other = (CuentaFondo) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaContable() != null) {
+			other.setCuentaContable(this.getCuentaContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoGrupo() != null) {
+			other.setCuentaFondoGrupo(this.getCuentaFondoGrupo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoTipo() != null) {
+			other.setCuentaFondoTipo(this.getCuentaFondoTipo().clone());
+		}
+		other.setObsoleto(this.getObsoleto());
+		other.setNoImprimeCaja(this.getNoImprimeCaja());
+		other.setVentas(this.getVentas());
+		other.setFondos(this.getFondos());
+		other.setCompras(this.getCompras());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMoneda() != null) {
+			other.setMoneda(this.getMoneda().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCaja() != null) {
+			other.setCaja(this.getCaja().clone());
+		}
+		other.setRechazados(this.getRechazados());
+		other.setConciliacion(this.getConciliacion());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoTipoBanco() != null) {
+			other.setCuentaFondoTipoBanco(this.getCuentaFondoTipoBanco().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getBanco() != null) {
+			other.setBanco(this.getBanco().clone());
+		}
+		other.setCuentaBancaria(this.getCuentaBancaria());
+		other.setCbu(this.getCbu());
+		other.setLimiteDescubierto(this.getLimiteDescubierto());
+		other.setCuentaFondoCaucion(this.getCuentaFondoCaucion());
+		other.setCuentaFondoDiferidos(this.getCuentaFondoDiferidos());
+		other.setFormato(this.getFormato());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoBancoCopia() != null) {
+			other.setCuentaFondoBancoCopia(this.getCuentaFondoBancoCopia().clone());
+		}
+		other.setLimiteOperacionIndividual(this.getLimiteOperacionIndividual());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadPuertaUso() != null) {
+			other.setSeguridadPuertaUso(this.getSeguridadPuertaUso().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadPuertaConsulta() != null) {
+			other.setSeguridadPuertaConsulta(this.getSeguridadPuertaConsulta().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadPuertaLimite() != null) {
+			other.setSeguridadPuertaLimite(this.getSeguridadPuertaLimite().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

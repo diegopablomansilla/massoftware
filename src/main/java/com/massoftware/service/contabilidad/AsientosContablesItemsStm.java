@@ -34,7 +34,7 @@ public class AsientosContablesItemsStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "AsientoContableItem.id, ";
+			atts = "AsientoContableItem.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

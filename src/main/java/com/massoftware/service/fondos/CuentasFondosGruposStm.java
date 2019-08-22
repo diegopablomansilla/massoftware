@@ -26,7 +26,7 @@ public class CuentasFondosGruposStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CuentaFondoGrupo.id, ";
+			atts = "CuentaFondoGrupo.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

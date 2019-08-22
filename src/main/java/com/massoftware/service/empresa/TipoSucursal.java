@@ -2,7 +2,7 @@ package com.massoftware.service.empresa;
 
 import com.massoftware.service.EntityId;
 
-public class TipoSucursal extends EntityId {
+public class TipoSucursal extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class TipoSucursal extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TipoSucursal clone() {
+		
+		TipoSucursal other = (TipoSucursal) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

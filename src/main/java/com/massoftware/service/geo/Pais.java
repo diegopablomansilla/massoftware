@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.EntityId;
 
-public class Pais extends EntityId {
+public class Pais extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -71,6 +71,22 @@ public class Pais extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Pais clone() {
+		
+		Pais other = (Pais) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

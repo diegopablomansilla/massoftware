@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.TipoPuntoEquilibrio;
 import com.massoftware.service.contabilidad.EjercicioContable;
 
-public class PuntoEquilibrio extends EntityId {
+public class PuntoEquilibrio extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -86,6 +86,33 @@ public class PuntoEquilibrio extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public PuntoEquilibrio clone() {
+		
+		PuntoEquilibrio other = (PuntoEquilibrio) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTipoPuntoEquilibrio() != null) {
+			other.setTipoPuntoEquilibrio(this.getTipoPuntoEquilibrio().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

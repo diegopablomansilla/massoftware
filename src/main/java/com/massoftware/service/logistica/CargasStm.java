@@ -22,7 +22,7 @@ public class CargasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Carga.id, ";
+			atts = "Carga.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

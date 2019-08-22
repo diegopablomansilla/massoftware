@@ -3,7 +3,7 @@ package com.massoftware.service.seguridad;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.seguridad.SeguridadModulo;
 
-public class SeguridadPuerta extends EntityId {
+public class SeguridadPuerta extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -85,6 +85,28 @@ public class SeguridadPuerta extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public SeguridadPuerta clone() {
+		
+		SeguridadPuerta other = (SeguridadPuerta) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setEquate(this.getEquate());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadModulo() != null) {
+			other.setSeguridadModulo(this.getSeguridadModulo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

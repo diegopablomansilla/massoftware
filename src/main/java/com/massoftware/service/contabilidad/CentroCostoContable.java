@@ -3,7 +3,7 @@ package com.massoftware.service.contabilidad;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
 
-public class CentroCostoContable extends EntityId {
+public class CentroCostoContable extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -85,6 +85,28 @@ public class CentroCostoContable extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CentroCostoContable clone() {
+		
+		CentroCostoContable other = (CentroCostoContable) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.EntityId;
 
-public class Paises extends EntityId {
+public class Paises extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class Paises extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public Paises clone() {
+		
+		Paises other = (Paises) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

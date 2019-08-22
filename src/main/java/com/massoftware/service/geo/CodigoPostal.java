@@ -3,7 +3,7 @@ package com.massoftware.service.geo;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.Ciudad;
 
-public class CodigoPostal extends EntityId {
+public class CodigoPostal extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -98,6 +98,29 @@ public class CodigoPostal extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CodigoPostal clone() {
+		
+		CodigoPostal other = (CodigoPostal) super.clone();
+		
+		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNumero(this.getNumero());
+		other.setNombreCalle(this.getNombreCalle());
+		other.setNumeroCalle(this.getNumeroCalle());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCiudad() != null) {
+			other.setCiudad(this.getCiudad().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

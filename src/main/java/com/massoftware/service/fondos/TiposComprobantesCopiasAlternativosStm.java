@@ -22,7 +22,7 @@ public class TiposComprobantesCopiasAlternativosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TipoComprobanteCopiaAlternativo.id, ";
+			atts = "TipoComprobanteCopiaAlternativo.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

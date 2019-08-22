@@ -22,7 +22,7 @@ public class EmpresasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Empresa.id, ";
+			atts = "Empresa.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

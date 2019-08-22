@@ -2,7 +2,7 @@ package com.massoftware.service.seguridad;
 
 import com.massoftware.service.EntityId;
 
-public class Usuarios extends EntityId {
+public class Usuarios extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class Usuarios extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public Usuarios clone() {
+		
+		Usuarios other = (Usuarios) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

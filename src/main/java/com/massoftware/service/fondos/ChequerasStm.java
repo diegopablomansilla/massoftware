@@ -26,7 +26,7 @@ public class ChequerasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Chequera.id, ";
+			atts = "Chequera.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

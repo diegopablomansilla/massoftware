@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.monedas.Moneda;
 import com.massoftware.service.seguridad.Usuario;
 
-public class MonedaCotizacion extends EntityId {
+public class MonedaCotizacion extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -112,6 +112,35 @@ public class MonedaCotizacion extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public MonedaCotizacion clone() {
+		
+		MonedaCotizacion other = (MonedaCotizacion) super.clone();
+		
+		other.setId(this.getId());
+		other.setCotizacionFecha(this.getCotizacionFecha());
+		other.setCompra(this.getCompra());
+		other.setVenta(this.getVenta());
+		other.setCotizacionFechaAuditoria(this.getCotizacionFechaAuditoria());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMoneda() != null) {
+			other.setMoneda(this.getMoneda().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getUsuario() != null) {
+			other.setUsuario(this.getUsuario().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

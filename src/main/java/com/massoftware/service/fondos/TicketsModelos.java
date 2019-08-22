@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class TicketsModelos extends EntityId {
+public class TicketsModelos extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class TicketsModelos extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public TicketsModelos clone() {
+		
+		TicketsModelos other = (TicketsModelos) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

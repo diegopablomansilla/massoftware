@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.TicketControlDenunciados;
 
-public class Ticket extends EntityId {
+public class Ticket extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -111,6 +111,30 @@ public class Ticket extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Ticket clone() {
+		
+		Ticket other = (Ticket) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setFechaActualizacion(this.getFechaActualizacion());
+		other.setCantidadPorLotes(this.getCantidadPorLotes());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTicketControlDenunciados() != null) {
+			other.setTicketControlDenunciados(this.getTicketControlDenunciados().clone());
+		}
+		other.setValorMaximo(this.getValorMaximo());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

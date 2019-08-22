@@ -26,7 +26,7 @@ public class AsientosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "AsientoContable.id, ";
+			atts = "AsientoContable.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

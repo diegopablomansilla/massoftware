@@ -3,7 +3,7 @@ package com.massoftware.service.logistica;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.CodigoPostal;
 
-public class Transporte extends EntityId {
+public class Transporte extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -150,6 +150,33 @@ public class Transporte extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Transporte clone() {
+		
+		Transporte other = (Transporte) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setCuit(this.getCuit());
+		other.setIngresosBrutos(this.getIngresosBrutos());
+		other.setTelefono(this.getTelefono());
+		other.setFax(this.getFax());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCodigoPostal() != null) {
+			other.setCodigoPostal(this.getCodigoPostal().clone());
+		}
+		other.setDomicilio(this.getDomicilio());
+		other.setComentario(this.getComentario());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

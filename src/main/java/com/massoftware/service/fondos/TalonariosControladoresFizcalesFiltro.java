@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.*;
 
-public class TalonariosControladoresFizcalesFiltro extends AbstractFilter {
+public class TalonariosControladoresFizcalesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +88,26 @@ public class TalonariosControladoresFizcalesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public TalonariosControladoresFizcalesFiltro clone() {
+		
+		TalonariosControladoresFizcalesFiltro other = new TalonariosControladoresFizcalesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

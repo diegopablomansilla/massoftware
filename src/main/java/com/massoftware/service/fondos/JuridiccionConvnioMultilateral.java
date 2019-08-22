@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.CuentaFondo;
 
-public class JuridiccionConvnioMultilateral extends EntityId {
+public class JuridiccionConvnioMultilateral extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class JuridiccionConvnioMultilateral extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public JuridiccionConvnioMultilateral clone() {
+		
+		JuridiccionConvnioMultilateral other = (JuridiccionConvnioMultilateral) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondo() != null) {
+			other.setCuentaFondo(this.getCuentaFondo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class ClasesComprobantes extends EntityId {
+public class ClasesComprobantes extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class ClasesComprobantes extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public ClasesComprobantes clone() {
+		
+		ClasesComprobantes other = (ClasesComprobantes) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

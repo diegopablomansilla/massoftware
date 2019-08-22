@@ -3,7 +3,7 @@ package com.massoftware.service.contabilidad;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
 
-public class AsientoModelo extends EntityId {
+public class AsientoModelo extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class AsientoModelo extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public AsientoModelo clone() {
+		
+		AsientoModelo other = (AsientoModelo) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

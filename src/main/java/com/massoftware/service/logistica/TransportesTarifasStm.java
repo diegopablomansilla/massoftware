@@ -26,7 +26,7 @@ public class TransportesTarifasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TransporteTarifa.id, ";
+			atts = "TransporteTarifa.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

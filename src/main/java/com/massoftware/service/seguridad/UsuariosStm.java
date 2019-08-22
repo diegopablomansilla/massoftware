@@ -22,7 +22,7 @@ public class UsuariosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Usuario.id, ";
+			atts = "Usuario.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

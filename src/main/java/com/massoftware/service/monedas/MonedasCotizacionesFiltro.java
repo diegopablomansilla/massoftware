@@ -3,7 +3,7 @@ package com.massoftware.service.monedas;
 import com.massoftware.service.*;
 import com.massoftware.service.monedas.Moneda;
 
-public class MonedasCotizacionesFiltro extends AbstractFilter {
+public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -120,6 +120,32 @@ public class MonedasCotizacionesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public MonedasCotizacionesFiltro clone() {
+		
+		MonedasCotizacionesFiltro other = new MonedasCotizacionesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMoneda() != null) {
+			other.setMoneda(this.getMoneda().clone());
+		}
+		other.setCotizacionFechaFrom(this.getCotizacionFechaFrom());
+		other.setCotizacionFechaTo(this.getCotizacionFechaTo());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

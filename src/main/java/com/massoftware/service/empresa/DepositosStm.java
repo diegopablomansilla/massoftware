@@ -22,7 +22,7 @@ public class DepositosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Deposito.id, ";
+			atts = "Deposito.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

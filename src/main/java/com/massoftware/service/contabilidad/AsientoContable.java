@@ -6,7 +6,7 @@ import com.massoftware.service.contabilidad.MinutaContable;
 import com.massoftware.service.empresa.Sucursal;
 import com.massoftware.service.contabilidad.AsientoContableModulo;
 
-public class AsientoContable extends EntityId {
+public class AsientoContable extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -127,6 +127,46 @@ public class AsientoContable extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public AsientoContable clone() {
+		
+		AsientoContable other = (AsientoContable) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setFecha(this.getFecha());
+		other.setDetalle(this.getDetalle());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMinutaContable() != null) {
+			other.setMinutaContable(this.getMinutaContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSucursal() != null) {
+			other.setSucursal(this.getSucursal().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getAsientoContableModulo() != null) {
+			other.setAsientoContableModulo(this.getAsientoContableModulo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class TalonarioControladorFizcal extends EntityId {
+public class TalonarioControladorFizcal extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class TalonarioControladorFizcal extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TalonarioControladorFizcal clone() {
+		
+		TalonarioControladorFizcal other = (TalonarioControladorFizcal) super.clone();
+		
+		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

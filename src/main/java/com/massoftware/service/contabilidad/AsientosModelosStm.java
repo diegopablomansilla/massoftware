@@ -26,7 +26,7 @@ public class AsientosModelosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "AsientoModelo.id, ";
+			atts = "AsientoModelo.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

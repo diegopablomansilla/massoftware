@@ -2,7 +2,7 @@ package com.massoftware.service.afip;
 
 import com.massoftware.service.*;
 
-public class TiposDocumentosAFIPFiltro extends AbstractFilter {
+public class TiposDocumentosAFIPFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +119,27 @@ public class TiposDocumentosAFIPFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public TiposDocumentosAFIPFiltro clone() {
+		
+		TiposDocumentosAFIPFiltro other = new TiposDocumentosAFIPFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

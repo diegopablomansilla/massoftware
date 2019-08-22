@@ -2,7 +2,7 @@ package com.massoftware.service.afip;
 
 import com.massoftware.service.EntityId;
 
-public class TiposDocumentosAFIP extends EntityId {
+public class TiposDocumentosAFIP extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class TiposDocumentosAFIP extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public TiposDocumentosAFIP clone() {
+		
+		TiposDocumentosAFIP other = (TiposDocumentosAFIP) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

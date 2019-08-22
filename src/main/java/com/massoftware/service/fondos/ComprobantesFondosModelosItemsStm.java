@@ -26,7 +26,7 @@ public class ComprobantesFondosModelosItemsStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "ComprobanteFondoModeloItem.id, ";
+			atts = "ComprobanteFondoModeloItem.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

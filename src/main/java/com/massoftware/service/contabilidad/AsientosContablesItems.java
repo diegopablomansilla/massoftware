@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
 
-public class AsientosContablesItems extends EntityId {
+public class AsientosContablesItems extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class AsientosContablesItems extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public AsientosContablesItems clone() {
+		
+		AsientosContablesItems other = (AsientosContablesItems) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

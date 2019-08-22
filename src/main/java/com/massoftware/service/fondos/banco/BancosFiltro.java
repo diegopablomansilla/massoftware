@@ -2,7 +2,7 @@ package com.massoftware.service.fondos.banco;
 
 import com.massoftware.service.*;
 
-public class BancosFiltro extends AbstractFilter {
+public class BancosFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -13,12 +13,12 @@ public class BancosFiltro extends AbstractFilter {
 	// Nº banco (hasta)
 	private Integer numeroTo;
 
-	// Nombre
-	private String nombre;
-
 	// Vigente
 	private Boolean vigente;
 	private FBoolean vigenteX;
+
+	// Nombre
+	private String nombre;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -43,16 +43,6 @@ public class BancosFiltro extends AbstractFilter {
 		this.numeroTo = numeroTo;
 	}
 
-	// GET Nombre
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	// SET Nombre
-	public void setNombre(String nombre){
-		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
-	}
-
 	// GET Vigente
 	public Boolean getVigente() {
 		return this.vigente;
@@ -73,6 +63,16 @@ public class BancosFiltro extends AbstractFilter {
 	public void setVigenteX(FBoolean vigenteX){
 		this.vigenteX = vigenteX;
 		this.vigente = (this.vigenteX == null) ? null : this.vigenteX.getValue();
+	}
+
+	// GET Nombre
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	// SET Nombre
+	public void setNombre(String nombre){
+		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
 		
 	public boolean equals(Object obj) {
@@ -126,24 +126,6 @@ public class BancosFiltro extends AbstractFilter {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getNombre() == null && this.getNombre() != null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() == null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() != null) {
-		
-			if (other.getNombre().equals(this.getNombre()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		if (other.getVigente() == null && this.getVigente() != null) {
 			return false;
 		}
@@ -162,7 +144,47 @@ public class BancosFiltro extends AbstractFilter {
 		
 		// -------------------------------------------------------------------
 		
+		if (other.getNombre() == null && this.getNombre() != null) {
+			return false;
+		}
+		
+		if (other.getNombre() != null && this.getNombre() == null) {
+			return false;
+		}
+		
+		if (other.getNombre() != null && this.getNombre() != null) {
+		
+			if (other.getNombre().equals(this.getNombre()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public BancosFiltro clone() {
+		
+		BancosFiltro other = new BancosFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setVigente(this.getVigente());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

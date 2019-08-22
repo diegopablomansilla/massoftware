@@ -22,7 +22,7 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MotivoBloqueoCliente.id, ";
+			atts = "MotivoBloqueoCliente.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -30,7 +30,7 @@ public class CentrosCostosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CentroCostoContable.id, ";
+			atts = "CentroCostoContable.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

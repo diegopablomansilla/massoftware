@@ -3,7 +3,7 @@ package com.massoftware.service.empresa;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
 
-public class Empresa extends EntityId {
+public class Empresa extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -150,6 +150,33 @@ public class Empresa extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Empresa clone() {
+		
+		Empresa other = (Empresa) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		other.setFechaCierreVentas(this.getFechaCierreVentas());
+		other.setFechaCierreStock(this.getFechaCierreStock());
+		other.setFechaCierreFondo(this.getFechaCierreFondo());
+		other.setFechaCierreCompras(this.getFechaCierreCompras());
+		other.setFechaCierreContabilidad(this.getFechaCierreContabilidad());
+		other.setFechaCierreGarantiaDevoluciones(this.getFechaCierreGarantiaDevoluciones());
+		other.setFechaCierreTambos(this.getFechaCierreTambos());
+		other.setFechaCierreRRHH(this.getFechaCierreRRHH());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

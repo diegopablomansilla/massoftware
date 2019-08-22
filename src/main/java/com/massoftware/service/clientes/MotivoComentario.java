@@ -2,7 +2,7 @@ package com.massoftware.service.clientes;
 
 import com.massoftware.service.EntityId;
 
-public class MotivoComentario extends EntityId {
+public class MotivoComentario extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class MotivoComentario extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public MotivoComentario clone() {
+		
+		MotivoComentario other = (MotivoComentario) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

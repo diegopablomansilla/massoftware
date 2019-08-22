@@ -22,7 +22,7 @@ public class TiposPuntosEquilibriosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TipoPuntoEquilibrio.id, ";
+			atts = "TipoPuntoEquilibrio.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

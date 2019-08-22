@@ -2,7 +2,7 @@ package com.massoftware.service.empresa;
 
 import com.massoftware.service.EntityId;
 
-public class Depositos extends EntityId {
+public class Depositos extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class Depositos extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public Depositos clone() {
+		
+		Depositos other = (Depositos) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

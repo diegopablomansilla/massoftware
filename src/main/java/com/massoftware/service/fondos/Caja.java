@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 
-public class Caja extends EntityId {
+public class Caja extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class Caja extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Caja clone() {
+		
+		Caja other = (Caja) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadPuerta() != null) {
+			other.setSeguridadPuerta(this.getSeguridadPuerta().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

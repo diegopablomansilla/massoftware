@@ -22,7 +22,7 @@ public class ZonasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Zona.id, ";
+			atts = "Zona.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

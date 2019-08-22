@@ -3,7 +3,7 @@ package com.massoftware.service.logistica;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.logistica.Transporte;
 
-public class Carga extends EntityId {
+public class Carga extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class Carga extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Carga clone() {
+		
+		Carga other = (Carga) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTransporte() != null) {
+			other.setTransporte(this.getTransporte().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

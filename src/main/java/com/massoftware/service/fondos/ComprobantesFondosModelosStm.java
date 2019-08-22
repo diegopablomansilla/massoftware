@@ -22,7 +22,7 @@ public class ComprobantesFondosModelosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "ComprobanteFondoModelo.id, ";
+			atts = "ComprobanteFondoModelo.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

@@ -22,7 +22,7 @@ public class ClasesComprobantesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "ClaseComprobante.id, ";
+			atts = "ClaseComprobante.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

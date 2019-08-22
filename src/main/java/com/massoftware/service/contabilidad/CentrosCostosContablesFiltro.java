@@ -3,7 +3,7 @@ package com.massoftware.service.contabilidad;
 import com.massoftware.service.*;
 import com.massoftware.service.contabilidad.EjercicioContable;
 
-public class CentrosCostosContablesFiltro extends AbstractFilter {
+public class CentrosCostosContablesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -182,6 +182,34 @@ public class CentrosCostosContablesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public CentrosCostosContablesFiltro clone() {
+		
+		CentrosCostosContablesFiltro other = new CentrosCostosContablesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

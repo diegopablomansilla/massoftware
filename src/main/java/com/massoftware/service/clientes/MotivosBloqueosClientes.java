@@ -2,7 +2,7 @@ package com.massoftware.service.clientes;
 
 import com.massoftware.service.EntityId;
 
-public class MotivosBloqueosClientes extends EntityId {
+public class MotivosBloqueosClientes extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class MotivosBloqueosClientes extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public MotivosBloqueosClientes clone() {
+		
+		MotivosBloqueosClientes other = (MotivosBloqueosClientes) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

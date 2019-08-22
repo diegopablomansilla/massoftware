@@ -22,7 +22,7 @@ public class JuridiccionesConvniosMultilateralesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "JuridiccionConvnioMultilateral.id, ";
+			atts = "JuridiccionConvnioMultilateral.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

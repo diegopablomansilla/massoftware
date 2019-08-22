@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.*;
 import com.massoftware.service.fondos.banco.Banco;
 
-public class CuentasFondosFiltro extends AbstractFilter {
+public class CuentasFondosFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,33 @@ public class CuentasFondosFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public CuentasFondosFiltro clone() {
+		
+		CuentasFondosFiltro other = new CuentasFondosFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getBanco() != null) {
+			other.setBanco(this.getBanco().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

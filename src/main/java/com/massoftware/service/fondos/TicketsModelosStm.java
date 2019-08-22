@@ -26,7 +26,7 @@ public class TicketsModelosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TicketModelo.id, ";
+			atts = "TicketModelo.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

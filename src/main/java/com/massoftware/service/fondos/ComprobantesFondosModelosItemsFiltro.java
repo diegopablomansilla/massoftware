@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.*;
 import com.massoftware.service.fondos.CuentaFondo;
 
-public class ComprobantesFondosModelosItemsFiltro extends AbstractFilter {
+public class ComprobantesFondosModelosItemsFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -120,6 +120,32 @@ public class ComprobantesFondosModelosItemsFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public ComprobantesFondosModelosItemsFiltro clone() {
+		
+		ComprobantesFondosModelosItemsFiltro other = new ComprobantesFondosModelosItemsFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondo() != null) {
+			other.setCuentaFondo(this.getCuentaFondo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

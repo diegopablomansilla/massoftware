@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.*;
 import com.massoftware.service.fondos.Ticket;
 
-public class TicketsModelosFiltro extends AbstractFilter {
+public class TicketsModelosFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,33 @@ public class TicketsModelosFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public TicketsModelosFiltro clone() {
+		
+		TicketsModelosFiltro other = new TicketsModelosFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTicket() != null) {
+			other.setTicket(this.getTicket().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

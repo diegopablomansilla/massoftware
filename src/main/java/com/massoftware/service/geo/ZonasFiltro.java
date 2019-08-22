@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.*;
 
-public class ZonasFiltro extends AbstractFilter {
+public class ZonasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +88,26 @@ public class ZonasFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public ZonasFiltro clone() {
+		
+		ZonasFiltro other = new ZonasFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

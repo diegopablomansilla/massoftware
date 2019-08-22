@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.EntityId;
 
-public class CodigosPostales extends EntityId {
+public class CodigosPostales extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class CodigosPostales extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public CodigosPostales clone() {
+		
+		CodigosPostales other = (CodigosPostales) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

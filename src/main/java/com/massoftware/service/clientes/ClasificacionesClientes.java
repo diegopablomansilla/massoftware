@@ -2,7 +2,7 @@ package com.massoftware.service.clientes;
 
 import com.massoftware.service.EntityId;
 
-public class ClasificacionesClientes extends EntityId {
+public class ClasificacionesClientes extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class ClasificacionesClientes extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public ClasificacionesClientes clone() {
+		
+		ClasificacionesClientes other = (ClasificacionesClientes) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

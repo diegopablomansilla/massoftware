@@ -22,7 +22,7 @@ public class TiposDocumentosAFIPStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TipoDocumentoAFIP.id, ";
+			atts = "TipoDocumentoAFIP.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

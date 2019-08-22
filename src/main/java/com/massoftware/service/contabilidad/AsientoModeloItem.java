@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.AsientoModelo;
 import com.massoftware.service.contabilidad.CuentaContable;
 
-public class AsientoModeloItem extends EntityId {
+public class AsientoModeloItem extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -73,6 +73,32 @@ public class AsientoModeloItem extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public AsientoModeloItem clone() {
+		
+		AsientoModeloItem other = (AsientoModeloItem) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getAsientoModelo() != null) {
+			other.setAsientoModelo(this.getAsientoModelo().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaContable() != null) {
+			other.setCuentaContable(this.getCuentaContable().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

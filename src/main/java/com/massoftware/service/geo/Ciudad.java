@@ -3,7 +3,7 @@ package com.massoftware.service.geo;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.geo.Provincia;
 
-public class Ciudad extends EntityId {
+public class Ciudad extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -98,6 +98,29 @@ public class Ciudad extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Ciudad clone() {
+		
+		Ciudad other = (Ciudad) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setDepartamento(this.getDepartamento());
+		other.setNumeroAFIP(this.getNumeroAFIP());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getProvincia() != null) {
+			other.setProvincia(this.getProvincia().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

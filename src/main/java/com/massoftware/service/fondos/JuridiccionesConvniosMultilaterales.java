@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class JuridiccionesConvniosMultilaterales extends EntityId {
+public class JuridiccionesConvniosMultilaterales extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class JuridiccionesConvniosMultilaterales extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public JuridiccionesConvniosMultilaterales clone() {
+		
+		JuridiccionesConvniosMultilaterales other = (JuridiccionesConvniosMultilaterales) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

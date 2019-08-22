@@ -3,7 +3,7 @@ package com.massoftware.service.empresa;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.empresa.TipoSucursal;
 
-public class Sucursal extends EntityId {
+public class Sucursal extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -267,6 +267,42 @@ public class Sucursal extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Sucursal clone() {
+		
+		Sucursal other = (Sucursal) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTipoSucursal() != null) {
+			other.setTipoSucursal(this.getTipoSucursal().clone());
+		}
+		other.setCuentaClientesDesde(this.getCuentaClientesDesde());
+		other.setCuentaClientesHasta(this.getCuentaClientesHasta());
+		other.setCantidadCaracteresClientes(this.getCantidadCaracteresClientes());
+		other.setIdentificacionNumericaClientes(this.getIdentificacionNumericaClientes());
+		other.setPermiteCambiarClientes(this.getPermiteCambiarClientes());
+		other.setCuentaProveedoresDesde(this.getCuentaProveedoresDesde());
+		other.setCuentaProveedoresHasta(this.getCuentaProveedoresHasta());
+		other.setCantidadCaracteresProveedores(this.getCantidadCaracteresProveedores());
+		other.setIdentificacionNumericaProveedores(this.getIdentificacionNumericaProveedores());
+		other.setPermiteCambiarProveedores(this.getPermiteCambiarProveedores());
+		other.setClientesOcacionalesDesde(this.getClientesOcacionalesDesde());
+		other.setClientesOcacionalesHasta(this.getClientesOcacionalesHasta());
+		other.setNumeroCobranzaDesde(this.getNumeroCobranzaDesde());
+		other.setNumeroCobranzaHasta(this.getNumeroCobranzaHasta());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

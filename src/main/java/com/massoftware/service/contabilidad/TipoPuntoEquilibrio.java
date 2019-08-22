@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
 
-public class TipoPuntoEquilibrio extends EntityId {
+public class TipoPuntoEquilibrio extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class TipoPuntoEquilibrio extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TipoPuntoEquilibrio clone() {
+		
+		TipoPuntoEquilibrio other = (TipoPuntoEquilibrio) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ package com.massoftware.service.clientes;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.clientes.ClasificacionCliente;
 
-public class MotivoBloqueoCliente extends EntityId {
+public class MotivoBloqueoCliente extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class MotivoBloqueoCliente extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public MotivoBloqueoCliente clone() {
+		
+		MotivoBloqueoCliente other = (MotivoBloqueoCliente) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getClasificacionCliente() != null) {
+			other.setClasificacionCliente(this.getClasificacionCliente().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

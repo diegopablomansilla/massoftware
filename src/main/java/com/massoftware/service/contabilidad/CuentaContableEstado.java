@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
 
-public class CuentaContableEstado extends EntityId {
+public class CuentaContableEstado extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class CuentaContableEstado extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CuentaContableEstado clone() {
+		
+		CuentaContableEstado other = (CuentaContableEstado) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

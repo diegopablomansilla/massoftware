@@ -1,10 +1,8 @@
 package com.massoftware.service;
 
-public class AbstractFilter extends Entity {
+public class GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
-
-//	protected int _levelDefault = 0;
 
 	private Boolean unlimited = false;
 
@@ -15,8 +13,6 @@ public class AbstractFilter extends Entity {
 	private Integer orderBy = 1;
 
 	private Boolean orderByDesc = false;
-
-//	private Integer level;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -74,20 +70,6 @@ public class AbstractFilter extends Entity {
 		this.orderByDesc = orderByDesc;
 	}
 
-//	// GET Level
-//	public Integer getLevel() {
-//		level = (level == null || level < 0) ? _levelDefault : level;
-//		level = (level != null && level > 3) ? _levelDefault : level;
-//		return this.level;
-//	}
-
-//	// SET Level
-//	public void setLevel(Integer level) {
-//		level = (level == null || level < 0) ? _levelDefault : level;
-//		level = (level != null && level > 3) ? _levelDefault : level;
-//		this.level = level;
-//	}
-
 	@Override
 	public boolean equals(Object obj) {
 
@@ -99,11 +81,11 @@ public class AbstractFilter extends Entity {
 			return true;
 		}
 
-		if (obj instanceof AbstractFilter == false) {
+		if (obj instanceof GenericFilter == false) {
 			return false;
 		}
 
-		AbstractFilter other = (AbstractFilter) obj;
+		GenericFilter other = (GenericFilter) obj;
 
 		// -------------------------------------------------------------------
 
@@ -197,25 +179,20 @@ public class AbstractFilter extends Entity {
 
 		// -------------------------------------------------------------------
 
-//		if (other.getLevel() == null && this.getLevel() != null) {
-//			return false;
-//		}
-//
-//		if (other.getLevel() != null && this.getLevel() == null) {
-//			return false;
-//		}
-//
-//		if (other.getLevel() != null && this.getLevel() != null) {
-//
-//			if (other.getLevel().equals(this.getLevel()) == false) {
-//				return false;
-//			}
-//
-//		}
-
-		// -------------------------------------------------------------------
-
 		return true;
+	}
+
+	@Override
+	public GenericFilter clone() {
+		GenericFilter other = new GenericFilter();
+
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+
+		return other;
 	}
 
 }

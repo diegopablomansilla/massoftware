@@ -22,7 +22,7 @@ public class CuentasFondosTiposBancosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CuentaFondoTipoBanco.id, ";
+			atts = "CuentaFondoTipoBanco.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

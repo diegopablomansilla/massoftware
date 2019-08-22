@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.Ticket;
 
-public class TicketModelo extends EntityId {
+public class TicketModelo extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -228,6 +228,39 @@ public class TicketModelo extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TicketModelo clone() {
+		
+		TicketModelo other = (TicketModelo) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTicket() != null) {
+			other.setTicket(this.getTicket().clone());
+		}
+		other.setPruebaLectura(this.getPruebaLectura());
+		other.setActivo(this.getActivo());
+		other.setLongitudLectura(this.getLongitudLectura());
+		other.setIdentificacionPosicion(this.getIdentificacionPosicion());
+		other.setIdentificacion(this.getIdentificacion());
+		other.setImportePosicion(this.getImportePosicion());
+		other.setLongitud(this.getLongitud());
+		other.setCantidadDecimales(this.getCantidadDecimales());
+		other.setNumeroPosicion(this.getNumeroPosicion());
+		other.setNumeroLongitud(this.getNumeroLongitud());
+		other.setPrefijoIdentificacion(this.getPrefijoIdentificacion());
+		other.setPosicionPrefijo(this.getPosicionPrefijo());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

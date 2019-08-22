@@ -4,7 +4,7 @@ import com.massoftware.service.*;
 import com.massoftware.service.geo.Pais;
 import com.massoftware.service.geo.Provincia;
 
-public class CiudadesFiltro extends AbstractFilter {
+public class CiudadesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -183,6 +183,39 @@ public class CiudadesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public CiudadesFiltro clone() {
+		
+		CiudadesFiltro other = new CiudadesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPais() != null) {
+			other.setPais(this.getPais().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getProvincia() != null) {
+			other.setProvincia(this.getProvincia().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

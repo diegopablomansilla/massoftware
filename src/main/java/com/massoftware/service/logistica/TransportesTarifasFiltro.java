@@ -3,7 +3,7 @@ package com.massoftware.service.logistica;
 import com.massoftware.service.*;
 import com.massoftware.service.logistica.Transporte;
 
-public class TransportesTarifasFiltro extends AbstractFilter {
+public class TransportesTarifasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,30 @@ public class TransportesTarifasFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public TransportesTarifasFiltro clone() {
+		
+		TransportesTarifasFiltro other = new TransportesTarifasFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTransporte() != null) {
+			other.setTransporte(this.getTransporte().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

@@ -16,15 +16,15 @@ public class CodigosPostalesStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
+//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 	
 		if (f.getProvincia() == null || f.getProvincia().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
+//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
 		}
 	
 		if (f.getCiudad() == null || f.getCiudad().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".ciudad para filtrar la consulta");
+//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".ciudad para filtrar la consulta");
 		}
 
 
@@ -34,7 +34,7 @@ public class CodigosPostalesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CodigoPostal.id, ";
+			atts = "CodigoPostal.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

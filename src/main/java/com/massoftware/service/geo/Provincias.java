@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.EntityId;
 
-public class Provincias extends EntityId {
+public class Provincias extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class Provincias extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public Provincias clone() {
+		
+		Provincias other = (Provincias) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -22,7 +22,7 @@ public class EjerciciosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "EjercicioContable.id, ";
+			atts = "EjercicioContable.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

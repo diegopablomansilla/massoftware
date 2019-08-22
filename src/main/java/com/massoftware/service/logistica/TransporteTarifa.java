@@ -4,7 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.logistica.Carga;
 import com.massoftware.service.geo.Ciudad;
 
-public class TransporteTarifa extends EntityId {
+public class TransporteTarifa extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,38 @@ public class TransporteTarifa extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public TransporteTarifa clone() {
+		
+		TransporteTarifa other = (TransporteTarifa) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCarga() != null) {
+			other.setCarga(this.getCarga().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCiudad() != null) {
+			other.setCiudad(this.getCiudad().clone());
+		}
+		other.setPrecioFlete(this.getPrecioFlete());
+		other.setPrecioUnidadFacturacion(this.getPrecioUnidadFacturacion());
+		other.setPrecioUnidadStock(this.getPrecioUnidadStock());
+		other.setPrecioBultos(this.getPrecioBultos());
+		other.setImporteMinimoEntrega(this.getImporteMinimoEntrega());
+		other.setImporteMinimoCarga(this.getImporteMinimoCarga());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ package com.massoftware.service.afip;
 
 import com.massoftware.service.*;
 
-public class MonedasAFIPFiltro extends AbstractFilter {
+public class MonedasAFIPFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +88,26 @@ public class MonedasAFIPFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public MonedasAFIPFiltro clone() {
+		
+		MonedasAFIPFiltro other = new MonedasAFIPFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

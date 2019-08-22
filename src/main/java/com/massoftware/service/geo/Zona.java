@@ -2,7 +2,7 @@ package com.massoftware.service.geo;
 
 import com.massoftware.service.EntityId;
 
-public class Zona extends EntityId {
+public class Zona extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -84,6 +84,23 @@ public class Zona extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Zona clone() {
+		
+		Zona other = (Zona) super.clone();
+		
+		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		other.setBonificacion(this.getBonificacion());
+		other.setRecargo(this.getRecargo());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

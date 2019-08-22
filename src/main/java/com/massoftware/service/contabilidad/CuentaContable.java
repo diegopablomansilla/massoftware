@@ -8,7 +8,7 @@ import com.massoftware.service.contabilidad.PuntoEquilibrio;
 import com.massoftware.service.contabilidad.CostoVenta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 
-public class CuentaContable extends EntityId {
+public class CuentaContable extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -233,6 +233,64 @@ public class CuentaContable extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CuentaContable clone() {
+		
+		CuentaContable other = (CuentaContable) super.clone();
+		
+		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getEjercicioContable() != null) {
+			other.setEjercicioContable(this.getEjercicioContable().clone());
+		}
+		other.setIntegra(this.getIntegra());
+		other.setCuentaJerarquia(this.getCuentaJerarquia());
+		other.setImputable(this.getImputable());
+		other.setAjustaPorInflacion(this.getAjustaPorInflacion());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaContableEstado() != null) {
+			other.setCuentaContableEstado(this.getCuentaContableEstado().clone());
+		}
+		other.setCuentaConApropiacion(this.getCuentaConApropiacion());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCentroCostoContable() != null) {
+			other.setCentroCostoContable(this.getCentroCostoContable().clone());
+		}
+		other.setCuentaAgrupadora(this.getCuentaAgrupadora());
+		other.setPorcentaje(this.getPorcentaje());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPuntoEquilibrio() != null) {
+			other.setPuntoEquilibrio(this.getPuntoEquilibrio().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCostoVenta() != null) {
+			other.setCostoVenta(this.getCostoVenta().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadPuerta() != null) {
+			other.setSeguridadPuerta(this.getSeguridadPuerta().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

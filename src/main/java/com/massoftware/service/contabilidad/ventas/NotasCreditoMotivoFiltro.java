@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad.ventas;
 
 import com.massoftware.service.*;
 
-public class NotasCreditoMotivoFiltro extends AbstractFilter {
+public class NotasCreditoMotivoFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -119,6 +119,27 @@ public class NotasCreditoMotivoFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public NotasCreditoMotivoFiltro clone() {
+		
+		NotasCreditoMotivoFiltro other = new NotasCreditoMotivoFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

@@ -2,7 +2,7 @@ package com.massoftware.service.fondos.banco;
 
 import com.massoftware.service.EntityId;
 
-public class Bancos extends EntityId {
+public class Bancos extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -84,6 +84,23 @@ public class Bancos extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Bancos clone() {
+		
+		Bancos other = (Bancos) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setCuit(this.getCuit());
+		other.setVigente(this.getVigente());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

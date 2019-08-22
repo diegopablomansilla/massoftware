@@ -3,7 +3,7 @@ package com.massoftware.service.monedas;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.afip.MonedaAFIP;
 
-public class Moneda extends EntityId {
+public class Moneda extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -124,6 +124,31 @@ public class Moneda extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public Moneda clone() {
+		
+		Moneda other = (Moneda) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		other.setAbreviatura(this.getAbreviatura());
+		other.setCotizacion(this.getCotizacion());
+		other.setCotizacionFecha(this.getCotizacionFecha());
+		other.setControlActualizacion(this.getControlActualizacion());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getMonedaAFIP() != null) {
+			other.setMonedaAFIP(this.getMonedaAFIP().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

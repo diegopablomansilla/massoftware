@@ -3,7 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.CuentaFondoRubro;
 
-public class CuentaFondoGrupo extends EntityId {
+public class CuentaFondoGrupo extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,6 +72,27 @@ public class CuentaFondoGrupo extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CuentaFondoGrupo clone() {
+		
+		CuentaFondoGrupo other = (CuentaFondoGrupo) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCuentaFondoRubro() != null) {
+			other.setCuentaFondoRubro(this.getCuentaFondoRubro().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

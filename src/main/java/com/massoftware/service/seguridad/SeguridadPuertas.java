@@ -2,7 +2,7 @@ package com.massoftware.service.seguridad;
 
 import com.massoftware.service.EntityId;
 
-public class SeguridadPuertas extends EntityId {
+public class SeguridadPuertas extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class SeguridadPuertas extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public SeguridadPuertas clone() {
+		
+		SeguridadPuertas other = (SeguridadPuertas) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

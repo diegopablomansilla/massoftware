@@ -1,27 +1,25 @@
-package com.massoftware.ui.views.fondos.banco;
+
+package com.massoftware.service.seguridad;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.service.fondos.banco.BancoService;
-import com.massoftware.service.fondos.banco.Bancos;
-import com.massoftware.service.fondos.banco.BancosFiltro;
 import com.massoftware.ui.components.UIUtils;
 import com.massoftware.ui.views.GridCustom;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Label;
+//import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
-import com.vaadin.flow.data.renderer.TemplateRenderer;
+//import com.vaadin.flow.data.renderer.TemplateRenderer;
 
-public class XBancosGrid extends GridCustom<Bancos> {
+public class UISeguridadModulosGrid extends GridCustom<SeguridadModulos> {
 
-	private BancosFiltro filter;
-	private BancoService service;
+	private SeguridadModulosFiltro filter;
+	private SeguridadModuloService service;
 
-	public XBancosGrid(BancoService service, BancosFiltro filter) {
-		super(Bancos.class, true, true, true, true);
+	public UISeguridadModulosGrid(SeguridadModuloService service, SeguridadModulosFiltro filter) {
+		super(SeguridadModulos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
 		laodItems();
@@ -31,51 +29,83 @@ public class XBancosGrid extends GridCustom<Bancos> {
 
 		// --------------------------------------------------------------------------------------------------
 
-		addColumn(Bancos::getId, "id").setKey("id").setSortProperty("1").setHeader("ID").setVisible(false);
+		addColumn(SeguridadModulos::getId, "id")
+			.setKey("id")
+			.setSortProperty("1")
+			.setHeader("ID")
+			.setVisible(false);
 
-		addColumn(Bancos::toString, "toString").setKey("toString").setSortProperty("2").setHeader("Banco")
-				.setVisible(false);
+		addColumn(SeguridadModulos::toString, "toString")
+			.setKey("toString")
+			.setSortProperty("2")
+			.setHeader("Módulo")
+			.setVisible(false);
 
-		addColumn(
-				TemplateRenderer.<Bancos>of("<div>[[item.cuit]]<br><small>[[item.nombre]]</small></div>")
-						.withProperty("cuit", Bancos::getCuit).withProperty("nombre", Bancos::getNombre),
-				"cuit", "nombre").setKey("toString2").setSortProperty("2").setHeader("Banco").setVisible(false);
-
+		/* EJEMPLO
+		addColumn(TemplateRenderer.<Bancos>of("<div>[[item.cuit]]<br><small>[[item.nombre]]</small></div>")
+			.withProperty("cuit", Bancos::getCuit)
+			.withProperty("nombre", Bancos::getNombre), "cuit", "nombre")
+			.setKey("toString2")
+			.setSortProperty("2")
+			.setHeader("Banco")
+			.setVisible(false);
+		 */
+		
 		// --------------------------------------------------------------------------------------------------
+		
+		/* EJEMPLOS
+		addColumn(Bancos::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Número");
 
-		addColumn(Bancos::getNumero, "numero").setKey("numero").setResizable(true).setSortProperty("2")
-				.setHeader("Número");
-
-		addColumn(TemplateRenderer.<Bancos>of("<b>[[item.nombre]]</b>").withProperty("nombre", Bancos::getNombre))
-				.setKey("nombre").setResizable(true).setSortProperty("3").setHeader("Nombre");
+		addColumn(TemplateRenderer.<Bancos>of("<b>[[item.nombre]]</b>")
+				.withProperty("nombre", Bancos::getNombre))
+				.setKey("nombre")
+				.setResizable(true)
+				.setSortProperty("3")
+				.setHeader("Nombre");
 
 //		addColumn(Bancos::getCuit, "cuit").setKey("cuit").setResizable(true).setSortProperty("4").setHeader("CUIT");
-		addColumn(new ComponentRenderer<>(this::createRendererCuit)).setKey("cuit").setResizable(true).setSortProperty("4").setHeader("CUIT");
+		addColumn(new ComponentRenderer<>(this::createRendererCuit))
+			.setKey("cuit")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("CUIT");
 
-		addColumn(new ComponentRenderer<>(this::createRendererVigente)).setKey("vigente").setResizable(true)
-				.setSortProperty("5").setHeader("Vigente"); // .setTextAlign(ColumnTextAlign.CENTER);
-
+		addColumn(new ComponentRenderer<>(this::createRendererVigente))
+			.setKey("vigente")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Vigente"); // .setTextAlign(ColumnTextAlign.CENTER);
+		 */
 		// --------------------------------------------------------------------------------------------------
 
 	}
-
+	
+	
+	
+	/* EJEMPLOS
 	private Component createRendererVigente(Bancos item) {
 		return (item.getVigente() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK)
 				: UIUtils.createDisabledIcon(VaadinIcon.CLOSE);
 	}
-
+	
+	
 	private Component createRendererCuit(Bancos item) {
 		String cuit = "";
-		if(item.getCuit() != null) {
+		if (item.getCuit() != null) {
 			cuit = item.getCuit().toString();
 			String prefix = cuit.substring(0, 2);
-			String body = cuit.substring(2, cuit.length()-2);
-			String sufix = cuit.substring(cuit.length()-2, cuit.length()-1);
+			String body = cuit.substring(2, cuit.length() - 2);
+			String sufix = cuit.substring(cuit.length() - 2, cuit.length() - 1);
 			cuit = prefix + "-" + body + "-" + sufix;
 		}
-		
+
 		return new Label(cuit);
 	}
+	*/
 
 	// --------------------------------------------------------------------------------------------------
 
@@ -91,7 +121,7 @@ public class XBancosGrid extends GridCustom<Bancos> {
 		return 0;
 	}
 
-	protected List<Bancos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
+	protected List<SeguridadModulos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
 
@@ -100,7 +130,7 @@ public class XBancosGrid extends GridCustom<Bancos> {
 			filter.setOrderBy(orderBy);
 			filter.setOrderByDesc(orderByDesc);
 
-			List<Bancos> items = service.find(filter);
+			List<SeguridadModulos> items = service.find(filter);
 
 			Notification.show("offset: " + offset + ", limit: " + limit + ", orderBy: " + orderBy + ", orderByDesc: "
 					+ orderByDesc + ", items.size(): " + items.size());
@@ -112,10 +142,10 @@ public class XBancosGrid extends GridCustom<Bancos> {
 			Notification.show("No se pudo buscar los ítems !!");
 		}
 
-		return new ArrayList<Bancos>();
+		return new ArrayList<SeguridadModulos>();
 	}
 
-	protected boolean removeItemFromService(Bancos item) {
+	protected boolean removeItemFromService(SeguridadModulos item) {
 
 		boolean r = false;
 

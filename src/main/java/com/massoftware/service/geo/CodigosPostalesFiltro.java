@@ -5,7 +5,7 @@ import com.massoftware.service.geo.Pais;
 import com.massoftware.service.geo.Provincia;
 import com.massoftware.service.geo.Ciudad;
 
-public class CodigosPostalesFiltro extends AbstractFilter {
+public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -215,6 +215,45 @@ public class CodigosPostalesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public CodigosPostalesFiltro clone() {
+		
+		CodigosPostalesFiltro other = new CodigosPostalesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setCodigo(this.getCodigo());
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getPais() != null) {
+			other.setPais(this.getPais().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getProvincia() != null) {
+			other.setProvincia(this.getProvincia().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getCiudad() != null) {
+			other.setCiudad(this.getCiudad().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

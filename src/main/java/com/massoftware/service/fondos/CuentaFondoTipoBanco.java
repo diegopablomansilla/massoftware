@@ -2,7 +2,7 @@ package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
 
-public class CuentaFondoTipoBanco extends EntityId {
+public class CuentaFondoTipoBanco extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class CuentaFondoTipoBanco extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public CuentaFondoTipoBanco clone() {
+		
+		CuentaFondoTipoBanco other = (CuentaFondoTipoBanco) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

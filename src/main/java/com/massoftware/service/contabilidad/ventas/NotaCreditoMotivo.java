@@ -2,7 +2,7 @@ package com.massoftware.service.contabilidad.ventas;
 
 import com.massoftware.service.EntityId;
 
-public class NotaCreditoMotivo extends EntityId {
+public class NotaCreditoMotivo extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class NotaCreditoMotivo extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public NotaCreditoMotivo clone() {
+		
+		NotaCreditoMotivo other = (NotaCreditoMotivo) super.clone();
+		
+		other.setId(this.getId());
+		other.setNumero(this.getNumero());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

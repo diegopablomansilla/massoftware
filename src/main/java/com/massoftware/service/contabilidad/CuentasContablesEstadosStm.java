@@ -22,7 +22,7 @@ public class CuentasContablesEstadosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CuentaContableEstado.id, ";
+			atts = "CuentaContableEstado.id ";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

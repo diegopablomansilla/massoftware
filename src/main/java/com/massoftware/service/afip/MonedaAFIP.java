@@ -2,7 +2,7 @@ package com.massoftware.service.afip;
 
 import com.massoftware.service.EntityId;
 
-public class MonedaAFIP extends EntityId {
+public class MonedaAFIP extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,6 +58,21 @@ public class MonedaAFIP extends EntityId {
 		} else {
 			return super.toString();
 		}
+	}
+		
+	public MonedaAFIP clone() {
+		
+		MonedaAFIP other = (MonedaAFIP) super.clone();
+		
+		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

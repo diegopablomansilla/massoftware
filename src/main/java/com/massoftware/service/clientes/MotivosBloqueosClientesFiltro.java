@@ -3,7 +3,7 @@ package com.massoftware.service.clientes;
 import com.massoftware.service.*;
 import com.massoftware.service.clientes.ClasificacionCliente;
 
-public class MotivosBloqueosClientesFiltro extends AbstractFilter {
+public class MotivosBloqueosClientesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -151,6 +151,33 @@ public class MotivosBloqueosClientesFiltro extends AbstractFilter {
 		// -------------------------------------------------------------------
 		
 		return true;
+		
+		// -------------------------------------------------------------------
+	}
+		
+	public MotivosBloqueosClientesFiltro clone() {
+		
+		MotivosBloqueosClientesFiltro other = new MotivosBloqueosClientesFiltro();
+		
+		other.setOffset(this.getOffset());
+		other.setLimit(this.getLimit());
+		other.setOrderBy(this.getOrderBy());
+		other.setOrderByDesc(this.getOrderByDesc());
+		other.setUnlimited(this.getUnlimited());
+		
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getClasificacionCliente() != null) {
+			other.setClasificacionCliente(this.getClasificacionCliente().clone());
+		}
+		
+		// -------------------------------------------------------------------
+		
+		return other;
 		
 		// -------------------------------------------------------------------
 	}

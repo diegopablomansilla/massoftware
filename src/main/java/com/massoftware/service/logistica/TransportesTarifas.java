@@ -2,7 +2,7 @@ package com.massoftware.service.logistica;
 
 import com.massoftware.service.EntityId;
 
-public class TransportesTarifas extends EntityId {
+public class TransportesTarifas extends EntityId implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -24,6 +24,19 @@ public class TransportesTarifas extends EntityId {
 
 	public String toString() {
 			return super.toString();
+	}
+		
+	public TransportesTarifas clone() {
+		
+		TransportesTarifas other = (TransportesTarifas) super.clone();
+		
+		other.setId(this.getId());
+		
+		// -------------------------------------------------------------------
+		
+		return other;
+		
+		// -------------------------------------------------------------------
 	}
 
 } // END CLASS ----------------------------------------------------------------------------------------------------------

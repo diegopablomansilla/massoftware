@@ -1,6 +1,6 @@
 package com.massoftware;
 
-import com.massoftware.ui.views.fondos.banco.XBancosView;
+import com.massoftware.service.fondos.banco.XUIBancosView;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -15,7 +15,7 @@ public class MainView extends VerticalLayout {
 
 		try {
 			
-			XBancosView bancoGridFilter = new XBancosView();
+			XUIBancosView bancoGridFilter = new XUIBancosView();
 			add(bancoGridFilter);
 			
 			
