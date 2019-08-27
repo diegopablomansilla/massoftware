@@ -21,7 +21,7 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 	private String abreviatura;
 
 	// Ejercicio
-	private EjercicioContable ejercicioContable;
+	private EjerciciosContables ejercicioContable;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -67,12 +67,12 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 	}
 
 	// GET Ejercicio
-	public EjercicioContable getEjercicioContable() {
+	public EjerciciosContables getEjercicioContable() {
 		return this.ejercicioContable;
 	}
 
 	// SET Ejercicio
-	public void setEjercicioContable(EjercicioContable ejercicioContable){
+	public void setEjercicioContable(EjerciciosContables ejercicioContable){
 		this.ejercicioContable = ejercicioContable;
 	}
 		

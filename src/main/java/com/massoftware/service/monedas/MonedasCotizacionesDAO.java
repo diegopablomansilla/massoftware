@@ -26,6 +26,10 @@ public class MonedasCotizacionesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setCotizacionFecha((java.sql.Timestamp) row[++c]);
+				objRow.setCompra((java.math.BigDecimal) row[++c]);
+				objRow.setVenta((java.math.BigDecimal) row[++c]);
+				objRow.setMoneda((Moneda) row[++c]);
 
 				r.add(objRow);
 

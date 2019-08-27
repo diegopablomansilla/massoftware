@@ -53,13 +53,13 @@ public class TicketsModelosStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TicketModelo.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TicketModelo.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -69,12 +69,12 @@ public class TicketsModelosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TicketModelo.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getTicket() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TicketModelo.Ticket = ?";
-			this.addArg(buildArgTrimLower(f.getTicket(), String.class));
+			this.addArg(buildArgTrim(f.getTicket().getId(), String.class));
 		}
 
 		

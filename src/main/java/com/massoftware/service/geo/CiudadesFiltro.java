@@ -19,10 +19,10 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// País
-	private Pais pais;
+	private Paises pais;
 
 	// Provincia
-	private Provincia provincia;
+	private Provincias provincia;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -58,22 +58,22 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET País
-	public Pais getPais() {
+	public Paises getPais() {
 		return this.pais;
 	}
 
 	// SET País
-	public void setPais(Pais pais){
+	public void setPais(Paises pais){
 		this.pais = pais;
 	}
 
 	// GET Provincia
-	public Provincia getProvincia() {
+	public Provincias getProvincia() {
 		return this.provincia;
 	}
 
 	// SET Provincia
-	public void setProvincia(Provincia provincia){
+	public void setProvincia(Provincias provincia){
 		this.provincia = provincia;
 	}
 		

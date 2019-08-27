@@ -22,7 +22,7 @@ public class UICuentasContablesGrid extends GridCustom<CuentasContables> {
 		super(CuentasContables.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UICuentasContablesGrid extends GridCustom<CuentasContables> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UICuentasContablesGrid extends GridCustom<CuentasContables> {
 	protected List<CuentasContables> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return new ArrayList<CuentasContables>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

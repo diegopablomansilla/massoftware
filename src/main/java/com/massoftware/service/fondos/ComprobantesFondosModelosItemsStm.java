@@ -53,19 +53,19 @@ public class ComprobantesFondosModelosItemsStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " ComprobanteFondoModeloItem.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " ComprobanteFondoModeloItem.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getCuentaFondo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " ComprobanteFondoModeloItem.CuentaFondo = ?";
-			this.addArg(buildArgTrimLower(f.getCuentaFondo(), String.class));
+			this.addArg(buildArgTrim(f.getCuentaFondo().getId(), String.class));
 		}
 
 		

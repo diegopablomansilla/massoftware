@@ -16,7 +16,7 @@ public class AsientoContable extends EntityId implements Cloneable {
 	private Integer numero;
 
 	// Fecha
-	private java.util.Date fecha;
+	private java.time.LocalDate fecha;
 
 	// Detalle
 	private String detalle;
@@ -56,12 +56,12 @@ public class AsientoContable extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha
-	public java.util.Date getFecha() {
+	public java.time.LocalDate getFecha() {
 		return this.fecha;
 	}
 
 	// SET Fecha
-	public void setFecha(java.util.Date fecha ){
+	public void setFecha(java.time.LocalDate fecha ){
 		this.fecha = fecha;
 	}
 

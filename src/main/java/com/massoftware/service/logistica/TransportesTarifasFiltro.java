@@ -9,18 +9,18 @@ public class TransportesTarifasFiltro extends GenericFilter implements Cloneable
 
 
 	// Transporte
-	private Transporte transporte;
+	private Transportes transporte;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
 	// GET Transporte
-	public Transporte getTransporte() {
+	public Transportes getTransporte() {
 		return this.transporte;
 	}
 
 	// SET Transporte
-	public void setTransporte(Transporte transporte){
+	public void setTransporte(Transportes transporte){
 		this.transporte = transporte;
 	}
 		

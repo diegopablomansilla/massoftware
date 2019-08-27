@@ -14,25 +14,32 @@ public class SeguridadPuertasStm extends StatementParam {
 		}
 		
 		
+	
+		if (f.getSeguridadModulo() == null || f.getSeguridadModulo().toString().trim().isEmpty()) {
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + SeguridadPuertasFiltro.class.getCanonicalName() + ".seguridadModulo para filtrar la consulta");
+		}
 
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
-			atts = "SeguridadPuerta.id ";
+			atts = "SeguridadPuerta.id , SeguridadModulo.nombre AS nombreModulo, SeguridadPuerta.numero, SeguridadPuerta.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
 			}
+			
+			join += " LEFT JOIN massoftware.SeguridadModulo ON SeguridadModulo.id = SeguridadPuerta.seguridadModulo";
 
 		}
 
-		String sql = "SELECT  " + atts + " FROM massoftware.SeguridadPuerta " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.SeguridadPuerta " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -65,7 +72,13 @@ public class SeguridadPuertasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(SeguridadPuerta.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
+	
+		if (f.getSeguridadModulo() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " SeguridadPuerta.SeguridadModulo = ?";
+			this.addArg(buildArgTrim(f.getSeguridadModulo().getId(), String.class));
+		}
 
 		
 		//-----------------
@@ -83,7 +96,7 @@ public class SeguridadPuertasStm extends StatementParam {
 			return (arg == null || arg.toString().trim().isEmpty()) ? c
 					: "%" + arg.toString().trim().toLowerCase() + "%";
 		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+		return buildArg(arg, c) ;
+	}	
 
 }

@@ -1,23 +1,23 @@
 
 package com.massoftware.service.clientes;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Motivos bloqueo a clientes")
 @Route("MotivosBloqueosClientes")
@@ -48,6 +48,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<ClasificacionesClientes> clasificacionCliente;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº motivo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +99,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº motivo (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +134,8 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, MotivosBloqueosClientesFiltro::getNombre, MotivosBloqueosClientesFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(MotivosBloqueosClientesFiltro::getNombre, MotivosBloqueosClientesFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +145,26 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// Clasificación de cliente
+		clasificacionCliente = new ComboBox<>();
+		clasificacionCliente.setPlaceholder("Clasificación de cliente");
+		ClasificacionClienteService clasificacionClienteService = new ClasificacionClienteService();
+		ClasificacionesClientesFiltro clasificacionClienteFiltro = new ClasificacionesClientesFiltro();
+		clasificacionClienteFiltro.setUnlimited(true);
+		java.util.List<ClasificacionesClientes> clasificacionClienteItems = clasificacionClienteService.find(clasificacionClienteFiltro);
+		clasificacionCliente.setItems(clasificacionClienteItems);
+		binder.forField(clasificacionCliente)
+			.bind(MotivosBloqueosClientesFiltro::getClasificacionCliente, MotivosBloqueosClientesFiltro::setClasificacionCliente);
+		if(clasificacionClienteItems.size() > 0){
+			clasificacionCliente.setValue(clasificacionClienteItems.get(0));
+		}
+		clasificacionCliente.addValueChangeListener(event -> {
+			search();
+		});
+		clasificacionCliente.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +276,13 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, clasificacionCliente, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIMotivosBloqueosClientesGrid(AppCX.services().buildMotivoBloqueoClienteService(), filter);
+//		grid = new UIMotivosBloqueosClientesGrid(AppCX.services().buildMotivoBloqueoClienteService(), filter);
+		grid = new UIMotivosBloqueosClientesGrid(new MotivoBloqueoClienteService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +293,9 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (MotivosBloqueosClientesFiltro) this.filter.clone();
 			if (binder.isValid()) {

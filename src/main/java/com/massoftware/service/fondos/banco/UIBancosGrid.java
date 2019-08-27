@@ -22,7 +22,7 @@ public class UIBancosGrid extends GridCustom<Bancos> {
 		super(Bancos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -139,6 +139,10 @@ public class UIBancosGrid extends GridCustom<Bancos> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,6 +155,9 @@ public class UIBancosGrid extends GridCustom<Bancos> {
 	protected List<Bancos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

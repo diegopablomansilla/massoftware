@@ -1,23 +1,23 @@
 
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Items de asientos contables")
 @Route("AsientosContablesItems")
@@ -48,6 +48,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField detalle;
+	private ComboBox<AsientosContables> asientoContable;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº item (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -81,6 +84,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		numeroFrom.setClearButtonVisible(true);
 		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		binder.forField(numeroFrom)
+			.asRequired("Nº item es requerido.")		
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
 			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
@@ -97,6 +101,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			search();
 		});
 
+
 		// Nº item (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -106,6 +111,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		numeroTo.setClearButtonVisible(true);
 		numeroTo.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
 		binder.forField(numeroTo)
+			.asRequired("Nº item es requerido.")		
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
 			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
@@ -130,7 +136,8 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		detalle.setClearButtonVisible(true);
 		detalle.setAutoselect(true);
 		detalle.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(detalle, AsientosContablesItemsFiltro::getDetalle, AsientosContablesItemsFiltro::setDetalle);
+		binder.forField(detalle)
+			.bind(AsientosContablesItemsFiltro::getDetalle, AsientosContablesItemsFiltro::setDetalle);
 		detalle.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +147,28 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			}
 		});
 		detalle.addBlurListener(event -> {
+			search();
+		});
+
+		// Asiento contable
+		asientoContable = new ComboBox<>();
+		asientoContable.setRequired(true);
+		asientoContable.setPlaceholder("Asiento contable");
+		AsientoContableService asientoContableService = new AsientoContableService();
+		AsientosContablesFiltro asientoContableFiltro = new AsientosContablesFiltro();
+		asientoContableFiltro.setUnlimited(true);
+		java.util.List<AsientosContables> asientoContableItems = asientoContableService.find(asientoContableFiltro);
+		asientoContable.setItems(asientoContableItems);
+		binder.forField(asientoContable)
+			.asRequired("Asiento contable es requerido.")		
+			.bind(AsientosContablesItemsFiltro::getAsientoContable, AsientosContablesItemsFiltro::setAsientoContable);
+		if(asientoContableItems.size() > 0){
+			asientoContable.setValue(asientoContableItems.get(0));
+		}
+		asientoContable.addValueChangeListener(event -> {
+			search();
+		});
+		asientoContable.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +280,13 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, asientoContable, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIAsientosContablesItemsGrid(AppCX.services().buildAsientoContableItemService(), filter);
+//		grid = new UIAsientosContablesItemsGrid(AppCX.services().buildAsientoContableItemService(), filter);
+		grid = new UIAsientosContablesItemsGrid(new AsientoContableItemService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +297,9 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (AsientosContablesItemsFiltro) this.filter.clone();
 			if (binder.isValid()) {

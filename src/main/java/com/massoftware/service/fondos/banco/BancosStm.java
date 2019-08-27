@@ -49,19 +49,19 @@ public class BancosStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Banco.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Banco.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getVigente() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Banco.Vigente = ?";
-			this.addArg(buildArgTrimLower(f.getVigente(), Boolean.class));
+			this.addArg(buildArgTrim(f.getVigente(), Boolean.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -71,7 +71,7 @@ public class BancosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Banco.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

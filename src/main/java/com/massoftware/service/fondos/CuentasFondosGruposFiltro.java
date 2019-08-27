@@ -18,7 +18,7 @@ public class CuentasFondosGruposFiltro extends GenericFilter implements Cloneabl
 	private String nombre;
 
 	// Rubro
-	private CuentaFondoRubro cuentaFondoRubro;
+	private CuentasFondosRubros cuentaFondoRubro;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class CuentasFondosGruposFiltro extends GenericFilter implements Cloneabl
 	}
 
 	// GET Rubro
-	public CuentaFondoRubro getCuentaFondoRubro() {
+	public CuentasFondosRubros getCuentaFondoRubro() {
 		return this.cuentaFondoRubro;
 	}
 
 	// SET Rubro
-	public void setCuentaFondoRubro(CuentaFondoRubro cuentaFondoRubro){
+	public void setCuentaFondoRubro(CuentasFondosRubros cuentaFondoRubro){
 		this.cuentaFondoRubro = cuentaFondoRubro;
 	}
 		

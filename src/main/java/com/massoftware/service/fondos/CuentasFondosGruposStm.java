@@ -53,13 +53,13 @@ public class CuentasFondosGruposStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondoGrupo.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondoGrupo.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -69,12 +69,12 @@ public class CuentasFondosGruposStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CuentaFondoGrupo.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getCuentaFondoRubro() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondoGrupo.CuentaFondoRubro = ?";
-			this.addArg(buildArgTrimLower(f.getCuentaFondoRubro(), String.class));
+			this.addArg(buildArgTrim(f.getCuentaFondoRubro().getId(), String.class));
 		}
 
 		

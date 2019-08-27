@@ -22,7 +22,7 @@ public class UIComprobantesFondosModelosItemsGrid extends GridCustom<Comprobante
 		super(ComprobantesFondosModelosItems.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UIComprobantesFondosModelosItemsGrid extends GridCustom<Comprobante
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getCuentaFondo() == null || filter.getCuentaFondo().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UIComprobantesFondosModelosItemsGrid extends GridCustom<Comprobante
 	protected List<ComprobantesFondosModelosItems> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getCuentaFondo() == null || filter.getCuentaFondo().toString().trim().isEmpty()) {
+				return new ArrayList<ComprobantesFondosModelosItems>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

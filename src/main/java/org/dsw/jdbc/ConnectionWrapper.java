@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -187,7 +188,6 @@ public class ConnectionWrapper {
 	// ===================================================================================================
 	// ===================================================================================================
 
-
 	public Object[][] findToTable(String sql) throws SQLExceptionWrapper, Exception {
 		return findToTable(sql, new Object[0]);
 	}
@@ -241,7 +241,13 @@ public class ConnectionWrapper {
 			Object[] row = new Object[c];
 
 			for (int j = 0; j < c; j++) {
+//				if (resultSet.getMetaData().getColumnType((1 + j)) == java.sql.Types.DATE) {
+//					row[j] = resultSet.getObject((j + 1), LocalDate.class);
+//				} else {
+//					row[j] = resultSet.getObject((j + 1));
+//				}				
 				row[j] = resultSet.getObject((j + 1));
+
 			}
 
 			listT.add(row);
@@ -605,6 +611,10 @@ public class ConnectionWrapper {
 
 				preparedStatement.setDate(i, sqlDate);
 
+			} else if (value.getClass() == java.time.LocalDate.class) {
+
+				preparedStatement.setObject(i, (java.time.LocalDate) value);
+
 			} else if (value.getClass() == Timestamp.class) {
 
 				preparedStatement.setTimestamp(i, (Timestamp) value);
@@ -636,6 +646,8 @@ public class ConnectionWrapper {
 				} else if (c.equals(Date.class)) {
 					preparedStatement.setNull(i, Types.DATE);
 				} else if (c.equals(java.util.Date.class)) {
+					preparedStatement.setNull(i, Types.DATE);
+				} else if (c.equals(java.time.LocalDate.class)) {
 					preparedStatement.setNull(i, Types.DATE);
 				} else if (c.equals(Timestamp.class)) {
 					preparedStatement.setNull(i, Types.TIMESTAMP);

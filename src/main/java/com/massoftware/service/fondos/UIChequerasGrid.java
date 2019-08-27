@@ -22,7 +22,7 @@ public class UIChequerasGrid extends GridCustom<Chequeras> {
 		super(Chequeras.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UIChequerasGrid extends GridCustom<Chequeras> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getCuentaFondo() == null || filter.getCuentaFondo().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UIChequerasGrid extends GridCustom<Chequeras> {
 	protected List<Chequeras> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getCuentaFondo() == null || filter.getCuentaFondo().toString().trim().isEmpty()) {
+				return new ArrayList<Chequeras>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

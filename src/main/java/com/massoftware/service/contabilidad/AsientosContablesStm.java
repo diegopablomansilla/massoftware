@@ -26,7 +26,7 @@ public class AsientosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "AsientoContable.id ";
+			atts = "AsientoContable.id , AsientoContable.numeroEjercicio, AsientoContable.numero, AsientoContable.fecha, AsientoContable.detalle";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -53,13 +53,13 @@ public class AsientosContablesStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getDetalle() != null && f.getDetalle().trim().isEmpty() == false) {
@@ -69,42 +69,42 @@ public class AsientosContablesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(AsientoContable.Detalle))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getFechaFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Fecha >= ?";
-			this.addArg(buildArgTrimLower(f.getFechaFrom(), java.util.Date.class));
+			this.addArg(buildArgTrim(f.getFechaFrom(), java.time.LocalDate.class));
 		}
 	
 		if (f.getFechaTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Fecha <= ?";
-			this.addArg(buildArgTrimLower(f.getFechaTo(), java.util.Date.class));
+			this.addArg(buildArgTrim(f.getFechaTo(), java.time.LocalDate.class));
 		}
 	
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 	
 		if (f.getMinutaContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.MinutaContable = ?";
-			this.addArg(buildArgTrimLower(f.getMinutaContable(), String.class));
+			this.addArg(buildArgTrim(f.getMinutaContable().getId(), String.class));
 		}
 	
 		if (f.getAsientoContableModulo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.AsientoContableModulo = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoContableModulo(), String.class));
+			this.addArg(buildArgTrim(f.getAsientoContableModulo().getId(), String.class));
 		}
 	
 		if (f.getSucursal() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContable.Sucursal = ?";
-			this.addArg(buildArgTrimLower(f.getSucursal(), String.class));
+			this.addArg(buildArgTrim(f.getSucursal().getId(), String.class));
 		}
 
 		

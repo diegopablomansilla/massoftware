@@ -22,7 +22,7 @@ public class UITicketsModelosGrid extends GridCustom<TicketsModelos> {
 		super(TicketsModelos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UITicketsModelosGrid extends GridCustom<TicketsModelos> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getTicket() == null || filter.getTicket().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UITicketsModelosGrid extends GridCustom<TicketsModelos> {
 	protected List<TicketsModelos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getTicket() == null || filter.getTicket().toString().trim().isEmpty()) {
+				return new ArrayList<TicketsModelos>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

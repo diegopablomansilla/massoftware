@@ -61,13 +61,13 @@ public class AsientosContablesItemsStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContableItem.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContableItem.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getDetalle() != null && f.getDetalle().trim().isEmpty() == false) {
@@ -77,12 +77,12 @@ public class AsientosContablesItemsStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(AsientoContableItem.Detalle))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getAsientoContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoContableItem.AsientoContable = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoContable(), String.class));
+			this.addArg(buildArgTrim(f.getAsientoContable().getId(), String.class));
 		}
 
 		

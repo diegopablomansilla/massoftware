@@ -16,7 +16,7 @@ public class ProvinciasStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 
 
@@ -53,13 +53,13 @@ public class ProvinciasStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Provincia.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Provincia.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -69,7 +69,7 @@ public class ProvinciasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Provincia.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
 			String[] words =  f.getAbreviatura().trim().split(" ");
@@ -78,12 +78,12 @@ public class ProvinciasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Provincia.Abreviatura))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getPais() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Provincia.Pais = ?";
-			this.addArg(buildArgTrimLower(f.getPais(), String.class));
+			this.addArg(buildArgTrim(f.getPais().getId(), String.class));
 		}
 
 		

@@ -49,13 +49,13 @@ public class MonedasStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Moneda.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Moneda.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -65,7 +65,7 @@ public class MonedasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Moneda.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
 			String[] words =  f.getAbreviatura().trim().split(" ");
@@ -74,7 +74,7 @@ public class MonedasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Moneda.Abreviatura))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

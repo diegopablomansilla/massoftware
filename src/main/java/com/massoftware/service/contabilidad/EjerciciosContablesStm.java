@@ -22,7 +22,7 @@ public class EjerciciosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "EjercicioContable.id ";
+			atts = "EjercicioContable.id , EjercicioContable.numero, EjercicioContable.apertura, EjercicioContable.cierre, EjercicioContable.cerrado, EjercicioContable.cerradoModulos";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -49,13 +49,13 @@ public class EjerciciosContablesStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " EjercicioContable.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " EjercicioContable.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 
 		

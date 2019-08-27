@@ -1,23 +1,24 @@
 
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Asientos contables")
 @Route("AsientosContables")
@@ -48,6 +49,12 @@ public class UIAsientosContablesView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField detalle;
+	private DatePicker fechaFrom;
+	private DatePicker fechaTo;
+	private ComboBox<EjerciciosContables> ejercicioContable;
+	private ComboBox<MinutasContables> minutaContable;
+	private ComboBox<AsientosContablesModulos> asientoContableModulo;
+	private ComboBox<Sucursales> sucursal;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +66,8 @@ public class UIAsientosContablesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +76,11 @@ public class UIAsientosContablesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº asiento (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +105,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº asiento (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +140,8 @@ public class UIAsientosContablesView extends VerticalLayout {
 		detalle.setClearButtonVisible(true);
 		detalle.setAutoselect(true);
 		detalle.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(detalle, AsientosContablesFiltro::getDetalle, AsientosContablesFiltro::setDetalle);
+		binder.forField(detalle)
+			.bind(AsientosContablesFiltro::getDetalle, AsientosContablesFiltro::setDetalle);
 		detalle.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +151,88 @@ public class UIAsientosContablesView extends VerticalLayout {
 			}
 		});
 		detalle.addBlurListener(event -> {
+			search();
+		});
+
+		// Ejercicio
+		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setRequired(true);
+		ejercicioContable.setPlaceholder("Ejercicio");
+		EjercicioContableService ejercicioContableService = new EjercicioContableService();
+		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
+		ejercicioContableFiltro.setUnlimited(true);
+		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		ejercicioContable.setItems(ejercicioContableItems);
+		binder.forField(ejercicioContable)
+			.asRequired("Ejercicio es requerido.")		
+			.bind(AsientosContablesFiltro::getEjercicioContable, AsientosContablesFiltro::setEjercicioContable);
+		if(ejercicioContableItems.size() > 0){
+			ejercicioContable.setValue(ejercicioContableItems.get(0));
+		}
+		ejercicioContable.addValueChangeListener(event -> {
+			search();
+		});
+		ejercicioContable.addBlurListener(event -> {
+			search();
+		});
+
+		// Minuta contable
+		minutaContable = new ComboBox<>();
+		minutaContable.setPlaceholder("Minuta contable");
+		MinutaContableService minutaContableService = new MinutaContableService();
+		MinutasContablesFiltro minutaContableFiltro = new MinutasContablesFiltro();
+		minutaContableFiltro.setUnlimited(true);
+		java.util.List<MinutasContables> minutaContableItems = minutaContableService.find(minutaContableFiltro);
+		minutaContable.setItems(minutaContableItems);
+		binder.forField(minutaContable)
+			.bind(AsientosContablesFiltro::getMinutaContable, AsientosContablesFiltro::setMinutaContable);
+		if(minutaContableItems.size() > 0){
+			minutaContable.setValue(minutaContableItems.get(0));
+		}
+		minutaContable.addValueChangeListener(event -> {
+			search();
+		});
+		minutaContable.addBlurListener(event -> {
+			search();
+		});
+
+		// Módulo
+		asientoContableModulo = new ComboBox<>();
+		asientoContableModulo.setPlaceholder("Módulo");
+		AsientoContableModuloService asientoContableModuloService = new AsientoContableModuloService();
+		AsientosContablesModulosFiltro asientoContableModuloFiltro = new AsientosContablesModulosFiltro();
+		asientoContableModuloFiltro.setUnlimited(true);
+		java.util.List<AsientosContablesModulos> asientoContableModuloItems = asientoContableModuloService.find(asientoContableModuloFiltro);
+		asientoContableModulo.setItems(asientoContableModuloItems);
+		binder.forField(asientoContableModulo)
+			.bind(AsientosContablesFiltro::getAsientoContableModulo, AsientosContablesFiltro::setAsientoContableModulo);
+		if(asientoContableModuloItems.size() > 0){
+			asientoContableModulo.setValue(asientoContableModuloItems.get(0));
+		}
+		asientoContableModulo.addValueChangeListener(event -> {
+			search();
+		});
+		asientoContableModulo.addBlurListener(event -> {
+			search();
+		});
+
+		// Sucursal
+		sucursal = new ComboBox<>();
+		sucursal.setPlaceholder("Sucursal");
+		SucursalService sucursalService = new SucursalService();
+		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
+		sucursalFiltro.setUnlimited(true);
+		java.util.List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
+		sucursal.setItems(sucursalItems);
+		binder.forField(sucursal)
+			.bind(AsientosContablesFiltro::getSucursal, AsientosContablesFiltro::setSucursal);
+		if(sucursalItems.size() > 0){
+			sucursal.setValue(sucursalItems.get(0));
+		}
+		sucursal.addValueChangeListener(event -> {
+			search();
+		});
+		sucursal.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +344,13 @@ public class UIAsientosContablesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, fechaFrom, fechaTo, ejercicioContable, minutaContable, asientoContableModulo, sucursal, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIAsientosContablesGrid(AppCX.services().buildAsientoContableService(), filter);
+//		grid = new UIAsientosContablesGrid(AppCX.services().buildAsientoContableService(), filter);
+		grid = new UIAsientosContablesGrid(new AsientoContableService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +361,9 @@ public class UIAsientosContablesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (AsientosContablesFiltro) this.filter.clone();
 			if (binder.isValid()) {

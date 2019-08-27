@@ -53,7 +53,7 @@ public class TalonariosLetrasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TalonarioLetra.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

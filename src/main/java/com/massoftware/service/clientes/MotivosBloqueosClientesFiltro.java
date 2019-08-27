@@ -18,7 +18,7 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 	private String nombre;
 
 	// Clasificación de cliente
-	private ClasificacionCliente clasificacionCliente;
+	private ClasificacionesClientes clasificacionCliente;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 	}
 
 	// GET Clasificación de cliente
-	public ClasificacionCliente getClasificacionCliente() {
+	public ClasificacionesClientes getClasificacionCliente() {
 		return this.clasificacionCliente;
 	}
 
 	// SET Clasificación de cliente
-	public void setClasificacionCliente(ClasificacionCliente clasificacionCliente){
+	public void setClasificacionCliente(ClasificacionesClientes clasificacionCliente){
 		this.clasificacionCliente = clasificacionCliente;
 	}
 		

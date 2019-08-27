@@ -22,7 +22,7 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 		super(CentrosCostosContables.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,18 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getAbreviatura() == null || filter.getAbreviatura().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +136,17 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 	protected List<CentrosCostosContables> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getAbreviatura() == null || filter.getAbreviatura().toString().trim().isEmpty()) {
+				return new ArrayList<CentrosCostosContables>();
+			}
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return new ArrayList<CentrosCostosContables>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

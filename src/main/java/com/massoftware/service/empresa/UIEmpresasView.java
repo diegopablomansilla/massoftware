@@ -1,23 +1,19 @@
 
 package com.massoftware.service.empresa;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+
 
 @PageTitle("Empresas")
 @Route("Empresas")
@@ -56,7 +52,8 @@ public class UIEmpresasView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -65,7 +62,7 @@ public class UIEmpresasView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
@@ -183,7 +180,8 @@ public class UIEmpresasView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIEmpresasGrid(AppCX.services().buildEmpresaService(), filter);
+//		grid = new UIEmpresasGrid(AppCX.services().buildEmpresaService(), filter);
+		grid = new UIEmpresasGrid(new EmpresaService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -194,6 +192,9 @@ public class UIEmpresasView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (EmpresasFiltro) this.filter.clone();
 			if (binder.isValid()) {

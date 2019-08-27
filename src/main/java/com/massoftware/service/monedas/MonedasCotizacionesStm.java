@@ -30,7 +30,7 @@ public class MonedasCotizacionesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MonedaCotizacion.id ";
+			atts = "MonedaCotizacion.id , MonedaCotizacion.cotizacionFecha, MonedaCotizacion.compra, MonedaCotizacion.venta, MonedaCotizacion.moneda";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -57,19 +57,19 @@ public class MonedasCotizacionesStm extends StatementParam {
 		if (f.getMoneda() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.Moneda = ?";
-			this.addArg(buildArgTrimLower(f.getMoneda(), String.class));
+			this.addArg(buildArgTrim(f.getMoneda().getId(), String.class));
 		}
 	
 		if (f.getCotizacionFechaFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha >= ?";
-			this.addArg(buildArgTrimLower(f.getCotizacionFechaFrom(), java.sql.Timestamp.class));
+			this.addArg(buildArgTrim(f.getCotizacionFechaFrom(), java.sql.Timestamp.class));
 		}
 	
 		if (f.getCotizacionFechaTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha <= ?";
-			this.addArg(buildArgTrimLower(f.getCotizacionFechaTo(), java.sql.Timestamp.class));
+			this.addArg(buildArgTrim(f.getCotizacionFechaTo(), java.sql.Timestamp.class));
 		}
 
 		

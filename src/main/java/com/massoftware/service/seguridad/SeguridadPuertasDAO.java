@@ -26,6 +26,9 @@ public class SeguridadPuertasDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombreModulo((String) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setNombre((String) row[++c]);
 
 				r.add(objRow);
 

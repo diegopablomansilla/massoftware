@@ -57,7 +57,7 @@ public class CuentasContablesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CuentaContable.Codigo))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
 			String[] words =  f.getNombre().trim().split(" ");
@@ -66,12 +66,12 @@ public class CuentasContablesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CuentaContable.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaContable.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 
 		

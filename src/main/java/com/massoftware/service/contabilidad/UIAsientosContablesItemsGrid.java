@@ -22,7 +22,7 @@ public class UIAsientosContablesItemsGrid extends GridCustom<AsientosContablesIt
 		super(AsientosContablesItems.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,22 @@ public class UIAsientosContablesItemsGrid extends GridCustom<AsientosContablesIt
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getNumeroFrom() == null || filter.getNumeroFrom().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getNumeroTo() == null || filter.getNumeroTo().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getAsientoContable() == null || filter.getAsientoContable().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +140,21 @@ public class UIAsientosContablesItemsGrid extends GridCustom<AsientosContablesIt
 	protected List<AsientosContablesItems> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getNumeroFrom() == null || filter.getNumeroFrom().toString().trim().isEmpty()) {
+				return new ArrayList<AsientosContablesItems>();
+			}
+	
+			if (filter.getNumeroTo() == null || filter.getNumeroTo().toString().trim().isEmpty()) {
+				return new ArrayList<AsientosContablesItems>();
+			}
+	
+			if (filter.getAsientoContable() == null || filter.getAsientoContable().toString().trim().isEmpty()) {
+				return new ArrayList<AsientosContablesItems>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

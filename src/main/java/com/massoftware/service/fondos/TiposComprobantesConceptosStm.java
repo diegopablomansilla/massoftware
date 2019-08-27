@@ -53,7 +53,7 @@ public class TiposComprobantesConceptosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TipoComprobanteConcepto.Codigo))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
 			String[] words =  f.getNombre().trim().split(" ");
@@ -62,7 +62,7 @@ public class TiposComprobantesConceptosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TipoComprobanteConcepto.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

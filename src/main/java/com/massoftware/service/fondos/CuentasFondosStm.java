@@ -49,13 +49,13 @@ public class CuentasFondosStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondo.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondo.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -65,12 +65,12 @@ public class CuentasFondosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CuentaFondo.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getBanco() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CuentaFondo.Banco = ?";
-			this.addArg(buildArgTrimLower(f.getBanco(), String.class));
+			this.addArg(buildArgTrim(f.getBanco().getId(), String.class));
 		}
 
 		

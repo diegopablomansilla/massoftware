@@ -1,23 +1,22 @@
 
 package com.massoftware.service.clientes;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+
 
 @PageTitle("Motivos de comentario")
 @Route("MotivosComentario")
@@ -59,7 +58,8 @@ public class UIMotivosComentarioView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +68,11 @@ public class UIMotivosComentarioView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº motivo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +97,7 @@ public class UIMotivosComentarioView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº motivo (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +132,8 @@ public class UIMotivosComentarioView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, MotivosComentarioFiltro::getNombre, MotivosComentarioFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(MotivosComentarioFiltro::getNombre, MotivosComentarioFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -256,7 +259,8 @@ public class UIMotivosComentarioView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIMotivosComentarioGrid(AppCX.services().buildMotivoComentarioService(), filter);
+//		grid = new UIMotivosComentarioGrid(AppCX.services().buildMotivoComentarioService(), filter);
+		grid = new UIMotivosComentarioGrid(new MotivoComentarioService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +271,9 @@ public class UIMotivosComentarioView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (MotivosComentarioFiltro) this.filter.clone();
 			if (binder.isValid()) {

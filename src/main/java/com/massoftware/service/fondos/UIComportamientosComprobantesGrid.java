@@ -22,7 +22,7 @@ public class UIComportamientosComprobantesGrid extends GridCustom<Comportamiento
 		super(ComportamientosComprobantes.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,10 @@ public class UIComportamientosComprobantesGrid extends GridCustom<Comportamiento
 	protected Integer countFromService() {
 
 		try {
+			
+			
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +128,9 @@ public class UIComportamientosComprobantesGrid extends GridCustom<Comportamiento
 	protected List<ComportamientosComprobantes> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

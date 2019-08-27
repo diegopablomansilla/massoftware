@@ -18,7 +18,7 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// Sucursal
-	private Sucursal sucursal;
+	private Sucursales sucursal;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET Sucursal
-	public Sucursal getSucursal() {
+	public Sucursales getSucursal() {
 		return this.sucursal;
 	}
 
 	// SET Sucursal
-	public void setSucursal(Sucursal sucursal){
+	public void setSucursal(Sucursales sucursal){
 		this.sucursal = sucursal;
 	}
 		

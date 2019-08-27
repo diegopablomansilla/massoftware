@@ -15,7 +15,7 @@ public class CuentasContablesFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// Ejercicio
-	private EjercicioContable ejercicioContable;
+	private EjerciciosContables ejercicioContable;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -41,12 +41,12 @@ public class CuentasContablesFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET Ejercicio
-	public EjercicioContable getEjercicioContable() {
+	public EjerciciosContables getEjercicioContable() {
 		return this.ejercicioContable;
 	}
 
 	// SET Ejercicio
-	public void setEjercicioContable(EjercicioContable ejercicioContable){
+	public void setEjercicioContable(EjerciciosContables ejercicioContable){
 		this.ejercicioContable = ejercicioContable;
 	}
 		

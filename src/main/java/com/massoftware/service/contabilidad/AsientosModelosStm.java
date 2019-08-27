@@ -53,13 +53,13 @@ public class AsientosModelosStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoModelo.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoModelo.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -69,12 +69,12 @@ public class AsientosModelosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(AsientoModelo.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getEjercicioContable() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoModelo.EjercicioContable = ?";
-			this.addArg(buildArgTrimLower(f.getEjercicioContable(), String.class));
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 
 		

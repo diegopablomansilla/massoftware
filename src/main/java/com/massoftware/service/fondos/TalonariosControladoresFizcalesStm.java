@@ -53,7 +53,7 @@ public class TalonariosControladoresFizcalesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TalonarioControladorFizcal.Codigo))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
 			String[] words =  f.getNombre().trim().split(" ");
@@ -62,7 +62,7 @@ public class TalonariosControladoresFizcalesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(TalonarioControladorFizcal.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

@@ -1,23 +1,20 @@
 
 package com.massoftware.service.fondos;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.TextField;
+
 
 @PageTitle("Letras")
 @Route("TalonariosLetras")
@@ -57,7 +54,8 @@ public class UITalonariosLetrasView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -66,7 +64,7 @@ public class UITalonariosLetrasView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
@@ -79,7 +77,8 @@ public class UITalonariosLetrasView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
-		binder.bind(nombre, TalonariosLetrasFiltro::getNombre, TalonariosLetrasFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(TalonariosLetrasFiltro::getNombre, TalonariosLetrasFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -205,7 +204,8 @@ public class UITalonariosLetrasView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UITalonariosLetrasGrid(AppCX.services().buildTalonarioLetraService(), filter);
+//		grid = new UITalonariosLetrasGrid(AppCX.services().buildTalonarioLetraService(), filter);
+		grid = new UITalonariosLetrasGrid(new TalonarioLetraService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -216,6 +216,9 @@ public class UITalonariosLetrasView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (TalonariosLetrasFiltro) this.filter.clone();
 			if (binder.isValid()) {

@@ -1,23 +1,23 @@
 
 package com.massoftware.service.geo;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Códigos postales")
 @Route("CodigosPostales")
@@ -48,6 +48,9 @@ public class UICodigosPostalesView extends VerticalLayout {
 	private TextField codigo;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
+	private ComboBox<Paises> pais;
+	private ComboBox<Provincias> provincia;
+	private ComboBox<Ciudades> ciudad;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +62,8 @@ public class UICodigosPostalesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,7 +72,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
@@ -81,7 +85,8 @@ public class UICodigosPostalesView extends VerticalLayout {
 		codigo.setClearButtonVisible(true);
 		codigo.setAutoselect(true);
 		codigo.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
-		binder.bind(codigo, CodigosPostalesFiltro::getCodigo, CodigosPostalesFiltro::setCodigo);
+		binder.forField(codigo)
+			.bind(CodigosPostalesFiltro::getCodigo, CodigosPostalesFiltro::setCodigo);
 		codigo.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -93,6 +98,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 		codigo.addBlurListener(event -> {
 			search();
 		});
+
 		// Secuencia (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -118,6 +124,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 			search();
 		});
 
+
 		// Secuencia (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -140,6 +147,72 @@ public class UICodigosPostalesView extends VerticalLayout {
 		}
 		});
 		numeroTo.addBlurListener(event -> {
+			search();
+		});
+
+		// País
+		pais = new ComboBox<>();
+		pais.setRequired(true);
+		pais.setPlaceholder("País");
+		PaisService paisService = new PaisService();
+		PaisesFiltro paisFiltro = new PaisesFiltro();
+		paisFiltro.setUnlimited(true);
+		java.util.List<Paises> paisItems = paisService.find(paisFiltro);
+		pais.setItems(paisItems);
+		binder.forField(pais)
+			.asRequired("País es requerido.")		
+			.bind(CodigosPostalesFiltro::getPais, CodigosPostalesFiltro::setPais);
+		if(paisItems.size() > 0){
+			pais.setValue(paisItems.get(0));
+		}
+		pais.addValueChangeListener(event -> {
+			search();
+		});
+		pais.addBlurListener(event -> {
+			search();
+		});
+
+		// Provincia
+		provincia = new ComboBox<>();
+		provincia.setRequired(true);
+		provincia.setPlaceholder("Provincia");
+		ProvinciaService provinciaService = new ProvinciaService();
+		ProvinciasFiltro provinciaFiltro = new ProvinciasFiltro();
+		provinciaFiltro.setUnlimited(true);
+		java.util.List<Provincias> provinciaItems = provinciaService.find(provinciaFiltro);
+		provincia.setItems(provinciaItems);
+		binder.forField(provincia)
+			.asRequired("Provincia es requerido.")		
+			.bind(CodigosPostalesFiltro::getProvincia, CodigosPostalesFiltro::setProvincia);
+		if(provinciaItems.size() > 0){
+			provincia.setValue(provinciaItems.get(0));
+		}
+		provincia.addValueChangeListener(event -> {
+			search();
+		});
+		provincia.addBlurListener(event -> {
+			search();
+		});
+
+		// Ciudad
+		ciudad = new ComboBox<>();
+		ciudad.setRequired(true);
+		ciudad.setPlaceholder("Ciudad");
+		CiudadService ciudadService = new CiudadService();
+		CiudadesFiltro ciudadFiltro = new CiudadesFiltro();
+		ciudadFiltro.setUnlimited(true);
+		java.util.List<Ciudades> ciudadItems = ciudadService.find(ciudadFiltro);
+		ciudad.setItems(ciudadItems);
+		binder.forField(ciudad)
+			.asRequired("Ciudad es requerido.")		
+			.bind(CodigosPostalesFiltro::getCiudad, CodigosPostalesFiltro::setCiudad);
+		if(ciudadItems.size() > 0){
+			ciudad.setValue(ciudadItems.get(0));
+		}
+		ciudad.addValueChangeListener(event -> {
+			search();
+		});
+		ciudad.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +324,13 @@ public class UICodigosPostalesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, codigo, numeroFrom, numeroTo, findBTN);
+		filterRow1.add(newBTN, codigo, numeroFrom, numeroTo, pais, provincia, ciudad, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UICodigosPostalesGrid(AppCX.services().buildCodigoPostalService(), filter);
+//		grid = new UICodigosPostalesGrid(AppCX.services().buildCodigoPostalService(), filter);
+		grid = new UICodigosPostalesGrid(new CodigoPostalService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +341,9 @@ public class UICodigosPostalesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (CodigosPostalesFiltro) this.filter.clone();
 			if (binder.isValid()) {

@@ -53,7 +53,7 @@ public class TransportesTarifasStm extends StatementParam {
 		if (f.getTransporte() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " TransporteTarifa.Transporte = ?";
-			this.addArg(buildArgTrimLower(f.getTransporte(), String.class));
+			this.addArg(buildArgTrim(f.getTransporte().getId(), String.class));
 		}
 
 		

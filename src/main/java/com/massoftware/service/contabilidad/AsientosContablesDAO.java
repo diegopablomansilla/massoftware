@@ -26,6 +26,10 @@ public class AsientosContablesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNumeroEjercicio((Integer) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setFecha(((java.sql.Date) row[++c]).toLocalDate());
+				objRow.setDetalle((String) row[++c]);
 
 				r.add(objRow);
 

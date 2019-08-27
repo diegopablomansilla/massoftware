@@ -22,7 +22,7 @@ public class UICodigosPostalesGrid extends GridCustom<CodigosPostales> {
 		super(CodigosPostales.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,22 @@ public class UICodigosPostalesGrid extends GridCustom<CodigosPostales> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getProvincia() == null || filter.getProvincia().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getCiudad() == null || filter.getCiudad().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +140,21 @@ public class UICodigosPostalesGrid extends GridCustom<CodigosPostales> {
 	protected List<CodigosPostales> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return new ArrayList<CodigosPostales>();
+			}
+	
+			if (filter.getProvincia() == null || filter.getProvincia().toString().trim().isEmpty()) {
+				return new ArrayList<CodigosPostales>();
+			}
+	
+			if (filter.getCiudad() == null || filter.getCiudad().toString().trim().isEmpty()) {
+				return new ArrayList<CodigosPostales>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

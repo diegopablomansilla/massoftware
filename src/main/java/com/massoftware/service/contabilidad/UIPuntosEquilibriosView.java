@@ -1,23 +1,23 @@
 
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Puntos equilibrio")
 @Route("PuntosEquilibrios")
@@ -48,6 +48,7 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<EjerciciosContables> ejercicioContable;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº cc (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +99,7 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº cc (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +134,8 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, PuntosEquilibriosFiltro::getNombre, PuntosEquilibriosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(PuntosEquilibriosFiltro::getNombre, PuntosEquilibriosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +145,28 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// Ejercicio
+		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setRequired(true);
+		ejercicioContable.setPlaceholder("Ejercicio");
+		EjercicioContableService ejercicioContableService = new EjercicioContableService();
+		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
+		ejercicioContableFiltro.setUnlimited(true);
+		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		ejercicioContable.setItems(ejercicioContableItems);
+		binder.forField(ejercicioContable)
+			.asRequired("Ejercicio es requerido.")		
+			.bind(PuntosEquilibriosFiltro::getEjercicioContable, PuntosEquilibriosFiltro::setEjercicioContable);
+		if(ejercicioContableItems.size() > 0){
+			ejercicioContable.setValue(ejercicioContableItems.get(0));
+		}
+		ejercicioContable.addValueChangeListener(event -> {
+			search();
+		});
+		ejercicioContable.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +278,13 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, ejercicioContable, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIPuntosEquilibriosGrid(AppCX.services().buildPuntoEquilibrioService(), filter);
+//		grid = new UIPuntosEquilibriosGrid(AppCX.services().buildPuntoEquilibrioService(), filter);
+		grid = new UIPuntosEquilibriosGrid(new PuntoEquilibrioService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +295,9 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (PuntosEquilibriosFiltro) this.filter.clone();
 			if (binder.isValid()) {

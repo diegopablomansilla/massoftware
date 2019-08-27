@@ -1,23 +1,22 @@
 
 package com.massoftware.service.logistica;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+
 
 @PageTitle("Transportes")
 @Route("Transportes")
@@ -59,7 +58,8 @@ public class UITransportesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +68,11 @@ public class UITransportesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº transporte (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +97,7 @@ public class UITransportesView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº transporte (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +132,8 @@ public class UITransportesView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, TransportesFiltro::getNombre, TransportesFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(TransportesFiltro::getNombre, TransportesFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -256,7 +259,8 @@ public class UITransportesView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UITransportesGrid(AppCX.services().buildTransporteService(), filter);
+//		grid = new UITransportesGrid(AppCX.services().buildTransporteService(), filter);
+		grid = new UITransportesGrid(new TransporteService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +271,9 @@ public class UITransportesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (TransportesFiltro) this.filter.clone();
 			if (binder.isValid()) {

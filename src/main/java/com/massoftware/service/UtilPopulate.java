@@ -2,6 +2,9 @@ package com.massoftware.service;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Random;
 
 public class UtilPopulate {
@@ -172,12 +175,12 @@ public class UtilPopulate {
 		} else if (max != null && min == null) {
 			value = r.nextInt((max - Integer.MIN_VALUE) + 1) + Integer.MIN_VALUE;
 		} else if (max == null && min != null) {
-			if(min == 0) {
-				value = r.nextInt((Integer.MAX_VALUE - min)) + min;	 
+			if (min == 0) {
+				value = r.nextInt((Integer.MAX_VALUE - min)) + min;
 			} else {
 				value = r.nextInt((Integer.MAX_VALUE - min) + 1) + min;
 			}
-			
+
 		} else if (max == null && min == null) {
 			value = r.nextInt((Integer.MAX_VALUE - Integer.MIN_VALUE) + 1) + Integer.MIN_VALUE;
 		}
@@ -241,21 +244,40 @@ public class UtilPopulate {
 		return value;
 
 	}
-
-	public static Long getDateRandom(Integer min, Integer max, boolean required) {
+	
+	public static Long getTimestampRandom(Integer min, Integer max, boolean required) {
 
 		long offset = Timestamp.valueOf(min + "-01-01 00:00:00").getTime();
 		long end = Timestamp.valueOf(max + "-01-01 00:00:00").getTime();
 		long diff = end - offset + 1;
 		long value = offset + (long) (Math.random() * diff);
 
-		if (required == false) {						
+		if (required == false) {
 			value = (new Random().nextBoolean()) ? value : 0;
-		}
+		}		
 
-		return value;
+		return value;		
 
 	}
+
+	public static LocalDate getDateRandom(Integer min, Integer max, boolean required) {
+
+		long offset = Timestamp.valueOf(min + "-01-01 00:00:00").getTime();
+		long end = Timestamp.valueOf(max + "-01-01 00:00:00").getTime();
+		long diff = end - offset + 1;
+		long value = offset + (long) (Math.random() * diff);
+
+		if (required == false) {
+			value = (new Random().nextBoolean()) ? value : 0;
+		}		
+
+		return new Date(value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();		
+
+	}
+
+//	private LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
+//		return dateToConvert.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//	}
 
 	public static BigDecimal getBigDecimalRandom(BigDecimal min, BigDecimal max, boolean required, Integer precision,
 			Integer scale) {
@@ -285,12 +307,11 @@ public class UtilPopulate {
 
 			value = new BigDecimal(stringPrecision + "." + stringScale);
 
-			if(min == null && max == null) {
+			if (min == null && max == null) {
 				b = true;
 			} else {
-				b = value.compareTo(min) > 0 && value.compareTo(max) < 0;	
+				b = value.compareTo(min) > 0 && value.compareTo(max) < 0;
 			}
-			
 
 		} while (!b);
 

@@ -18,7 +18,7 @@ public class ChequerasFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// Cuenta fondo
-	private CuentaFondo cuentaFondo;
+	private CuentasFondos cuentaFondo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class ChequerasFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET Cuenta fondo
-	public CuentaFondo getCuentaFondo() {
+	public CuentasFondos getCuentaFondo() {
 		return this.cuentaFondo;
 	}
 
 	// SET Cuenta fondo
-	public void setCuentaFondo(CuentaFondo cuentaFondo){
+	public void setCuentaFondo(CuentasFondos cuentaFondo){
 		this.cuentaFondo = cuentaFondo;
 	}
 		

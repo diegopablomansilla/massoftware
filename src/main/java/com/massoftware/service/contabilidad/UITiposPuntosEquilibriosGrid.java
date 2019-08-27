@@ -22,7 +22,7 @@ public class UITiposPuntosEquilibriosGrid extends GridCustom<TiposPuntosEquilibr
 		super(TiposPuntosEquilibrios.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,10 @@ public class UITiposPuntosEquilibriosGrid extends GridCustom<TiposPuntosEquilibr
 	protected Integer countFromService() {
 
 		try {
+			
+			
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +128,9 @@ public class UITiposPuntosEquilibriosGrid extends GridCustom<TiposPuntosEquilibr
 	protected List<TiposPuntosEquilibrios> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

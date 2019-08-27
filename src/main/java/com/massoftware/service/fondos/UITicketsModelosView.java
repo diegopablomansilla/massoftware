@@ -1,23 +1,23 @@
 
 package com.massoftware.service.fondos;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Tickets modelos")
 @Route("TicketsModelos")
@@ -48,6 +48,7 @@ public class UITicketsModelosView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<Tickets> ticket;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UITicketsModelosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UITicketsModelosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº modelo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +99,7 @@ public class UITicketsModelosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº modelo (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +134,8 @@ public class UITicketsModelosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, TicketsModelosFiltro::getNombre, TicketsModelosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(TicketsModelosFiltro::getNombre, TicketsModelosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +145,28 @@ public class UITicketsModelosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// ticket
+		ticket = new ComboBox<>();
+		ticket.setRequired(true);
+		ticket.setPlaceholder("ticket");
+		TicketService ticketService = new TicketService();
+		TicketsFiltro ticketFiltro = new TicketsFiltro();
+		ticketFiltro.setUnlimited(true);
+		java.util.List<Tickets> ticketItems = ticketService.find(ticketFiltro);
+		ticket.setItems(ticketItems);
+		binder.forField(ticket)
+			.asRequired("ticket es requerido.")		
+			.bind(TicketsModelosFiltro::getTicket, TicketsModelosFiltro::setTicket);
+		if(ticketItems.size() > 0){
+			ticket.setValue(ticketItems.get(0));
+		}
+		ticket.addValueChangeListener(event -> {
+			search();
+		});
+		ticket.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +278,13 @@ public class UITicketsModelosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, ticket, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UITicketsModelosGrid(AppCX.services().buildTicketModeloService(), filter);
+//		grid = new UITicketsModelosGrid(AppCX.services().buildTicketModeloService(), filter);
+		grid = new UITicketsModelosGrid(new TicketModeloService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +295,9 @@ public class UITicketsModelosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (TicketsModelosFiltro) this.filter.clone();
 			if (binder.isValid()) {

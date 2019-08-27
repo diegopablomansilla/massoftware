@@ -22,7 +22,7 @@ public class UIMonedasCotizacionesGrid extends GridCustom<MonedasCotizaciones> {
 		super(MonedasCotizaciones.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -53,6 +53,30 @@ public class UIMonedasCotizacionesGrid extends GridCustom<MonedasCotizaciones> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(MonedasCotizaciones::getCotizacionFecha, "cotizacionFecha")
+			.setKey("cotizacionFecha")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Fecha cotización");
+
+		addColumn(MonedasCotizaciones::getCompra, "compra")
+			.setKey("compra")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Compra");
+
+		addColumn(MonedasCotizaciones::getVenta, "venta")
+			.setKey("venta")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Venta");
+
+		addColumn(MonedasCotizaciones::getMoneda, "moneda")
+			.setKey("moneda")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Moneda");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -112,6 +136,18 @@ public class UIMonedasCotizacionesGrid extends GridCustom<MonedasCotizaciones> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getCotizacionFechaFrom() == null || filter.getCotizacionFechaFrom().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getCotizacionFechaTo() == null || filter.getCotizacionFechaTo().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +160,17 @@ public class UIMonedasCotizacionesGrid extends GridCustom<MonedasCotizaciones> {
 	protected List<MonedasCotizaciones> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getCotizacionFechaFrom() == null || filter.getCotizacionFechaFrom().toString().trim().isEmpty()) {
+				return new ArrayList<MonedasCotizaciones>();
+			}
+	
+			if (filter.getCotizacionFechaTo() == null || filter.getCotizacionFechaTo().toString().trim().isEmpty()) {
+				return new ArrayList<MonedasCotizaciones>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

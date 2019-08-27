@@ -26,6 +26,11 @@ public class EjerciciosContablesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setApertura(((java.sql.Date) row[++c]).toLocalDate());
+				objRow.setCierre(((java.sql.Date) row[++c]).toLocalDate());
+				objRow.setCerrado((Boolean) row[++c]);
+				objRow.setCerradoModulos((Boolean) row[++c]);
 
 				r.add(objRow);
 

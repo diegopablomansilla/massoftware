@@ -66,7 +66,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 		addColumnToolBar();
 		addListeners();
 		this.focus();
-//		laodItems();		
+		loadItems();		
 
 	}
 
@@ -284,7 +284,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected void laodItems() {
+	public void loadItems() {
 
 		DataProvider<T, Void> dataProvider = DataProvider.fromCallbacks(
 
@@ -388,7 +388,9 @@ public abstract class GridCustom<T> extends Grid<T> {
 
 	protected void selectItemListener(SelectionEvent<Grid<T>, T> event) {
 		Optional<T> selected = event.getFirstSelectedItem();
-		selectItemListener(selected.get());
+		if(selected.isPresent()) {
+			selectItemListener(selected.get());	
+		}		
 	}
 
 	protected void selectItemListener(T item) {
@@ -573,7 +575,7 @@ public abstract class GridCustom<T> extends Grid<T> {
 		buttonRemove.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
 		Button buttonOpen = new Button("", clickEvent -> {
-			removeItemListener(item, item.toString());
+//			removeItemListener(item, item.toString());
 
 		});
 		buttonOpen.setIcon(new Icon(VaadinIcon.EXTERNAL_LINK));

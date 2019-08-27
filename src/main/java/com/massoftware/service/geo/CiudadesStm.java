@@ -16,11 +16,11 @@ public class CiudadesStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 	
 		if (f.getProvincia() == null || f.getProvincia().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CiudadesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
 		}
 
 
@@ -57,13 +57,13 @@ public class CiudadesStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -73,18 +73,18 @@ public class CiudadesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Ciudad.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getPais() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Pais = ?";
-			this.addArg(buildArgTrimLower(f.getPais(), String.class));
+			this.addArg(buildArgTrim(f.getPais().getId(), String.class));
 		}
 	
 		if (f.getProvincia() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Ciudad.Provincia = ?";
-			this.addArg(buildArgTrimLower(f.getProvincia(), String.class));
+			this.addArg(buildArgTrim(f.getProvincia().getId(), String.class));
 		}
 
 		

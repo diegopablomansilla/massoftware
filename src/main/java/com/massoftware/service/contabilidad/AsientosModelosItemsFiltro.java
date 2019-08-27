@@ -9,18 +9,18 @@ public class AsientosModelosItemsFiltro extends GenericFilter implements Cloneab
 
 
 	// Asiento modelo
-	private AsientoModelo asientoModelo;
+	private AsientosModelos asientoModelo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
 	// GET Asiento modelo
-	public AsientoModelo getAsientoModelo() {
+	public AsientosModelos getAsientoModelo() {
 		return this.asientoModelo;
 	}
 
 	// SET Asiento modelo
-	public void setAsientoModelo(AsientoModelo asientoModelo){
+	public void setAsientoModelo(AsientosModelos asientoModelo){
 		this.asientoModelo = asientoModelo;
 	}
 		

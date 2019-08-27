@@ -259,68 +259,68 @@ public class Populate {
 	static int maxRows = 300;
 
 	public static void main(String[] args) throws Exception {
-			insertUsuario();
-			insertSeguridadModulo();
-			insertSeguridadPuerta();
-			insertZona();
-			insertPais();
-			insertProvincia();
-			insertCiudad();
-			insertCodigoPostal();
-			insertTransporte();
-			insertCarga();
-			insertTransporteTarifa();
-			insertTipoDocumentoAFIP();
-			insertMonedaAFIP();
-			insertNotaCreditoMotivo();
-			insertMotivoComentario();
-			insertTipoCliente();
-			insertClasificacionCliente();
-			insertMotivoBloqueoCliente();
-			insertTipoSucursal();
-			insertSucursal();
-			insertDepositoModulo();
-			insertDeposito();
-			insertEjercicioContable();
-			insertCentroCostoContable();
-			insertTipoPuntoEquilibrio();
-			insertPuntoEquilibrio();
-			insertCostoVenta();
-			insertCuentaContableEstado();
-			insertCuentaContable();
-			insertAsientoModelo();
-			insertAsientoModeloItem();
-			insertMinutaContable();
-			insertAsientoContableModulo();
-			insertAsientoContable();
-			insertAsientoContableItem();
-			insertEmpresa();
-			insertMoneda();
-			insertMonedaCotizacion();
-			insertBanco();
-			insertBancoFirmante();
-			insertCaja();
-			insertCuentaFondoTipo();
-			insertCuentaFondoRubro();
-			insertCuentaFondoGrupo();
-			insertCuentaFondoTipoBanco();
-			insertCuentaFondoBancoCopia();
-			insertCuentaFondo();
-			insertComprobanteFondoModelo();
-			insertComprobanteFondoModeloItem();
-			insertTalonarioLetra();
-			insertTalonarioControladorFizcal();
-			insertTalonario();
-			insertTicketControlDenunciados();
-			insertTicket();
-			insertTicketModelo();
-			insertJuridiccionConvnioMultilateral();
-			insertChequera();
-			insertTipoComprobanteConcepto();
-			insertClaseComprobante();
-			insertComportamientoComprobante();
-			insertTipoComprobanteCopia();
-			insertTipoComprobanteCopiaAlternativo();
+			//insertUsuario();
+			//insertSeguridadModulo();
+			//insertSeguridadPuerta();
+			//insertZona();
+			//insertPais();
+			//insertProvincia();
+			//insertCiudad();
+			//insertCodigoPostal();
+			//insertTransporte();
+			//insertCarga();
+			//insertTransporteTarifa();
+			//insertTipoDocumentoAFIP();
+			//insertMonedaAFIP();
+			//insertNotaCreditoMotivo();
+			//insertMotivoComentario();
+			//insertTipoCliente();
+			//insertClasificacionCliente();
+			//insertMotivoBloqueoCliente();
+			//insertTipoSucursal();
+			//insertSucursal();
+			//insertDepositoModulo();
+			//insertDeposito();
+			//insertEjercicioContable();
+			//insertCentroCostoContable();
+			//insertTipoPuntoEquilibrio();
+			//insertPuntoEquilibrio();
+			//insertCostoVenta();
+			//insertCuentaContableEstado();
+			//insertCuentaContable();
+			//insertAsientoModelo();
+			//insertAsientoModeloItem();
+			//insertMinutaContable();
+			//insertAsientoContableModulo();
+			//insertAsientoContable();
+			//insertAsientoContableItem();
+			//insertEmpresa();
+			//insertMoneda();
+			//insertMonedaCotizacion();
+			//insertBanco();
+			//insertBancoFirmante();
+			//insertCaja();
+			//insertCuentaFondoTipo();
+			//insertCuentaFondoRubro();
+			//insertCuentaFondoGrupo();
+			//insertCuentaFondoTipoBanco();
+			//insertCuentaFondoBancoCopia();
+			//insertCuentaFondo();
+			//insertComprobanteFondoModelo();
+			//insertComprobanteFondoModeloItem();
+			//insertTalonarioLetra();
+			//insertTalonarioControladorFizcal();
+			//insertTalonario();
+			//insertTicketControlDenunciados();
+			//insertTicket();
+			//insertTicketModelo();
+			//insertJuridiccionConvnioMultilateral();
+			//insertChequera();
+			//insertTipoComprobanteConcepto();
+			//insertClaseComprobante();
+			//insertComportamientoComprobante();
+			//insertTipoComprobanteCopia();
+			//insertTipoComprobanteCopiaAlternativo();
 	}
 
 
@@ -1274,9 +1274,9 @@ public class Populate {
 
 				obj.setNumero(UtilPopulate.getIntegerRandom(1, null, true));
 
-				obj.setApertura(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setApertura(UtilPopulate.getDateRandom(2000, 2019, true));
 
-				obj.setCierre(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setCierre(UtilPopulate.getDateRandom(2000, 2019, true));
 
 				obj.setCerrado(new Random().nextBoolean());
 
@@ -1788,7 +1788,7 @@ public class Populate {
 
 				obj.setNumero(UtilPopulate.getIntegerRandom(1, null, true));
 
-				obj.setFecha(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setFecha(UtilPopulate.getDateRandom(2000, 2019, true));
 
 				obj.setDetalle(UtilPopulate.getStringRandom(null, 100, false));
 
@@ -1862,7 +1862,7 @@ public class Populate {
 
 				obj.setNumero(UtilPopulate.getIntegerRandom(1, null, true));
 
-				obj.setFecha(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setFecha(UtilPopulate.getDateRandom(2000, 2019, true));
 
 				obj.setDetalle(UtilPopulate.getStringRandom(null, 100, false));
 
@@ -1927,21 +1927,21 @@ public class Populate {
 				objFkEjercicioContable.setId(ejercicioContableListado.get(0).getId());
 				obj.setEjercicioContable(objFkEjercicioContable);
 
-				obj.setFechaCierreVentas(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreVentas(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreStock(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreStock(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreFondo(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreFondo(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreCompras(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreCompras(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreContabilidad(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreContabilidad(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreGarantiaDevoluciones(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreGarantiaDevoluciones(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreTambos(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreTambos(UtilPopulate.getDateRandom(2000, 2019, false));
 
-				obj.setFechaCierreRRHH(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaCierreRRHH(UtilPopulate.getDateRandom(2000, 2019, false));
 
 				service.insert(obj);
 
@@ -1981,7 +1981,7 @@ public class Populate {
 
 				obj.setCotizacion(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("-9999.9999"), new java.math.BigDecimal("99999.9999"), true, 13, 5));
 
-				obj.setCotizacionFecha(new java.sql.Timestamp(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setCotizacionFecha(new java.sql.Timestamp(UtilPopulate.getTimestampRandom(2000, 2019, true)));
 
 				obj.setControlActualizacion(new Random().nextBoolean());
 
@@ -2026,13 +2026,13 @@ public class Populate {
 
 				MonedaCotizacion obj = new MonedaCotizacion();
 
-				obj.setCotizacionFecha(new java.sql.Timestamp(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setCotizacionFecha(new java.sql.Timestamp(UtilPopulate.getTimestampRandom(2000, 2019, true)));
 
 				obj.setCompra(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("-9999.9999"), new java.math.BigDecimal("99999.9999"), true, 13, 5));
 
 				obj.setVenta(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("-9999.9999"), new java.math.BigDecimal("99999.9999"), true, 13, 5));
 
-				obj.setCotizacionFechaAuditoria(new java.sql.Timestamp(UtilPopulate.getDateRandom(2000, 2019, true)));
+				obj.setCotizacionFechaAuditoria(new java.sql.Timestamp(UtilPopulate.getTimestampRandom(2000, 2019, true)));
 
 				MonedasFiltro monedaFiltro = new MonedasFiltro();
 				int monedaIndex = UtilPopulate.getIntegerRandom(0, monedaCount.intValue()-1);
@@ -2755,11 +2755,11 @@ public class Populate {
 
 				obj.setCantidadMinimaComprobantes(UtilPopulate.getIntegerRandom(1, null, false));
 
-				obj.setFecha(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFecha(UtilPopulate.getDateRandom(2000, 2019, false));
 
 				obj.setNumeroCAI(UtilPopulate.getLongRandom(1L, 99999999999999L, false));
 
-				obj.setVencimiento(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setVencimiento(UtilPopulate.getDateRandom(2000, 2019, false));
 
 				obj.setDiasAvisoVencimiento(UtilPopulate.getIntegerRandom(1, null, false));
 
@@ -2829,7 +2829,7 @@ public class Populate {
 
 				obj.setNombre(UtilPopulate.getStringRandom(null, 50, true));
 
-				obj.setFechaActualizacion(new java.util.Date(UtilPopulate.getDateRandom(2000, 2019, false)));
+				obj.setFechaActualizacion(UtilPopulate.getDateRandom(2000, 2019, false));
 
 				obj.setCantidadPorLotes(UtilPopulate.getIntegerRandom(1, null, false));
 

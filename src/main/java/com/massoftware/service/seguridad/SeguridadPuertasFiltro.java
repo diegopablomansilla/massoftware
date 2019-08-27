@@ -1,11 +1,15 @@
 package com.massoftware.service.seguridad;
 
 import com.massoftware.service.*;
+import com.massoftware.service.seguridad.SeguridadModulo;
 
 public class SeguridadPuertasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// Módulo
+	private SeguridadModulos seguridadModulo;
 
 	// Nº puerta (desde)
 	private Integer numeroFrom;
@@ -18,6 +22,16 @@ public class SeguridadPuertasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Módulo
+	public SeguridadModulos getSeguridadModulo() {
+		return this.seguridadModulo;
+	}
+
+	// SET Módulo
+	public void setSeguridadModulo(SeguridadModulos seguridadModulo){
+		this.seguridadModulo = seguridadModulo;
+	}
 
 	// GET Nº puerta (desde)
 	public Integer getNumeroFrom() {
@@ -61,6 +75,24 @@ public class SeguridadPuertasFiltro extends GenericFilter implements Cloneable {
 		
 		SeguridadPuertasFiltro other = (SeguridadPuertasFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getSeguridadModulo() == null && this.getSeguridadModulo() != null) {
+			return false;
+		}
+		
+		if (other.getSeguridadModulo() != null && this.getSeguridadModulo() == null) {
+			return false;
+		}
+		
+		if (other.getSeguridadModulo() != null && this.getSeguridadModulo() != null) {
+		
+			if (other.getSeguridadModulo().equals(this.getSeguridadModulo()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -133,6 +165,12 @@ public class SeguridadPuertasFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getSeguridadModulo() != null) {
+			other.setSeguridadModulo(this.getSeguridadModulo().clone());
+		}
 		other.setNumeroFrom(this.getNumeroFrom());
 		other.setNumeroTo(this.getNumeroTo());
 		other.setNombre(this.getNombre());

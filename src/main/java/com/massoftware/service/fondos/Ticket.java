@@ -16,7 +16,7 @@ public class Ticket extends EntityId implements Cloneable {
 	private String nombre;
 
 	// Fecha actualización
-	private java.util.Date fechaActualizacion;
+	private java.time.LocalDate fechaActualizacion;
 
 	// Cantidad por lotes
 	private Integer cantidadPorLotes;
@@ -60,12 +60,12 @@ public class Ticket extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha actualización
-	public java.util.Date getFechaActualizacion() {
+	public java.time.LocalDate getFechaActualizacion() {
 		return this.fechaActualizacion;
 	}
 
 	// SET Fecha actualización
-	public void setFechaActualizacion(java.util.Date fechaActualizacion ){
+	public void setFechaActualizacion(java.time.LocalDate fechaActualizacion ){
 		this.fechaActualizacion = fechaActualizacion;
 	}
 

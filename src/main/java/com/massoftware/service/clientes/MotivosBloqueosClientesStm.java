@@ -49,13 +49,13 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MotivoBloqueoCliente.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MotivoBloqueoCliente.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -65,12 +65,12 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(MotivoBloqueoCliente.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getClasificacionCliente() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MotivoBloqueoCliente.ClasificacionCliente = ?";
-			this.addArg(buildArgTrimLower(f.getClasificacionCliente(), String.class));
+			this.addArg(buildArgTrim(f.getClasificacionCliente().getId(), String.class));
 		}
 
 		

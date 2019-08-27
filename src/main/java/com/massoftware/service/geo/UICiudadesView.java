@@ -1,23 +1,23 @@
 
 package com.massoftware.service.geo;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Ciudades")
 @Route("Ciudades")
@@ -48,6 +48,8 @@ public class UICiudadesView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<Paises> pais;
+	private ComboBox<Provincias> provincia;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +61,8 @@ public class UICiudadesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +71,11 @@ public class UICiudadesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº ciudad (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +100,7 @@ public class UICiudadesView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº ciudad (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +135,8 @@ public class UICiudadesView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, CiudadesFiltro::getNombre, CiudadesFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(CiudadesFiltro::getNombre, CiudadesFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +146,50 @@ public class UICiudadesView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// País
+		pais = new ComboBox<>();
+		pais.setRequired(true);
+		pais.setPlaceholder("País");
+		PaisService paisService = new PaisService();
+		PaisesFiltro paisFiltro = new PaisesFiltro();
+		paisFiltro.setUnlimited(true);
+		java.util.List<Paises> paisItems = paisService.find(paisFiltro);
+		pais.setItems(paisItems);
+		binder.forField(pais)
+			.asRequired("País es requerido.")		
+			.bind(CiudadesFiltro::getPais, CiudadesFiltro::setPais);
+		if(paisItems.size() > 0){
+			pais.setValue(paisItems.get(0));
+		}
+		pais.addValueChangeListener(event -> {
+			search();
+		});
+		pais.addBlurListener(event -> {
+			search();
+		});
+
+		// Provincia
+		provincia = new ComboBox<>();
+		provincia.setRequired(true);
+		provincia.setPlaceholder("Provincia");
+		ProvinciaService provinciaService = new ProvinciaService();
+		ProvinciasFiltro provinciaFiltro = new ProvinciasFiltro();
+		provinciaFiltro.setUnlimited(true);
+		java.util.List<Provincias> provinciaItems = provinciaService.find(provinciaFiltro);
+		provincia.setItems(provinciaItems);
+		binder.forField(provincia)
+			.asRequired("Provincia es requerido.")		
+			.bind(CiudadesFiltro::getProvincia, CiudadesFiltro::setProvincia);
+		if(provinciaItems.size() > 0){
+			provincia.setValue(provinciaItems.get(0));
+		}
+		provincia.addValueChangeListener(event -> {
+			search();
+		});
+		provincia.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +301,13 @@ public class UICiudadesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, pais, provincia, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UICiudadesGrid(AppCX.services().buildCiudadService(), filter);
+//		grid = new UICiudadesGrid(AppCX.services().buildCiudadService(), filter);
+		grid = new UICiudadesGrid(new CiudadService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +318,9 @@ public class UICiudadesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (CiudadesFiltro) this.filter.clone();
 			if (binder.isValid()) {

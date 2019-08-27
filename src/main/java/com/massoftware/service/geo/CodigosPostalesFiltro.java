@@ -20,13 +20,13 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 	private Integer numeroTo;
 
 	// País
-	private Pais pais;
+	private Paises pais;
 
 	// Provincia
-	private Provincia provincia;
+	private Provincias provincia;
 
 	// Ciudad
-	private Ciudad ciudad;
+	private Ciudades ciudad;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -62,32 +62,32 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET País
-	public Pais getPais() {
+	public Paises getPais() {
 		return this.pais;
 	}
 
 	// SET País
-	public void setPais(Pais pais){
+	public void setPais(Paises pais){
 		this.pais = pais;
 	}
 
 	// GET Provincia
-	public Provincia getProvincia() {
+	public Provincias getProvincia() {
 		return this.provincia;
 	}
 
 	// SET Provincia
-	public void setProvincia(Provincia provincia){
+	public void setProvincia(Provincias provincia){
 		this.provincia = provincia;
 	}
 
 	// GET Ciudad
-	public Ciudad getCiudad() {
+	public Ciudades getCiudad() {
 		return this.ciudad;
 	}
 
 	// SET Ciudad
-	public void setCiudad(Ciudad ciudad){
+	public void setCiudad(Ciudades ciudad){
 		this.ciudad = ciudad;
 	}
 		

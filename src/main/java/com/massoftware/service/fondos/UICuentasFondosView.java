@@ -1,23 +1,23 @@
 
 package com.massoftware.service.fondos;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Cuentas fondo")
 @Route("CuentasFondos")
@@ -48,6 +48,7 @@ public class UICuentasFondosView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<Bancos> banco;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UICuentasFondosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UICuentasFondosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº cuenta (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +99,7 @@ public class UICuentasFondosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº cuenta (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +134,8 @@ public class UICuentasFondosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, CuentasFondosFiltro::getNombre, CuentasFondosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(CuentasFondosFiltro::getNombre, CuentasFondosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +145,26 @@ public class UICuentasFondosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// banco
+		banco = new ComboBox<>();
+		banco.setPlaceholder("banco");
+		BancoService bancoService = new BancoService();
+		BancosFiltro bancoFiltro = new BancosFiltro();
+		bancoFiltro.setUnlimited(true);
+		java.util.List<Bancos> bancoItems = bancoService.find(bancoFiltro);
+		banco.setItems(bancoItems);
+		binder.forField(banco)
+			.bind(CuentasFondosFiltro::getBanco, CuentasFondosFiltro::setBanco);
+		if(bancoItems.size() > 0){
+			banco.setValue(bancoItems.get(0));
+		}
+		banco.addValueChangeListener(event -> {
+			search();
+		});
+		banco.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +276,13 @@ public class UICuentasFondosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, banco, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UICuentasFondosGrid(AppCX.services().buildCuentaFondoService(), filter);
+//		grid = new UICuentasFondosGrid(AppCX.services().buildCuentaFondoService(), filter);
+		grid = new UICuentasFondosGrid(new CuentaFondoService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +293,9 @@ public class UICuentasFondosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (CuentasFondosFiltro) this.filter.clone();
 			if (binder.isValid()) {

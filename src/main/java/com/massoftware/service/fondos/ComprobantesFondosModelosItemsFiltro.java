@@ -15,7 +15,7 @@ public class ComprobantesFondosModelosItemsFiltro extends GenericFilter implemen
 	private Integer numeroTo;
 
 	// Cuenta fondo
-	private CuentaFondo cuentaFondo;
+	private CuentasFondos cuentaFondo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -41,12 +41,12 @@ public class ComprobantesFondosModelosItemsFiltro extends GenericFilter implemen
 	}
 
 	// GET Cuenta fondo
-	public CuentaFondo getCuentaFondo() {
+	public CuentasFondos getCuentaFondo() {
 		return this.cuentaFondo;
 	}
 
 	// SET Cuenta fondo
-	public void setCuentaFondo(CuentaFondo cuentaFondo){
+	public void setCuentaFondo(CuentasFondos cuentaFondo){
 		this.cuentaFondo = cuentaFondo;
 	}
 		

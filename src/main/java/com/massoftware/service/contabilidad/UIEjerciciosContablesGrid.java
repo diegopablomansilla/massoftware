@@ -22,7 +22,7 @@ public class UIEjerciciosContablesGrid extends GridCustom<EjerciciosContables> {
 		super(EjerciciosContables.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -53,6 +53,36 @@ public class UIEjerciciosContablesGrid extends GridCustom<EjerciciosContables> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(EjerciciosContables::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº ejercicio");
+
+		addColumn(EjerciciosContables::getApertura, "apertura")
+			.setKey("apertura")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Apertura");
+
+		addColumn(EjerciciosContables::getCierre, "cierre")
+			.setKey("cierre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Cierre");
+
+		addColumn(new ComponentRenderer<>(this::createRendererCerrado))
+			.setKey("cerrado")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Cerrado");
+
+		addColumn(new ComponentRenderer<>(this::createRendererCerradoModulos))
+			.setKey("cerradoModulos")
+			.setResizable(true)
+			.setSortProperty("6")
+			.setHeader("Cerrado módulos");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -85,6 +115,12 @@ public class UIEjerciciosContablesGrid extends GridCustom<EjerciciosContables> {
 	}
 	
 	
+	private Component createRendererCerrado(EjerciciosContables item) {
+		return (item.getCerrado() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK) : UIUtils.createDisabledIcon(VaadinIcon.CLOSE);
+	}
+	private Component createRendererCerradoModulos(EjerciciosContables item) {
+		return (item.getCerradoModulos() == true) ? UIUtils.createPrimaryIcon(VaadinIcon.CHECK) : UIUtils.createDisabledIcon(VaadinIcon.CLOSE);
+	}
 	
 	/* EJEMPLOS
 	private Component createRendererVigente(Bancos item) {
@@ -112,6 +148,10 @@ public class UIEjerciciosContablesGrid extends GridCustom<EjerciciosContables> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +164,9 @@ public class UIEjerciciosContablesGrid extends GridCustom<EjerciciosContables> {
 	protected List<EjerciciosContables> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

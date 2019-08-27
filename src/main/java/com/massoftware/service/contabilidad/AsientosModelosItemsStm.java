@@ -53,7 +53,7 @@ public class AsientosModelosItemsStm extends StatementParam {
 		if (f.getAsientoModelo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " AsientoModeloItem.AsientoModelo = ?";
-			this.addArg(buildArgTrimLower(f.getAsientoModelo(), String.class));
+			this.addArg(buildArgTrim(f.getAsientoModelo().getId(), String.class));
 		}
 
 		

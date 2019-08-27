@@ -1,23 +1,21 @@
 
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Cuentas contables")
 @Route("CuentasContables")
@@ -47,6 +45,7 @@ public class UICuentasContablesView extends VerticalLayout {
 	
 	private TextField codigo;
 	private TextField nombre;
+	private ComboBox<EjerciciosContables> ejercicioContable;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -58,7 +57,8 @@ public class UICuentasContablesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -67,7 +67,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
@@ -80,7 +80,8 @@ public class UICuentasContablesView extends VerticalLayout {
 		codigo.setClearButtonVisible(true);
 		codigo.setAutoselect(true);
 		codigo.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
-		binder.bind(codigo, CuentasContablesFiltro::getCodigo, CuentasContablesFiltro::setCodigo);
+		binder.forField(codigo)
+			.bind(CuentasContablesFiltro::getCodigo, CuentasContablesFiltro::setCodigo);
 		codigo.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -101,7 +102,8 @@ public class UICuentasContablesView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
-		binder.bind(nombre, CuentasContablesFiltro::getNombre, CuentasContablesFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(CuentasContablesFiltro::getNombre, CuentasContablesFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -111,6 +113,28 @@ public class UICuentasContablesView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// Ejercicio
+		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setRequired(true);
+		ejercicioContable.setPlaceholder("Ejercicio");
+		EjercicioContableService ejercicioContableService = new EjercicioContableService();
+		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
+		ejercicioContableFiltro.setUnlimited(true);
+		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		ejercicioContable.setItems(ejercicioContableItems);
+		binder.forField(ejercicioContable)
+			.asRequired("Ejercicio es requerido.")		
+			.bind(CuentasContablesFiltro::getEjercicioContable, CuentasContablesFiltro::setEjercicioContable);
+		if(ejercicioContableItems.size() > 0){
+			ejercicioContable.setValue(ejercicioContableItems.get(0));
+		}
+		ejercicioContable.addValueChangeListener(event -> {
+			search();
+		});
+		ejercicioContable.addBlurListener(event -> {
 			search();
 		});
 
@@ -222,12 +246,13 @@ public class UICuentasContablesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, nombre, findBTN);
+		filterRow1.add(newBTN, nombre, ejercicioContable, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UICuentasContablesGrid(AppCX.services().buildCuentaContableService(), filter);
+//		grid = new UICuentasContablesGrid(AppCX.services().buildCuentaContableService(), filter);
+		grid = new UICuentasContablesGrid(new CuentaContableService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -238,6 +263,9 @@ public class UICuentasContablesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (CuentasContablesFiltro) this.filter.clone();
 			if (binder.isValid()) {

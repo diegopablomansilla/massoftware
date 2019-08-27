@@ -22,7 +22,7 @@ public class UIAsientosContablesGrid extends GridCustom<AsientosContables> {
 		super(AsientosContables.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -53,6 +53,30 @@ public class UIAsientosContablesGrid extends GridCustom<AsientosContables> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(AsientosContables::getNumeroEjercicio, "numeroEjercicio")
+			.setKey("numeroEjercicio")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº ejercicio");
+
+		addColumn(AsientosContables::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº asiento");
+
+		addColumn(AsientosContables::getFecha, "fecha")
+			.setKey("fecha")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Fecha");
+
+		addColumn(AsientosContables::getDetalle, "detalle")
+			.setKey("detalle")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Detalle");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -112,6 +136,14 @@ public class UIAsientosContablesGrid extends GridCustom<AsientosContables> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +156,13 @@ public class UIAsientosContablesGrid extends GridCustom<AsientosContables> {
 	protected List<AsientosContables> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return new ArrayList<AsientosContables>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

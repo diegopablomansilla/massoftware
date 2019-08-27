@@ -22,7 +22,7 @@ public class UIAsientosModelosGrid extends GridCustom<AsientosModelos> {
 		super(AsientosModelos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UIAsientosModelosGrid extends GridCustom<AsientosModelos> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UIAsientosModelosGrid extends GridCustom<AsientosModelos> {
 	protected List<AsientosModelos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
+				return new ArrayList<AsientosModelos>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

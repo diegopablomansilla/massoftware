@@ -22,7 +22,7 @@ public class UICuentasFondosGruposGrid extends GridCustom<CuentasFondosGrupos> {
 		super(CuentasFondosGrupos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UICuentasFondosGruposGrid extends GridCustom<CuentasFondosGrupos> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getCuentaFondoRubro() == null || filter.getCuentaFondoRubro().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UICuentasFondosGruposGrid extends GridCustom<CuentasFondosGrupos> {
 	protected List<CuentasFondosGrupos> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getCuentaFondoRubro() == null || filter.getCuentaFondoRubro().toString().trim().isEmpty()) {
+				return new ArrayList<CuentasFondosGrupos>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

@@ -47,13 +47,13 @@ public class Talonario extends EntityId implements Cloneable {
 	private Integer cantidadMinimaComprobantes;
 
 	// Fecha
-	private java.util.Date fecha;
+	private java.time.LocalDate fecha;
 
 	// Nº C.A.I
 	private Long numeroCAI;
 
 	// Vencimiento C.A.I
-	private java.util.Date vencimiento;
+	private java.time.LocalDate vencimiento;
 
 	// Días aviso vto.
 	private Integer diasAvisoVencimiento;
@@ -191,12 +191,12 @@ public class Talonario extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha
-	public java.util.Date getFecha() {
+	public java.time.LocalDate getFecha() {
 		return this.fecha;
 	}
 
 	// SET Fecha
-	public void setFecha(java.util.Date fecha ){
+	public void setFecha(java.time.LocalDate fecha ){
 		this.fecha = fecha;
 	}
 
@@ -211,12 +211,12 @@ public class Talonario extends EntityId implements Cloneable {
 	}
 
 	// GET Vencimiento C.A.I
-	public java.util.Date getVencimiento() {
+	public java.time.LocalDate getVencimiento() {
 		return this.vencimiento;
 	}
 
 	// SET Vencimiento C.A.I
-	public void setVencimiento(java.util.Date vencimiento ){
+	public void setVencimiento(java.time.LocalDate vencimiento ){
 		this.vencimiento = vencimiento;
 	}
 

@@ -1,23 +1,23 @@
 
 package com.massoftware.service.empresa;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Depósitos")
 @Route("Depositos")
@@ -48,6 +48,7 @@ public class UIDepositosView extends VerticalLayout {
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
+	private ComboBox<Sucursales> sucursal;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -59,7 +60,8 @@ public class UIDepositosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +70,11 @@ public class UIDepositosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº depósito (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +99,7 @@ public class UIDepositosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº depósito (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +134,8 @@ public class UIDepositosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, DepositosFiltro::getNombre, DepositosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(DepositosFiltro::getNombre, DepositosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -140,6 +145,26 @@ public class UIDepositosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
+			search();
+		});
+
+		// Sucursal
+		sucursal = new ComboBox<>();
+		sucursal.setPlaceholder("Sucursal");
+		SucursalService sucursalService = new SucursalService();
+		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
+		sucursalFiltro.setUnlimited(true);
+		java.util.List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
+		sucursal.setItems(sucursalItems);
+		binder.forField(sucursal)
+			.bind(DepositosFiltro::getSucursal, DepositosFiltro::setSucursal);
+		if(sucursalItems.size() > 0){
+			sucursal.setValue(sucursalItems.get(0));
+		}
+		sucursal.addValueChangeListener(event -> {
+			search();
+		});
+		sucursal.addBlurListener(event -> {
 			search();
 		});
 
@@ -251,12 +276,13 @@ public class UIDepositosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, sucursal, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIDepositosGrid(AppCX.services().buildDepositoService(), filter);
+//		grid = new UIDepositosGrid(AppCX.services().buildDepositoService(), filter);
+		grid = new UIDepositosGrid(new DepositoService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +293,9 @@ public class UIDepositosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (DepositosFiltro) this.filter.clone();
 			if (binder.isValid()) {

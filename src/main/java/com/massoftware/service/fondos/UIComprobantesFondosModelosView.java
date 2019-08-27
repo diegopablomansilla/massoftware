@@ -1,23 +1,22 @@
 
 package com.massoftware.service.fondos;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.textfield.TextField;
+
 
 @PageTitle("Modelos de comprobante de fondo")
 @Route("ComprobantesFondosModelos")
@@ -59,7 +58,8 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -68,10 +68,11 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº modelo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,6 +97,7 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº modelo (hasta)
 		numeroTo = new NumberField();
@@ -130,7 +132,8 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.bind(nombre, ComprobantesFondosModelosFiltro::getNombre, ComprobantesFondosModelosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(ComprobantesFondosModelosFiltro::getNombre, ComprobantesFondosModelosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -256,7 +259,8 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIComprobantesFondosModelosGrid(AppCX.services().buildComprobanteFondoModeloService(), filter);
+//		grid = new UIComprobantesFondosModelosGrid(AppCX.services().buildComprobanteFondoModeloService(), filter);
+		grid = new UIComprobantesFondosModelosGrid(new ComprobanteFondoModeloService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -267,6 +271,9 @@ public class UIComprobantesFondosModelosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (ComprobantesFondosModelosFiltro) this.filter.clone();
 			if (binder.isValid()) {

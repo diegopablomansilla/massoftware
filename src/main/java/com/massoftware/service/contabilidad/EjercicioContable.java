@@ -12,10 +12,10 @@ public class EjercicioContable extends EntityId implements Cloneable {
 	private Integer numero;
 
 	// Apertura
-	private java.util.Date apertura;
+	private java.time.LocalDate apertura;
 
 	// Cierre
-	private java.util.Date cierre;
+	private java.time.LocalDate cierre;
 
 	// Cerrado
 	private Boolean cerrado;
@@ -49,22 +49,22 @@ public class EjercicioContable extends EntityId implements Cloneable {
 	}
 
 	// GET Apertura
-	public java.util.Date getApertura() {
+	public java.time.LocalDate getApertura() {
 		return this.apertura;
 	}
 
 	// SET Apertura
-	public void setApertura(java.util.Date apertura ){
+	public void setApertura(java.time.LocalDate apertura ){
 		this.apertura = apertura;
 	}
 
 	// GET Cierre
-	public java.util.Date getCierre() {
+	public java.time.LocalDate getCierre() {
 		return this.cierre;
 	}
 
 	// SET Cierre
-	public void setCierre(java.util.Date cierre ){
+	public void setCierre(java.time.LocalDate cierre ){
 		this.cierre = cierre;
 	}
 

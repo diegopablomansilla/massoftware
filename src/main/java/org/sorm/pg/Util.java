@@ -88,6 +88,8 @@ public class Util {
 			return true;
 		} else if (c.equals(java.util.Date.class)) {
 			return true;
+		} else if (c.equals(java.time.LocalDate.class)) {
+			return true;
 		} else if (c.equals(Timestamp.class)) {
 			return true;
 		} else if (c.equals(Time.class)) {

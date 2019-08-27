@@ -22,7 +22,7 @@ public class UITransportesTarifasGrid extends GridCustom<TransportesTarifas> {
 		super(TransportesTarifas.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UITransportesTarifasGrid extends GridCustom<TransportesTarifas> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getTransporte() == null || filter.getTransporte().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UITransportesTarifasGrid extends GridCustom<TransportesTarifas> {
 	protected List<TransportesTarifas> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getTransporte() == null || filter.getTransporte().toString().trim().isEmpty()) {
+				return new ArrayList<TransportesTarifas>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

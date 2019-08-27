@@ -21,7 +21,7 @@ public class XUIBancosGrid extends GridCustom<Bancos> {
 		super(Bancos.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		loadItems();
 	}
 
 	protected void addColumns() {

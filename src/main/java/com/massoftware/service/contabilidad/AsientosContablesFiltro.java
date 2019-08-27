@@ -21,22 +21,22 @@ public class AsientosContablesFiltro extends GenericFilter implements Cloneable 
 	private String detalle;
 
 	// Fecha (desde)
-	private java.util.Date fechaFrom;
+	private java.time.LocalDate fechaFrom;
 
 	// Fecha (hasta)
-	private java.util.Date fechaTo;
+	private java.time.LocalDate fechaTo;
 
 	// Ejercicio
-	private EjercicioContable ejercicioContable;
+	private EjerciciosContables ejercicioContable;
 
 	// Minuta contable
-	private MinutaContable minutaContable;
+	private MinutasContables minutaContable;
 
 	// Módulo
-	private AsientoContableModulo asientoContableModulo;
+	private AsientosContablesModulos asientoContableModulo;
 
 	// Sucursal
-	private Sucursal sucursal;
+	private Sucursales sucursal;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -72,62 +72,62 @@ public class AsientosContablesFiltro extends GenericFilter implements Cloneable 
 	}
 
 	// GET Fecha (desde)
-	public java.util.Date getFechaFrom() {
+	public java.time.LocalDate getFechaFrom() {
 		return this.fechaFrom;
 	}
 
 	// SET Fecha (desde)
-	public void setFechaFrom(java.util.Date fechaFrom){
+	public void setFechaFrom(java.time.LocalDate fechaFrom){
 		this.fechaFrom = fechaFrom;
 	}
 
 	// GET Fecha (hasta)
-	public java.util.Date getFechaTo() {
+	public java.time.LocalDate getFechaTo() {
 		return this.fechaTo;
 	}
 
 	// SET Fecha (hasta)
-	public void setFechaTo(java.util.Date fechaTo){
+	public void setFechaTo(java.time.LocalDate fechaTo){
 		this.fechaTo = fechaTo;
 	}
 
 	// GET Ejercicio
-	public EjercicioContable getEjercicioContable() {
+	public EjerciciosContables getEjercicioContable() {
 		return this.ejercicioContable;
 	}
 
 	// SET Ejercicio
-	public void setEjercicioContable(EjercicioContable ejercicioContable){
+	public void setEjercicioContable(EjerciciosContables ejercicioContable){
 		this.ejercicioContable = ejercicioContable;
 	}
 
 	// GET Minuta contable
-	public MinutaContable getMinutaContable() {
+	public MinutasContables getMinutaContable() {
 		return this.minutaContable;
 	}
 
 	// SET Minuta contable
-	public void setMinutaContable(MinutaContable minutaContable){
+	public void setMinutaContable(MinutasContables minutaContable){
 		this.minutaContable = minutaContable;
 	}
 
 	// GET Módulo
-	public AsientoContableModulo getAsientoContableModulo() {
+	public AsientosContablesModulos getAsientoContableModulo() {
 		return this.asientoContableModulo;
 	}
 
 	// SET Módulo
-	public void setAsientoContableModulo(AsientoContableModulo asientoContableModulo){
+	public void setAsientoContableModulo(AsientosContablesModulos asientoContableModulo){
 		this.asientoContableModulo = asientoContableModulo;
 	}
 
 	// GET Sucursal
-	public Sucursal getSucursal() {
+	public Sucursales getSucursal() {
 		return this.sucursal;
 	}
 
 	// SET Sucursal
-	public void setSucursal(Sucursal sucursal){
+	public void setSucursal(Sucursales sucursal){
 		this.sucursal = sucursal;
 	}
 		

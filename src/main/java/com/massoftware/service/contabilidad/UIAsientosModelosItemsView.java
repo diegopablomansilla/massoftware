@@ -1,23 +1,20 @@
 
 package com.massoftware.service.contabilidad;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Items de asiento modelo")
 @Route("AsientosModelosItems")
@@ -45,6 +42,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<AsientosModelos> asientoModelo;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -56,7 +54,8 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -65,10 +64,32 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
+		// Asiento modelo
+		asientoModelo = new ComboBox<>();
+		asientoModelo.setRequired(true);
+		asientoModelo.setPlaceholder("Asiento modelo");
+		AsientoModeloService asientoModeloService = new AsientoModeloService();
+		AsientosModelosFiltro asientoModeloFiltro = new AsientosModelosFiltro();
+		asientoModeloFiltro.setUnlimited(true);
+		java.util.List<AsientosModelos> asientoModeloItems = asientoModeloService.find(asientoModeloFiltro);
+		asientoModelo.setItems(asientoModeloItems);
+		binder.forField(asientoModelo)
+			.asRequired("Asiento modelo es requerido.")		
+			.bind(AsientosModelosItemsFiltro::getAsientoModelo, AsientosModelosItemsFiltro::setAsientoModelo);
+		if(asientoModeloItems.size() > 0){
+			asientoModelo.setValue(asientoModeloItems.get(0));
+		}
+		asientoModelo.addValueChangeListener(event -> {
+			search();
+		});
+		asientoModelo.addBlurListener(event -> {
+			search();
+		});
 
 
 /* EJEMPLOS
@@ -178,12 +199,13 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, findBTN);
+		filterRow1.add(newBTN, asientoModelo, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIAsientosModelosItemsGrid(AppCX.services().buildAsientoModeloItemService(), filter);
+//		grid = new UIAsientosModelosItemsGrid(AppCX.services().buildAsientoModeloItemService(), filter);
+		grid = new UIAsientosModelosItemsGrid(new AsientoModeloItemService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -194,6 +216,9 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (AsientosModelosItemsFiltro) this.filter.clone();
 			if (binder.isValid()) {

@@ -9,7 +9,7 @@ public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneabl
 
 
 	// Moneda
-	private Moneda moneda;
+	private Monedas moneda;
 
 	// Fecha cotización (desde)
 	private java.sql.Timestamp cotizacionFechaFrom;
@@ -21,12 +21,12 @@ public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneabl
 
 
 	// GET Moneda
-	public Moneda getMoneda() {
+	public Monedas getMoneda() {
 		return this.moneda;
 	}
 
 	// SET Moneda
-	public void setMoneda(Moneda moneda){
+	public void setMoneda(Monedas moneda){
 		this.moneda = moneda;
 	}
 

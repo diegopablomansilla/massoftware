@@ -18,7 +18,7 @@ public class TicketsModelosFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// ticket
-	private Ticket ticket;
+	private Tickets ticket;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class TicketsModelosFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET ticket
-	public Ticket getTicket() {
+	public Tickets getTicket() {
 		return this.ticket;
 	}
 
 	// SET ticket
-	public void setTicket(Ticket ticket){
+	public void setTicket(Tickets ticket){
 		this.ticket = ticket;
 	}
 		

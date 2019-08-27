@@ -22,7 +22,7 @@ public class UICiudadesGrid extends GridCustom<Ciudades> {
 		super(Ciudades.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,18 @@ public class UICiudadesGrid extends GridCustom<Ciudades> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return 0;
+			}
+	
+			if (filter.getProvincia() == null || filter.getProvincia().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +136,17 @@ public class UICiudadesGrid extends GridCustom<Ciudades> {
 	protected List<Ciudades> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return new ArrayList<Ciudades>();
+			}
+	
+			if (filter.getProvincia() == null || filter.getProvincia().toString().trim().isEmpty()) {
+				return new ArrayList<Ciudades>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

@@ -18,7 +18,7 @@ public class CuentasFondosFiltro extends GenericFilter implements Cloneable {
 	private String nombre;
 
 	// banco
-	private Banco banco;
+	private Bancos banco;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class CuentasFondosFiltro extends GenericFilter implements Cloneable {
 	}
 
 	// GET banco
-	public Banco getBanco() {
+	public Bancos getBanco() {
 		return this.banco;
 	}
 
 	// SET banco
-	public void setBanco(Banco banco){
+	public void setBanco(Bancos banco){
 		this.banco = banco;
 	}
 		

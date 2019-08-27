@@ -22,7 +22,7 @@ public class UIUsuariosGrid extends GridCustom<Usuarios> {
 		super(Usuarios.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -53,6 +53,18 @@ public class UIUsuariosGrid extends GridCustom<Usuarios> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Usuarios::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº usuario");
+
+		addColumn(Usuarios::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -112,6 +124,10 @@ public class UIUsuariosGrid extends GridCustom<Usuarios> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +140,9 @@ public class UIUsuariosGrid extends GridCustom<Usuarios> {
 	protected List<Usuarios> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

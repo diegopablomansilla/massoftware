@@ -22,7 +22,7 @@ public class UISeguridadPuertasGrid extends GridCustom<SeguridadPuertas> {
 		super(SeguridadPuertas.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -53,6 +53,24 @@ public class UISeguridadPuertasGrid extends GridCustom<SeguridadPuertas> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(SeguridadPuertas::getNombreModulo, "nombreModulo")
+			.setKey("nombreModulo")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nombre módulo");
+
+		addColumn(SeguridadPuertas::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº puerta");
+
+		addColumn(SeguridadPuertas::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -112,6 +130,14 @@ public class UISeguridadPuertasGrid extends GridCustom<SeguridadPuertas> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getSeguridadModulo() == null || filter.getSeguridadModulo().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +150,13 @@ public class UISeguridadPuertasGrid extends GridCustom<SeguridadPuertas> {
 	protected List<SeguridadPuertas> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getSeguridadModulo() == null || filter.getSeguridadModulo().toString().trim().isEmpty()) {
+				return new ArrayList<SeguridadPuertas>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

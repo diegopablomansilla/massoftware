@@ -1,23 +1,24 @@
 
 package com.massoftware.service.fondos.banco;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.textfield.NumberField;
+import com.massoftware.ui.util.DoubleToIntegerConverter;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.massoftware.service.FBoolean;
+import com.vaadin.flow.component.textfield.TextField;
+
 
 @PageTitle("Bancos")
 @Route("Bancos")
@@ -60,7 +61,8 @@ public class UIBancosView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -69,10 +71,11 @@ public class UIBancosView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
 		// Nº banco (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -97,6 +100,7 @@ public class UIBancosView extends VerticalLayout {
 		numeroFrom.addBlurListener(event -> {
 			search();
 		});
+
 
 		// Nº banco (hasta)
 		numeroTo = new NumberField();
@@ -129,7 +133,8 @@ public class UIBancosView extends VerticalLayout {
 		FBoolean valueVigente = new FBoolean("Vigente: ", null, "Todos");
 		vigente.setItems(valueVigente, new FBoolean("Vigente: ", true, "Si"), new FBoolean("Vigente: ", false, "No"));
 		vigente.setValue(valueVigente);
-		binder.bind(vigente, BancosFiltro::getVigenteX, BancosFiltro::setVigenteX);
+		binder.forField(vigente)
+			.bind(BancosFiltro::getVigenteX, BancosFiltro::setVigenteX);
 		vigente.addValueChangeListener(event -> {
 			search();
 		});
@@ -145,7 +150,8 @@ public class UIBancosView extends VerticalLayout {
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
 		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
-		binder.bind(nombre, BancosFiltro::getNombre, BancosFiltro::setNombre);
+		binder.forField(nombre)
+			.bind(BancosFiltro::getNombre, BancosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
 			search();
 		});
@@ -271,7 +277,8 @@ public class UIBancosView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIBancosGrid(AppCX.services().buildBancoService(), filter);
+//		grid = new UIBancosGrid(AppCX.services().buildBancoService(), filter);
+		grid = new UIBancosGrid(new BancoService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -282,6 +289,9 @@ public class UIBancosView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (BancosFiltro) this.filter.clone();
 			if (binder.isValid()) {

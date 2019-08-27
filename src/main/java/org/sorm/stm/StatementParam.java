@@ -54,6 +54,12 @@ public class StatementParam extends Statement {
 		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
 	}
 
-
+	@SuppressWarnings("rawtypes")
+	public Object buildArgTrim(Object arg, Class c) {
+		if (c == String.class) {
+			return (arg == null || arg.toString().trim().isEmpty()) ? c : arg.toString().trim();
+		}
+		return buildArg(arg, c);
+	}		
 
 }

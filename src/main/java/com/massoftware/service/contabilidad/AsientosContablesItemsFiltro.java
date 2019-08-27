@@ -18,7 +18,7 @@ public class AsientosContablesItemsFiltro extends GenericFilter implements Clone
 	private String detalle;
 
 	// Asiento contable
-	private AsientoContable asientoContable;
+	private AsientosContables asientoContable;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +54,12 @@ public class AsientosContablesItemsFiltro extends GenericFilter implements Clone
 	}
 
 	// GET Asiento contable
-	public AsientoContable getAsientoContable() {
+	public AsientosContables getAsientoContable() {
 		return this.asientoContable;
 	}
 
 	// SET Asiento contable
-	public void setAsientoContable(AsientoContable asientoContable){
+	public void setAsientoContable(AsientosContables asientoContable){
 		this.asientoContable = asientoContable;
 	}
 		

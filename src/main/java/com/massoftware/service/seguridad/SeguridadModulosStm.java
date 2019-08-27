@@ -22,7 +22,7 @@ public class SeguridadModulosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "SeguridadModulo.id ";
+			atts = "SeguridadModulo.id , SeguridadModulo.numero, SeguridadModulo.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -49,13 +49,13 @@ public class SeguridadModulosStm extends StatementParam {
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " SeguridadModulo.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " SeguridadModulo.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -65,7 +65,7 @@ public class SeguridadModulosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(SeguridadModulo.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 
 		
 		//-----------------

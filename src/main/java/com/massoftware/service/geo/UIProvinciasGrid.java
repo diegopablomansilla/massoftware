@@ -22,7 +22,7 @@ public class UIProvinciasGrid extends GridCustom<Provincias> {
 		super(Provincias.class, true, true, true, true);
 		this.filter = filter;
 		this.service = service;
-		laodItems();
+		//laodItems();
 	}
 
 	protected void addColumns() {
@@ -112,6 +112,14 @@ public class UIProvinciasGrid extends GridCustom<Provincias> {
 	protected Integer countFromService() {
 
 		try {
+			
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return 0;
+			}
+
+		
 			return service.count(filter);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +132,13 @@ public class UIProvinciasGrid extends GridCustom<Provincias> {
 	protected List<Provincias> findFromService(int offset, int limit, Integer orderBy, Boolean orderByDesc) {
 
 		try {
+		
+			
+	
+			if (filter.getPais() == null || filter.getPais().toString().trim().isEmpty()) {
+				return new ArrayList<Provincias>();
+			}
+
 
 			filter.setOffset(offset);
 			filter.setLimit(limit);

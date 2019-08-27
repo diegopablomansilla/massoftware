@@ -1,23 +1,20 @@
 
 package com.massoftware.service.monedas;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Cotizaciones de monedas")
 @Route("MonedasCotizaciones")
@@ -45,6 +42,7 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<Monedas> moneda;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -56,7 +54,8 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -65,10 +64,30 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
+		// Moneda
+		moneda = new ComboBox<>();
+		moneda.setPlaceholder("Moneda");
+		MonedaService monedaService = new MonedaService();
+		MonedasFiltro monedaFiltro = new MonedasFiltro();
+		monedaFiltro.setUnlimited(true);
+		java.util.List<Monedas> monedaItems = monedaService.find(monedaFiltro);
+		moneda.setItems(monedaItems);
+		binder.forField(moneda)
+			.bind(MonedasCotizacionesFiltro::getMoneda, MonedasCotizacionesFiltro::setMoneda);
+		if(monedaItems.size() > 0){
+			moneda.setValue(monedaItems.get(0));
+		}
+		moneda.addValueChangeListener(event -> {
+			search();
+		});
+		moneda.addBlurListener(event -> {
+			search();
+		});
 
 
 /* EJEMPLOS
@@ -178,12 +197,13 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, findBTN);
+		filterRow1.add(newBTN, moneda, findBTN);
 
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UIMonedasCotizacionesGrid(AppCX.services().buildMonedaCotizacionService(), filter);
+//		grid = new UIMonedasCotizacionesGrid(AppCX.services().buildMonedaCotizacionService(), filter);
+		grid = new UIMonedasCotizacionesGrid(new MonedaCotizacionService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -194,6 +214,9 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (MonedasCotizacionesFiltro) this.filter.clone();
 			if (binder.isValid()) {

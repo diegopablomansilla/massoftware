@@ -16,15 +16,15 @@ public class CodigosPostalesStm extends StatementParam {
 		
 	
 		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
 		}
 	
 		if (f.getProvincia() == null || f.getProvincia().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".provincia para filtrar la consulta");
 		}
 	
 		if (f.getCiudad() == null || f.getCiudad().toString().trim().isEmpty()) {
-//			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".ciudad para filtrar la consulta");
+			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CodigosPostalesFiltro.class.getCanonicalName() + ".ciudad para filtrar la consulta");
 		}
 
 
@@ -65,36 +65,36 @@ public class CodigosPostalesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CodigoPostal.Codigo))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-	}
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CodigoPostal.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CodigoPostal.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getPais() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CodigoPostal.Pais = ?";
-			this.addArg(buildArgTrimLower(f.getPais(), String.class));
+			this.addArg(buildArgTrim(f.getPais().getId(), String.class));
 		}
 	
 		if (f.getProvincia() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CodigoPostal.Provincia = ?";
-			this.addArg(buildArgTrimLower(f.getProvincia(), String.class));
+			this.addArg(buildArgTrim(f.getProvincia().getId(), String.class));
 		}
 	
 		if (f.getCiudad() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " CodigoPostal.Ciudad = ?";
-			this.addArg(buildArgTrimLower(f.getCiudad(), String.class));
+			this.addArg(buildArgTrim(f.getCiudad().getId(), String.class));
 		}
 
 		

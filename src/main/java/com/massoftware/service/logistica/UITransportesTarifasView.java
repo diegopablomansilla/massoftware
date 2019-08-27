@@ -1,23 +1,20 @@
 
 package com.massoftware.service.logistica;
 
-import com.massoftware.service.AppCX;
-import com.massoftware.service.FBoolean;
 import com.massoftware.ui.components.UIUtils;
-import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyModifier;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+
+import com.vaadin.flow.component.combobox.ComboBox;
+
 
 @PageTitle("Tarifas de transporte")
 @Route("TransportesTarifas")
@@ -45,6 +42,7 @@ public class UITransportesTarifasView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<Transportes> transporte;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -56,7 +54,8 @@ public class UITransportesTarifasView extends VerticalLayout {
 		buildBinder();
 		buildFilterRows();
 		buildGrid();
-		this.setHeightFull();
+		this.setHeightFull();		
+		this.search();
 	}
 
 	private void buildBinder() {
@@ -65,10 +64,32 @@ public class UITransportesTarifasView extends VerticalLayout {
 		binder.setBean(filter);
 	}
 
-	private void buildFilterRows() {
+	private void buildFilterRows() throws Exception {
 
 		// Controls ------------------------
 		
+
+		// Transporte
+		transporte = new ComboBox<>();
+		transporte.setRequired(true);
+		transporte.setPlaceholder("Transporte");
+		TransporteService transporteService = new TransporteService();
+		TransportesFiltro transporteFiltro = new TransportesFiltro();
+		transporteFiltro.setUnlimited(true);
+		java.util.List<Transportes> transporteItems = transporteService.find(transporteFiltro);
+		transporte.setItems(transporteItems);
+		binder.forField(transporte)
+			.asRequired("Transporte es requerido.")		
+			.bind(TransportesTarifasFiltro::getTransporte, TransportesTarifasFiltro::setTransporte);
+		if(transporteItems.size() > 0){
+			transporte.setValue(transporteItems.get(0));
+		}
+		transporte.addValueChangeListener(event -> {
+			search();
+		});
+		transporte.addBlurListener(event -> {
+			search();
+		});
 
 
 /* EJEMPLOS
@@ -183,7 +204,8 @@ public class UITransportesTarifasView extends VerticalLayout {
 	}
 
 	private void buildGrid() throws Exception {
-		grid = new UITransportesTarifasGrid(AppCX.services().buildTransporteTarifaService(), filter);
+//		grid = new UITransportesTarifasGrid(AppCX.services().buildTransporteTarifaService(), filter);
+		grid = new UITransportesTarifasGrid(new TransporteTarifaService(), filter);
 //		grid.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
 		grid.setWidthFull();
 //		grid.setHeightFull();
@@ -194,6 +216,9 @@ public class UITransportesTarifasView extends VerticalLayout {
 	}
 
 	private void search() {
+	
+		binder.validate();
+		
 		if (this.filter.equals(this.lastFilter) == false) {
 			this.lastFilter = (TransportesTarifasFiltro) this.filter.clone();
 			if (binder.isValid()) {
