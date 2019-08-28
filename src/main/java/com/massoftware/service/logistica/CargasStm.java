@@ -13,26 +13,35 @@ public class CargasStm extends StatementParam {
 					+ CargasFiltro.class.getCanonicalName());
 		}
 		
-		
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getTransporte() == null || f.getTransporte().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CargasFiltro.class.getCanonicalName() + ".transporte para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
-			atts = "Carga.id ";
+			atts = "Carga.id , Transporte.nombre AS nombreTransporte, Carga.numero, Carga.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += " LEFT JOIN massoftware.Transporte ON Transporte.id = Carga.transporte";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.Carga " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.Carga " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -45,6 +54,12 @@ public class CargasStm extends StatementParam {
 		//-----------------
 		
 		
+	
+		if (f.getTransporte() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " Carga.Transporte = ?";
+			this.addArg(buildArgTrim(f.getTransporte().getId(), String.class));
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
@@ -77,13 +92,6 @@ public class CargasStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

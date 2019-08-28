@@ -1,8 +1,10 @@
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
+import java.time.LocalDate;
 import com.massoftware.service.contabilidad.AsientoContable;
 import com.massoftware.service.contabilidad.CuentaContable;
+import java.math.BigDecimal;
 
 public class AsientoContableItem extends EntityId implements Cloneable {
 
@@ -14,7 +16,7 @@ public class AsientoContableItem extends EntityId implements Cloneable {
 	private Integer numero;
 
 	// Fecha
-	private java.time.LocalDate fecha;
+	private LocalDate fecha;
 
 	// Detalle
 	private String detalle;
@@ -26,10 +28,10 @@ public class AsientoContableItem extends EntityId implements Cloneable {
 	private CuentaContable cuentaContable;
 
 	// Debe
-	private java.math.BigDecimal debe;
+	private BigDecimal debe;
 
 	// Haber
-	private java.math.BigDecimal haber;
+	private BigDecimal haber;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -54,12 +56,12 @@ public class AsientoContableItem extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha
-	public java.time.LocalDate getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 
 	// SET Fecha
-	public void setFecha(java.time.LocalDate fecha ){
+	public void setFecha(LocalDate fecha ){
 		this.fecha = fecha;
 	}
 
@@ -94,22 +96,22 @@ public class AsientoContableItem extends EntityId implements Cloneable {
 	}
 
 	// GET Debe
-	public java.math.BigDecimal getDebe() {
+	public BigDecimal getDebe() {
 		return this.debe;
 	}
 
 	// SET Debe
-	public void setDebe(java.math.BigDecimal debe ){
+	public void setDebe(BigDecimal debe ){
 		this.debe = debe;
 	}
 
 	// GET Haber
-	public java.math.BigDecimal getHaber() {
+	public BigDecimal getHaber() {
 		return this.haber;
 	}
 
 	// SET Haber
-	public void setHaber(java.math.BigDecimal haber ){
+	public void setHaber(BigDecimal haber ){
 		this.haber = haber;
 	}
 

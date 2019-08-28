@@ -17,6 +17,10 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
+import com.massoftware.service.fondos.banco.Bancos;
+import com.massoftware.service.fondos.banco.BancosFiltro;
+import com.massoftware.service.fondos.banco.BancoService;
 
 
 @PageTitle("Cuentas fondo")
@@ -75,6 +79,7 @@ public class UICuentasFondosView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº cuenta (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -100,7 +105,7 @@ public class UICuentasFondosView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº cuenta (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -126,6 +131,7 @@ public class UICuentasFondosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -148,13 +154,14 @@ public class UICuentasFondosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// banco
 		banco = new ComboBox<>();
 		banco.setPlaceholder("banco");
 		BancoService bancoService = new BancoService();
 		BancosFiltro bancoFiltro = new BancosFiltro();
 		bancoFiltro.setUnlimited(true);
-		java.util.List<Bancos> bancoItems = bancoService.find(bancoFiltro);
+		List<Bancos> bancoItems = bancoService.find(bancoFiltro);
 		banco.setItems(bancoItems);
 		binder.forField(banco)
 			.bind(CuentasFondosFiltro::getBanco, CuentasFondosFiltro::setBanco);
@@ -255,6 +262,7 @@ public class UICuentasFondosView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -278,6 +286,7 @@ public class UICuentasFondosView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, banco, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

@@ -1,23 +1,11 @@
 package com.massoftware.service.geo;
 
 import com.massoftware.service.*;
-import com.massoftware.service.geo.Pais;
-import com.massoftware.service.geo.Provincia;
-import com.massoftware.service.geo.Ciudad;
 
 public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
-
-	// Código
-	private String codigo;
-
-	// Secuencia (desde)
-	private Integer numeroFrom;
-
-	// Secuencia (hasta)
-	private Integer numeroTo;
 
 	// País
 	private Paises pais;
@@ -28,8 +16,50 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 	// Ciudad
 	private Ciudades ciudad;
 
+	// Código
+	private String codigo;
+
+	// Secuencia (desde)
+	private Integer numeroFrom;
+
+	// Secuencia (hasta)
+	private Integer numeroTo;
+
+	// Calle
+	private String nombreCalle;
+
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET País
+	public Paises getPais() {
+		return this.pais;
+	}
+
+	// SET País
+	public void setPais(Paises pais){
+		this.pais = pais;
+	}
+
+	// GET Provincia
+	public Provincias getProvincia() {
+		return this.provincia;
+	}
+
+	// SET Provincia
+	public void setProvincia(Provincias provincia){
+		this.provincia = provincia;
+	}
+
+	// GET Ciudad
+	public Ciudades getCiudad() {
+		return this.ciudad;
+	}
+
+	// SET Ciudad
+	public void setCiudad(Ciudades ciudad){
+		this.ciudad = ciudad;
+	}
 
 	// GET Código
 	public String getCodigo() {
@@ -61,34 +91,14 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 		this.numeroTo = numeroTo;
 	}
 
-	// GET País
-	public Paises getPais() {
-		return this.pais;
+	// GET Calle
+	public String getNombreCalle() {
+		return this.nombreCalle;
 	}
 
-	// SET País
-	public void setPais(Paises pais){
-		this.pais = pais;
-	}
-
-	// GET Provincia
-	public Provincias getProvincia() {
-		return this.provincia;
-	}
-
-	// SET Provincia
-	public void setProvincia(Provincias provincia){
-		this.provincia = provincia;
-	}
-
-	// GET Ciudad
-	public Ciudades getCiudad() {
-		return this.ciudad;
-	}
-
-	// SET Ciudad
-	public void setCiudad(Ciudades ciudad){
-		this.ciudad = ciudad;
+	// SET Calle
+	public void setNombreCalle(String nombreCalle){
+		this.nombreCalle = (nombreCalle == null || nombreCalle.trim().length() == 0) ? null : nombreCalle.trim();
 	}
 		
 	public boolean equals(Object obj) {
@@ -103,60 +113,6 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 		
 		CodigosPostalesFiltro other = (CodigosPostalesFiltro) obj;
 		
-		
-		// -------------------------------------------------------------------
-		
-		if (other.getCodigo() == null && this.getCodigo() != null) {
-			return false;
-		}
-		
-		if (other.getCodigo() != null && this.getCodigo() == null) {
-			return false;
-		}
-		
-		if (other.getCodigo() != null && this.getCodigo() != null) {
-		
-			if (other.getCodigo().equals(this.getCodigo()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
-		if (other.getNumeroFrom() == null && this.getNumeroFrom() != null) {
-			return false;
-		}
-		
-		if (other.getNumeroFrom() != null && this.getNumeroFrom() == null) {
-			return false;
-		}
-		
-		if (other.getNumeroFrom() != null && this.getNumeroFrom() != null) {
-		
-			if (other.getNumeroFrom().equals(this.getNumeroFrom()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
-		if (other.getNumeroTo() == null && this.getNumeroTo() != null) {
-			return false;
-		}
-		
-		if (other.getNumeroTo() != null && this.getNumeroTo() == null) {
-			return false;
-		}
-		
-		if (other.getNumeroTo() != null && this.getNumeroTo() != null) {
-		
-			if (other.getNumeroTo().equals(this.getNumeroTo()) == false) {
-				return false;
-			}
-		
-		}
 		
 		// -------------------------------------------------------------------
 		
@@ -214,6 +170,78 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
+		if (other.getCodigo() == null && this.getCodigo() != null) {
+			return false;
+		}
+		
+		if (other.getCodigo() != null && this.getCodigo() == null) {
+			return false;
+		}
+		
+		if (other.getCodigo() != null && this.getCodigo() != null) {
+		
+			if (other.getCodigo().equals(this.getCodigo()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getNumeroFrom() == null && this.getNumeroFrom() != null) {
+			return false;
+		}
+		
+		if (other.getNumeroFrom() != null && this.getNumeroFrom() == null) {
+			return false;
+		}
+		
+		if (other.getNumeroFrom() != null && this.getNumeroFrom() != null) {
+		
+			if (other.getNumeroFrom().equals(this.getNumeroFrom()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getNumeroTo() == null && this.getNumeroTo() != null) {
+			return false;
+		}
+		
+		if (other.getNumeroTo() != null && this.getNumeroTo() == null) {
+			return false;
+		}
+		
+		if (other.getNumeroTo() != null && this.getNumeroTo() != null) {
+		
+			if (other.getNumeroTo().equals(this.getNumeroTo()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getNombreCalle() == null && this.getNombreCalle() != null) {
+			return false;
+		}
+		
+		if (other.getNombreCalle() != null && this.getNombreCalle() == null) {
+			return false;
+		}
+		
+		if (other.getNombreCalle() != null && this.getNombreCalle() != null) {
+		
+			if (other.getNombreCalle().equals(this.getNombreCalle()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -229,9 +257,6 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setCodigo(this.getCodigo());
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
 		
 		// -------------------------------------------------------------------
 		
@@ -250,6 +275,10 @@ public class CodigosPostalesFiltro extends GenericFilter implements Cloneable {
 		if (this.getCiudad() != null) {
 			other.setCiudad(this.getCiudad().clone());
 		}
+		other.setCodigo(this.getCodigo());
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombreCalle(this.getNombreCalle());
 		
 		// -------------------------------------------------------------------
 		

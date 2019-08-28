@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Items de asientos contables")
@@ -75,6 +76,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº item (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -101,7 +103,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº item (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -128,6 +130,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Detalle
 		detalle = new TextField();
 		detalle.setPlaceholder("Detalle");
@@ -150,6 +153,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Asiento contable
 		asientoContable = new ComboBox<>();
 		asientoContable.setRequired(true);
@@ -157,7 +161,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		AsientoContableService asientoContableService = new AsientoContableService();
 		AsientosContablesFiltro asientoContableFiltro = new AsientosContablesFiltro();
 		asientoContableFiltro.setUnlimited(true);
-		java.util.List<AsientosContables> asientoContableItems = asientoContableService.find(asientoContableFiltro);
+		List<AsientosContables> asientoContableItems = asientoContableService.find(asientoContableFiltro);
 		asientoContable.setItems(asientoContableItems);
 		binder.forField(asientoContable)
 			.asRequired("Asiento contable es requerido.")		
@@ -259,6 +263,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -282,6 +287,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, asientoContable, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

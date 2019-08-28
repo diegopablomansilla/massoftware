@@ -1,6 +1,7 @@
 package com.massoftware.service.monedas;
 
 import com.massoftware.service.EntityId;
+import java.math.BigDecimal;
 import com.massoftware.service.afip.MonedaAFIP;
 
 public class Moneda extends EntityId implements Cloneable {
@@ -19,7 +20,7 @@ public class Moneda extends EntityId implements Cloneable {
 	private String abreviatura;
 
 	// Cotización
-	private java.math.BigDecimal cotizacion;
+	private BigDecimal cotizacion;
 
 	// Fecha cotización
 	private java.sql.Timestamp cotizacionFecha;
@@ -73,12 +74,12 @@ public class Moneda extends EntityId implements Cloneable {
 	}
 
 	// GET Cotización
-	public java.math.BigDecimal getCotizacion() {
+	public BigDecimal getCotizacion() {
 		return this.cotizacion;
 	}
 
 	// SET Cotización
-	public void setCotizacion(java.math.BigDecimal cotizacion ){
+	public void setCotizacion(BigDecimal cotizacion ){
 		this.cotizacion = cotizacion;
 	}
 

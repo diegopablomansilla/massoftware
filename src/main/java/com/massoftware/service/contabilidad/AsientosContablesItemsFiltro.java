@@ -1,7 +1,6 @@
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.*;
-import com.massoftware.service.contabilidad.AsientoContable;
 
 public class AsientosContablesItemsFiltro extends GenericFilter implements Cloneable {
 

@@ -26,6 +26,10 @@ public class ProvinciasDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombrePais((String) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setAbreviatura((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
 
 				r.add(objRow);
 

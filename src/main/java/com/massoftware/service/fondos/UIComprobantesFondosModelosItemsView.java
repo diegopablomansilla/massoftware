@@ -16,6 +16,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Modelos de comprobante de fondo")
@@ -73,6 +74,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº modelo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -98,7 +100,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº modelo (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -124,6 +126,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Cuenta fondo
 		cuentaFondo = new ComboBox<>();
 		cuentaFondo.setRequired(true);
@@ -131,7 +134,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 		CuentaFondoService cuentaFondoService = new CuentaFondoService();
 		CuentasFondosFiltro cuentaFondoFiltro = new CuentasFondosFiltro();
 		cuentaFondoFiltro.setUnlimited(true);
-		java.util.List<CuentasFondos> cuentaFondoItems = cuentaFondoService.find(cuentaFondoFiltro);
+		List<CuentasFondos> cuentaFondoItems = cuentaFondoService.find(cuentaFondoFiltro);
 		cuentaFondo.setItems(cuentaFondoItems);
 		binder.forField(cuentaFondo)
 			.asRequired("Cuenta fondo es requerido.")		
@@ -233,6 +236,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -256,6 +260,7 @@ public class UIComprobantesFondosModelosItemsView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, cuentaFondo, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

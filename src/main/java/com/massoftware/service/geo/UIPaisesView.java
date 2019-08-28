@@ -46,8 +46,8 @@ public class UIPaisesView extends VerticalLayout {
 	
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
-	private TextField nombre;
 	private TextField abreviatura;
+	private TextField nombre;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -74,6 +74,7 @@ public class UIPaisesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº país (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -99,7 +100,7 @@ public class UIPaisesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº país (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -125,28 +126,7 @@ public class UIPaisesView extends VerticalLayout {
 			search();
 		});
 
-		// Nombre
-		nombre = new TextField();
-		nombre.setPlaceholder("Nombre");
-		nombre.setPrefixComponent(VaadinIcon.SEARCH.create());
-		nombre.setWidthFull();
-		nombre.setClearButtonVisible(true);
-		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.forField(nombre)
-			.bind(PaisesFiltro::getNombre, PaisesFiltro::setNombre);
-		nombre.addKeyPressListener(Key.ENTER, event -> {
-			search();
-		});
-		nombre.addValueChangeListener(event -> {
-			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
-				search();
-			}
-		});
-		nombre.addBlurListener(event -> {
-			search();
-		});
-
+		//-------------------------------------------------------------------
 		// Abreviatura
 		abreviatura = new TextField();
 		abreviatura.setPlaceholder("Abreviatura");
@@ -154,7 +134,7 @@ public class UIPaisesView extends VerticalLayout {
 		abreviatura.setWidthFull();
 		abreviatura.setClearButtonVisible(true);
 		abreviatura.setAutoselect(true);
-		abreviatura.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
+		abreviatura.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(abreviatura)
 			.bind(PaisesFiltro::getAbreviatura, PaisesFiltro::setAbreviatura);
 		abreviatura.addKeyPressListener(Key.ENTER, event -> {
@@ -166,6 +146,29 @@ public class UIPaisesView extends VerticalLayout {
 			}
 		});
 		abreviatura.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
+		// Nombre
+		nombre = new TextField();
+		nombre.setPlaceholder("Nombre");
+		nombre.setPrefixComponent(VaadinIcon.SEARCH.create());
+		nombre.setWidthFull();
+		nombre.setClearButtonVisible(true);
+		nombre.setAutoselect(true);
+		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
+		binder.forField(nombre)
+			.bind(PaisesFiltro::getNombre, PaisesFiltro::setNombre);
+		nombre.addKeyPressListener(Key.ENTER, event -> {
+			search();
+		});
+		nombre.addValueChangeListener(event -> {
+			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
+				search();
+			}
+		});
+		nombre.addBlurListener(event -> {
 			search();
 		});
 
@@ -256,6 +259,7 @@ public class UIPaisesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -277,8 +281,9 @@ public class UIPaisesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, abreviatura, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, abreviatura, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

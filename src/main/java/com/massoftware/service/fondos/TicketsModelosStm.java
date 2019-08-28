@@ -13,16 +13,19 @@ public class TicketsModelosStm extends StatementParam {
 					+ TicketsModelosFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getTicket() == null || f.getTicket().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TicketsModelosFiltro.class.getCanonicalName() + ".ticket para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getTicket() == null || f.getTicket().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TicketsModelosFiltro.class.getCanonicalName() + ".ticket para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
@@ -32,11 +35,13 @@ public class TicketsModelosStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.TicketModelo " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.TicketModelo " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -87,13 +92,6 @@ public class TicketsModelosStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

@@ -1,7 +1,9 @@
 package com.massoftware.service.fondos;
 
 import com.massoftware.service.EntityId;
+import java.time.LocalDate;
 import com.massoftware.service.fondos.TicketControlDenunciados;
+import java.math.BigDecimal;
 
 public class Ticket extends EntityId implements Cloneable {
 
@@ -16,7 +18,7 @@ public class Ticket extends EntityId implements Cloneable {
 	private String nombre;
 
 	// Fecha actualización
-	private java.time.LocalDate fechaActualizacion;
+	private LocalDate fechaActualizacion;
 
 	// Cantidad por lotes
 	private Integer cantidadPorLotes;
@@ -25,7 +27,7 @@ public class Ticket extends EntityId implements Cloneable {
 	private TicketControlDenunciados ticketControlDenunciados;
 
 	// Valor máximo
-	private java.math.BigDecimal valorMaximo;
+	private BigDecimal valorMaximo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -60,12 +62,12 @@ public class Ticket extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha actualización
-	public java.time.LocalDate getFechaActualizacion() {
+	public LocalDate getFechaActualizacion() {
 		return this.fechaActualizacion;
 	}
 
 	// SET Fecha actualización
-	public void setFechaActualizacion(java.time.LocalDate fechaActualizacion ){
+	public void setFechaActualizacion(LocalDate fechaActualizacion ){
 		this.fechaActualizacion = fechaActualizacion;
 	}
 
@@ -90,12 +92,12 @@ public class Ticket extends EntityId implements Cloneable {
 	}
 
 	// GET Valor máximo
-	public java.math.BigDecimal getValorMaximo() {
+	public BigDecimal getValorMaximo() {
 		return this.valorMaximo;
 	}
 
 	// SET Valor máximo
-	public void setValorMaximo(java.math.BigDecimal valorMaximo ){
+	public void setValorMaximo(BigDecimal valorMaximo ){
 		this.valorMaximo = valorMaximo;
 	}
 

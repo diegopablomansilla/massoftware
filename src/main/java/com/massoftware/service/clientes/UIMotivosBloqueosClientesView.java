@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Motivos bloqueo a clientes")
@@ -75,6 +76,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº motivo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -100,7 +102,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº motivo (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -126,6 +128,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -148,13 +151,14 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Clasificación de cliente
 		clasificacionCliente = new ComboBox<>();
 		clasificacionCliente.setPlaceholder("Clasificación de cliente");
 		ClasificacionClienteService clasificacionClienteService = new ClasificacionClienteService();
 		ClasificacionesClientesFiltro clasificacionClienteFiltro = new ClasificacionesClientesFiltro();
 		clasificacionClienteFiltro.setUnlimited(true);
-		java.util.List<ClasificacionesClientes> clasificacionClienteItems = clasificacionClienteService.find(clasificacionClienteFiltro);
+		List<ClasificacionesClientes> clasificacionClienteItems = clasificacionClienteService.find(clasificacionClienteFiltro);
 		clasificacionCliente.setItems(clasificacionClienteItems);
 		binder.forField(clasificacionCliente)
 			.bind(MotivosBloqueosClientesFiltro::getClasificacionCliente, MotivosBloqueosClientesFiltro::setClasificacionCliente);
@@ -255,6 +259,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -278,6 +283,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, clasificacionCliente, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

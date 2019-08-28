@@ -61,5 +61,14 @@ public class StatementParam extends Statement {
 		}
 		return buildArg(arg, c);
 	}		
+	
+	@SuppressWarnings("rawtypes")
+	public Object buildArgTrimLower(Object arg, Class c) {
+		if (c == String.class) {
+			return (arg == null || arg.toString().trim().isEmpty()) ? c
+					: "%" + arg.toString().trim().toLowerCase() + "%";
+		}
+		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
+	}
 
 }

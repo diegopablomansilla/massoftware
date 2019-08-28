@@ -13,16 +13,19 @@ public class PuntosEquilibriosStm extends StatementParam {
 					+ PuntosEquilibriosFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + PuntosEquilibriosFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + PuntosEquilibriosFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
@@ -32,11 +35,13 @@ public class PuntosEquilibriosStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.PuntoEquilibrio " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.PuntoEquilibrio " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -87,13 +92,6 @@ public class PuntosEquilibriosStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

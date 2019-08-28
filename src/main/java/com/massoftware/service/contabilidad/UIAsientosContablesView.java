@@ -18,6 +18,10 @@ import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
+import com.massoftware.service.empresa.Sucursales;
+import com.massoftware.service.empresa.SucursalesFiltro;
+import com.massoftware.service.empresa.SucursalService;
 
 
 @PageTitle("Asientos contables")
@@ -81,6 +85,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº asiento (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -106,7 +111,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº asiento (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -132,6 +137,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Detalle
 		detalle = new TextField();
 		detalle.setPlaceholder("Detalle");
@@ -154,6 +160,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
 		ejercicioContable.setRequired(true);
@@ -161,7 +168,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();
 		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
 		ejercicioContableFiltro.setUnlimited(true);
-		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
 		ejercicioContable.setItems(ejercicioContableItems);
 		binder.forField(ejercicioContable)
 			.asRequired("Ejercicio es requerido.")		
@@ -176,13 +183,14 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Minuta contable
 		minutaContable = new ComboBox<>();
 		minutaContable.setPlaceholder("Minuta contable");
 		MinutaContableService minutaContableService = new MinutaContableService();
 		MinutasContablesFiltro minutaContableFiltro = new MinutasContablesFiltro();
 		minutaContableFiltro.setUnlimited(true);
-		java.util.List<MinutasContables> minutaContableItems = minutaContableService.find(minutaContableFiltro);
+		List<MinutasContables> minutaContableItems = minutaContableService.find(minutaContableFiltro);
 		minutaContable.setItems(minutaContableItems);
 		binder.forField(minutaContable)
 			.bind(AsientosContablesFiltro::getMinutaContable, AsientosContablesFiltro::setMinutaContable);
@@ -196,13 +204,14 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Módulo
 		asientoContableModulo = new ComboBox<>();
 		asientoContableModulo.setPlaceholder("Módulo");
 		AsientoContableModuloService asientoContableModuloService = new AsientoContableModuloService();
 		AsientosContablesModulosFiltro asientoContableModuloFiltro = new AsientosContablesModulosFiltro();
 		asientoContableModuloFiltro.setUnlimited(true);
-		java.util.List<AsientosContablesModulos> asientoContableModuloItems = asientoContableModuloService.find(asientoContableModuloFiltro);
+		List<AsientosContablesModulos> asientoContableModuloItems = asientoContableModuloService.find(asientoContableModuloFiltro);
 		asientoContableModulo.setItems(asientoContableModuloItems);
 		binder.forField(asientoContableModulo)
 			.bind(AsientosContablesFiltro::getAsientoContableModulo, AsientosContablesFiltro::setAsientoContableModulo);
@@ -216,13 +225,14 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Sucursal
 		sucursal = new ComboBox<>();
 		sucursal.setPlaceholder("Sucursal");
 		SucursalService sucursalService = new SucursalService();
 		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
 		sucursalFiltro.setUnlimited(true);
-		java.util.List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
+		List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
 		sucursal.setItems(sucursalItems);
 		binder.forField(sucursal)
 			.bind(AsientosContablesFiltro::getSucursal, AsientosContablesFiltro::setSucursal);
@@ -323,6 +333,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -346,6 +357,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, detalle, fechaFrom, fechaTo, ejercicioContable, minutaContable, asientoContableModulo, sucursal, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

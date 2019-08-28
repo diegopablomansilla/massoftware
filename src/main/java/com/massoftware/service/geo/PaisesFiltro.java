@@ -13,11 +13,11 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 	// Nº país (hasta)
 	private Integer numeroTo;
 
-	// Nombre
-	private String nombre;
-
 	// Abreviatura
 	private String abreviatura;
+
+	// Nombre
+	private String nombre;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -42,16 +42,6 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 		this.numeroTo = numeroTo;
 	}
 
-	// GET Nombre
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	// SET Nombre
-	public void setNombre(String nombre){
-		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
-	}
-
 	// GET Abreviatura
 	public String getAbreviatura() {
 		return this.abreviatura;
@@ -60,6 +50,16 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 	// SET Abreviatura
 	public void setAbreviatura(String abreviatura){
 		this.abreviatura = (abreviatura == null || abreviatura.trim().length() == 0) ? null : abreviatura.trim();
+	}
+
+	// GET Nombre
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	// SET Nombre
+	public void setNombre(String nombre){
+		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
 		
 	public boolean equals(Object obj) {
@@ -113,24 +113,6 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getNombre() == null && this.getNombre() != null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() == null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() != null) {
-		
-			if (other.getNombre().equals(this.getNombre()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		if (other.getAbreviatura() == null && this.getAbreviatura() != null) {
 			return false;
 		}
@@ -142,6 +124,24 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 		if (other.getAbreviatura() != null && this.getAbreviatura() != null) {
 		
 			if (other.getAbreviatura().equals(this.getAbreviatura()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getNombre() == null && this.getNombre() != null) {
+			return false;
+		}
+		
+		if (other.getNombre() != null && this.getNombre() == null) {
+			return false;
+		}
+		
+		if (other.getNombre() != null && this.getNombre() != null) {
+		
+			if (other.getNombre().equals(this.getNombre()) == false) {
 				return false;
 			}
 		
@@ -166,8 +166,8 @@ public class PaisesFiltro extends GenericFilter implements Cloneable {
 		
 		other.setNumeroFrom(this.getNumeroFrom());
 		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
 		other.setAbreviatura(this.getAbreviatura());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

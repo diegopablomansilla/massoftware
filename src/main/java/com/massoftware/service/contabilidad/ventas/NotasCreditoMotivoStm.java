@@ -13,12 +13,15 @@ public class NotasCreditoMotivoStm extends StatementParam {
 					+ NotasCreditoMotivoFiltro.class.getCanonicalName());
 		}
 		
-		
+		if(f.getUnlimited() == false) {
+			
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
@@ -28,11 +31,13 @@ public class NotasCreditoMotivoStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.NotaCreditoMotivo " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.NotaCreditoMotivo " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -77,13 +82,6 @@ public class NotasCreditoMotivoStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

@@ -1,10 +1,8 @@
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.*;
-import com.massoftware.service.contabilidad.EjercicioContable;
-import com.massoftware.service.contabilidad.MinutaContable;
-import com.massoftware.service.contabilidad.AsientoContableModulo;
-import com.massoftware.service.empresa.Sucursal;
+import java.time.LocalDate;
+import com.massoftware.service.empresa.Sucursales;
 
 public class AsientosContablesFiltro extends GenericFilter implements Cloneable {
 
@@ -21,10 +19,10 @@ public class AsientosContablesFiltro extends GenericFilter implements Cloneable 
 	private String detalle;
 
 	// Fecha (desde)
-	private java.time.LocalDate fechaFrom;
+	private LocalDate fechaFrom;
 
 	// Fecha (hasta)
-	private java.time.LocalDate fechaTo;
+	private LocalDate fechaTo;
 
 	// Ejercicio
 	private EjerciciosContables ejercicioContable;
@@ -72,22 +70,22 @@ public class AsientosContablesFiltro extends GenericFilter implements Cloneable 
 	}
 
 	// GET Fecha (desde)
-	public java.time.LocalDate getFechaFrom() {
+	public LocalDate getFechaFrom() {
 		return this.fechaFrom;
 	}
 
 	// SET Fecha (desde)
-	public void setFechaFrom(java.time.LocalDate fechaFrom){
+	public void setFechaFrom(LocalDate fechaFrom){
 		this.fechaFrom = fechaFrom;
 	}
 
 	// GET Fecha (hasta)
-	public java.time.LocalDate getFechaTo() {
+	public LocalDate getFechaTo() {
 		return this.fechaTo;
 	}
 
 	// SET Fecha (hasta)
-	public void setFechaTo(java.time.LocalDate fechaTo){
+	public void setFechaTo(LocalDate fechaTo){
 		this.fechaTo = fechaTo;
 	}
 

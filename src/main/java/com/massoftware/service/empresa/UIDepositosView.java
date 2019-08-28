@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Depósitos")
@@ -75,6 +76,7 @@ public class UIDepositosView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº depósito (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -100,7 +102,7 @@ public class UIDepositosView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº depósito (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -126,6 +128,7 @@ public class UIDepositosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -148,13 +151,14 @@ public class UIDepositosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Sucursal
 		sucursal = new ComboBox<>();
 		sucursal.setPlaceholder("Sucursal");
 		SucursalService sucursalService = new SucursalService();
 		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
 		sucursalFiltro.setUnlimited(true);
-		java.util.List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
+		List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
 		sucursal.setItems(sucursalItems);
 		binder.forField(sucursal)
 			.bind(DepositosFiltro::getSucursal, DepositosFiltro::setSucursal);
@@ -255,6 +259,7 @@ public class UIDepositosView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -278,6 +283,7 @@ public class UIDepositosView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, sucursal, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

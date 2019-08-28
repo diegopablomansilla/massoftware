@@ -8,6 +8,7 @@ import com.massoftware.service.monedas.Moneda;
 import com.massoftware.service.fondos.Caja;
 import com.massoftware.service.fondos.CuentaFondoTipoBanco;
 import com.massoftware.service.fondos.banco.Banco;
+import java.math.BigDecimal;
 import com.massoftware.service.fondos.CuentaFondoBancoCopia;
 import com.massoftware.service.seguridad.SeguridadPuerta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
@@ -74,7 +75,7 @@ public class CuentaFondo extends EntityId implements Cloneable {
 	private String cbu;
 
 	// Límite descubierto
-	private java.math.BigDecimal limiteDescubierto;
+	private BigDecimal limiteDescubierto;
 
 	// Cuenta fondo caución
 	private String cuentaFondoCaucion;
@@ -89,7 +90,7 @@ public class CuentaFondo extends EntityId implements Cloneable {
 	private CuentaFondoBancoCopia cuentaFondoBancoCopia;
 
 	// Límite operación individual
-	private java.math.BigDecimal limiteOperacionIndividual;
+	private BigDecimal limiteOperacionIndividual;
 
 	// Puerta p/ uso
 	private SeguridadPuerta seguridadPuertaUso;
@@ -293,12 +294,12 @@ public class CuentaFondo extends EntityId implements Cloneable {
 	}
 
 	// GET Límite descubierto
-	public java.math.BigDecimal getLimiteDescubierto() {
+	public BigDecimal getLimiteDescubierto() {
 		return this.limiteDescubierto;
 	}
 
 	// SET Límite descubierto
-	public void setLimiteDescubierto(java.math.BigDecimal limiteDescubierto ){
+	public void setLimiteDescubierto(BigDecimal limiteDescubierto ){
 		this.limiteDescubierto = limiteDescubierto;
 	}
 
@@ -343,12 +344,12 @@ public class CuentaFondo extends EntityId implements Cloneable {
 	}
 
 	// GET Límite operación individual
-	public java.math.BigDecimal getLimiteOperacionIndividual() {
+	public BigDecimal getLimiteOperacionIndividual() {
 		return this.limiteOperacionIndividual;
 	}
 
 	// SET Límite operación individual
-	public void setLimiteOperacionIndividual(java.math.BigDecimal limiteOperacionIndividual ){
+	public void setLimiteOperacionIndividual(BigDecimal limiteOperacionIndividual ){
 		this.limiteOperacionIndividual = limiteOperacionIndividual;
 	}
 

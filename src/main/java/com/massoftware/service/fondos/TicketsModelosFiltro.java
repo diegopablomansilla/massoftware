@@ -1,7 +1,6 @@
 package com.massoftware.service.fondos;
 
 import com.massoftware.service.*;
-import com.massoftware.service.fondos.Ticket;
 
 public class TicketsModelosFiltro extends GenericFilter implements Cloneable {
 

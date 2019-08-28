@@ -7,6 +7,9 @@ public class CargasFiltro extends GenericFilter implements Cloneable {
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
+	// Transporte
+	private Transportes transporte;
+
 	// Nº carga (desde)
 	private Integer numeroFrom;
 
@@ -18,6 +21,16 @@ public class CargasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Transporte
+	public Transportes getTransporte() {
+		return this.transporte;
+	}
+
+	// SET Transporte
+	public void setTransporte(Transportes transporte){
+		this.transporte = transporte;
+	}
 
 	// GET Nº carga (desde)
 	public Integer getNumeroFrom() {
@@ -61,6 +74,24 @@ public class CargasFiltro extends GenericFilter implements Cloneable {
 		
 		CargasFiltro other = (CargasFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getTransporte() == null && this.getTransporte() != null) {
+			return false;
+		}
+		
+		if (other.getTransporte() != null && this.getTransporte() == null) {
+			return false;
+		}
+		
+		if (other.getTransporte() != null && this.getTransporte() != null) {
+		
+			if (other.getTransporte().equals(this.getTransporte()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -133,6 +164,12 @@ public class CargasFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (this.getTransporte() != null) {
+			other.setTransporte(this.getTransporte().clone());
+		}
 		other.setNumeroFrom(this.getNumeroFrom());
 		other.setNumeroTo(this.getNumeroTo());
 		other.setNombre(this.getNombre());

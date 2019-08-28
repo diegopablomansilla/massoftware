@@ -4,14 +4,13 @@ package com.massoftware.service.logistica;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.ui.components.UIUtils;
+
 import com.massoftware.ui.views.GridCustom;
-import com.vaadin.flow.component.Component;
 //import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 //import com.vaadin.flow.data.renderer.TemplateRenderer;
+
+
 
 public class UICargasGrid extends GridCustom<Cargas> {
 
@@ -53,6 +52,24 @@ public class UICargasGrid extends GridCustom<Cargas> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Cargas::getNombreTransporte, "nombreTransporte")
+			.setKey("nombreTransporte")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Transporte");
+
+		addColumn(Cargas::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº carga");
+
+		addColumn(Cargas::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -114,6 +131,10 @@ public class UICargasGrid extends GridCustom<Cargas> {
 		try {
 			
 			
+	
+			if (filter.getTransporte() == null || filter.getTransporte().toString().trim().isEmpty()) {
+				return 0;
+			}
 
 		
 			return service.count(filter);
@@ -130,6 +151,10 @@ public class UICargasGrid extends GridCustom<Cargas> {
 		try {
 		
 			
+	
+			if (filter.getTransporte() == null || filter.getTransporte().toString().trim().isEmpty()) {
+				return new ArrayList<Cargas>();
+			}
 
 
 			filter.setOffset(offset);

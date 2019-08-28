@@ -26,6 +26,9 @@ public class PaisesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setAbreviatura((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
 
 				r.add(objRow);
 

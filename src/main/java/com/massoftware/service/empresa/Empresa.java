@@ -2,6 +2,7 @@ package com.massoftware.service.empresa;
 
 import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
+import java.time.LocalDate;
 
 public class Empresa extends EntityId implements Cloneable {
 
@@ -13,28 +14,28 @@ public class Empresa extends EntityId implements Cloneable {
 	private EjercicioContable ejercicioContable;
 
 	// Fecha cierre ventas
-	private java.time.LocalDate fechaCierreVentas;
+	private LocalDate fechaCierreVentas;
 
 	// Fecha cierre stock
-	private java.time.LocalDate fechaCierreStock;
+	private LocalDate fechaCierreStock;
 
 	// Fecha cierre fondo
-	private java.time.LocalDate fechaCierreFondo;
+	private LocalDate fechaCierreFondo;
 
 	// Fecha cierre compras
-	private java.time.LocalDate fechaCierreCompras;
+	private LocalDate fechaCierreCompras;
 
 	// Fecha cierre contabilidad
-	private java.time.LocalDate fechaCierreContabilidad;
+	private LocalDate fechaCierreContabilidad;
 
 	// Fecha cierre garantia y devoluciones
-	private java.time.LocalDate fechaCierreGarantiaDevoluciones;
+	private LocalDate fechaCierreGarantiaDevoluciones;
 
 	// Fecha cierre tambos
-	private java.time.LocalDate fechaCierreTambos;
+	private LocalDate fechaCierreTambos;
 
 	// Fecha cierre RRHH
-	private java.time.LocalDate fechaCierreRRHH;
+	private LocalDate fechaCierreRRHH;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -59,82 +60,82 @@ public class Empresa extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha cierre ventas
-	public java.time.LocalDate getFechaCierreVentas() {
+	public LocalDate getFechaCierreVentas() {
 		return this.fechaCierreVentas;
 	}
 
 	// SET Fecha cierre ventas
-	public void setFechaCierreVentas(java.time.LocalDate fechaCierreVentas ){
+	public void setFechaCierreVentas(LocalDate fechaCierreVentas ){
 		this.fechaCierreVentas = fechaCierreVentas;
 	}
 
 	// GET Fecha cierre stock
-	public java.time.LocalDate getFechaCierreStock() {
+	public LocalDate getFechaCierreStock() {
 		return this.fechaCierreStock;
 	}
 
 	// SET Fecha cierre stock
-	public void setFechaCierreStock(java.time.LocalDate fechaCierreStock ){
+	public void setFechaCierreStock(LocalDate fechaCierreStock ){
 		this.fechaCierreStock = fechaCierreStock;
 	}
 
 	// GET Fecha cierre fondo
-	public java.time.LocalDate getFechaCierreFondo() {
+	public LocalDate getFechaCierreFondo() {
 		return this.fechaCierreFondo;
 	}
 
 	// SET Fecha cierre fondo
-	public void setFechaCierreFondo(java.time.LocalDate fechaCierreFondo ){
+	public void setFechaCierreFondo(LocalDate fechaCierreFondo ){
 		this.fechaCierreFondo = fechaCierreFondo;
 	}
 
 	// GET Fecha cierre compras
-	public java.time.LocalDate getFechaCierreCompras() {
+	public LocalDate getFechaCierreCompras() {
 		return this.fechaCierreCompras;
 	}
 
 	// SET Fecha cierre compras
-	public void setFechaCierreCompras(java.time.LocalDate fechaCierreCompras ){
+	public void setFechaCierreCompras(LocalDate fechaCierreCompras ){
 		this.fechaCierreCompras = fechaCierreCompras;
 	}
 
 	// GET Fecha cierre contabilidad
-	public java.time.LocalDate getFechaCierreContabilidad() {
+	public LocalDate getFechaCierreContabilidad() {
 		return this.fechaCierreContabilidad;
 	}
 
 	// SET Fecha cierre contabilidad
-	public void setFechaCierreContabilidad(java.time.LocalDate fechaCierreContabilidad ){
+	public void setFechaCierreContabilidad(LocalDate fechaCierreContabilidad ){
 		this.fechaCierreContabilidad = fechaCierreContabilidad;
 	}
 
 	// GET Fecha cierre garantia y devoluciones
-	public java.time.LocalDate getFechaCierreGarantiaDevoluciones() {
+	public LocalDate getFechaCierreGarantiaDevoluciones() {
 		return this.fechaCierreGarantiaDevoluciones;
 	}
 
 	// SET Fecha cierre garantia y devoluciones
-	public void setFechaCierreGarantiaDevoluciones(java.time.LocalDate fechaCierreGarantiaDevoluciones ){
+	public void setFechaCierreGarantiaDevoluciones(LocalDate fechaCierreGarantiaDevoluciones ){
 		this.fechaCierreGarantiaDevoluciones = fechaCierreGarantiaDevoluciones;
 	}
 
 	// GET Fecha cierre tambos
-	public java.time.LocalDate getFechaCierreTambos() {
+	public LocalDate getFechaCierreTambos() {
 		return this.fechaCierreTambos;
 	}
 
 	// SET Fecha cierre tambos
-	public void setFechaCierreTambos(java.time.LocalDate fechaCierreTambos ){
+	public void setFechaCierreTambos(LocalDate fechaCierreTambos ){
 		this.fechaCierreTambos = fechaCierreTambos;
 	}
 
 	// GET Fecha cierre RRHH
-	public java.time.LocalDate getFechaCierreRRHH() {
+	public LocalDate getFechaCierreRRHH() {
 		return this.fechaCierreRRHH;
 	}
 
 	// SET Fecha cierre RRHH
-	public void setFechaCierreRRHH(java.time.LocalDate fechaCierreRRHH ){
+	public void setFechaCierreRRHH(LocalDate fechaCierreRRHH ){
 		this.fechaCierreRRHH = fechaCierreRRHH;
 	}
 

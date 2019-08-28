@@ -235,10 +235,10 @@ CREATE TABLE massoftware.Zona
 	nombre VARCHAR(50) NOT NULL, 
 	
 	-- Bonificación
-	bonificacion DECIMAL(13,5) CONSTRAINT Zona_bonificacion_chk CHECK ( bonificacion >= 0 AND bonificacion <= 99999.9999  ), 
+	bonificacion DOUBLE PRECISION, 
 	
 	-- Recargo
-	recargo DECIMAL(13,5) CONSTRAINT Zona_recargo_chk CHECK ( recargo >= 0 AND recargo <= 99999.9999  )
+	recargo DOUBLE PRECISION
 );
 
 -- ---------------------------------------------------------------------------------------------------------------------------

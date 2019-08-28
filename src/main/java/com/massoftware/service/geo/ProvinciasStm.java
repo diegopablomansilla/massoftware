@@ -13,30 +13,35 @@ public class ProvinciasStm extends StatementParam {
 					+ ProvinciasFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getPais() == null || f.getPais().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + ProvinciasFiltro.class.getCanonicalName() + ".pais para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
-			atts = "Provincia.id ";
+			atts = "Provincia.id , Pais.nombre AS nombrePais, Provincia.numero, Provincia.abreviatura, Provincia.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += " LEFT JOIN massoftware.Pais ON Pais.id = Provincia.pais";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.Provincia " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.Provincia " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -50,6 +55,12 @@ public class ProvinciasStm extends StatementParam {
 		
 		
 	
+		if (f.getPais() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " Provincia.Pais = ?";
+			this.addArg(buildArgTrim(f.getPais().getId(), String.class));
+		}
+	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Provincia.Numero >= ?";
@@ -62,15 +73,6 @@ public class ProvinciasStm extends StatementParam {
 			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
-		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
-			String[] words =  f.getNombre().trim().split(" ");
-			for(String word : words) {
-				where += (where.trim().length() > 0 ) ? " AND " : "";
-				where += " TRANSLATE(LOWER(TRIM(Provincia.Nombre))" + translate + ") LIKE ?";
-				this.addArg(buildArgTrimLower(word.trim(), String.class));
-			}
-		}
-	
 		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
 			String[] words =  f.getAbreviatura().trim().split(" ");
 			for(String word : words) {
@@ -80,10 +82,13 @@ public class ProvinciasStm extends StatementParam {
 			}
 		}
 	
-		if (f.getPais() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " Provincia.Pais = ?";
-			this.addArg(buildArgTrim(f.getPais().getId(), String.class));
+		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
+			String[] words =  f.getNombre().trim().split(" ");
+			for(String word : words) {
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(Provincia.Nombre))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));
+			}
 		}
 
 		
@@ -96,13 +101,6 @@ public class ProvinciasStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

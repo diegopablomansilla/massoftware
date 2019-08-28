@@ -1,7 +1,6 @@
 package com.massoftware.service.seguridad;
 
 import com.massoftware.service.*;
-import com.massoftware.service.seguridad.SeguridadModulo;
 
 public class SeguridadPuertasFiltro extends GenericFilter implements Cloneable {
 

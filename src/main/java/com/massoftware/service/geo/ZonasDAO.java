@@ -26,6 +26,10 @@ public class ZonasDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setCodigo((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
+				objRow.setBonificacion((Double) row[++c]);
+				objRow.setRecargo((Double) row[++c]);
 
 				r.add(objRow);
 

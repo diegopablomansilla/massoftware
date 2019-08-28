@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Centros de costo")
@@ -76,6 +77,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº cc (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -101,7 +103,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº cc (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -127,6 +129,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -149,6 +152,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Abreviatura
 		abreviatura = new TextField();
 		abreviatura.setRequired(true);
@@ -173,6 +177,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
 		ejercicioContable.setRequired(true);
@@ -180,7 +185,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();
 		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
 		ejercicioContableFiltro.setUnlimited(true);
-		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
 		ejercicioContable.setItems(ejercicioContableItems);
 		binder.forField(ejercicioContable)
 			.asRequired("Ejercicio es requerido.")		
@@ -282,6 +287,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -305,6 +311,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, abreviatura, ejercicioContable, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

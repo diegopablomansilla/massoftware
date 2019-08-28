@@ -14,6 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
@@ -75,6 +76,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Módulo
 		seguridadModulo = new ComboBox<>();
 		seguridadModulo.setRequired(true);
@@ -82,7 +84,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 		SeguridadModuloService seguridadModuloService = new SeguridadModuloService();
 		SeguridadModulosFiltro seguridadModuloFiltro = new SeguridadModulosFiltro();
 		seguridadModuloFiltro.setUnlimited(true);
-		java.util.List<SeguridadModulos> seguridadModuloItems = seguridadModuloService.find(seguridadModuloFiltro);
+		List<SeguridadModulos> seguridadModuloItems = seguridadModuloService.find(seguridadModuloFiltro);
 		seguridadModulo.setItems(seguridadModuloItems);
 		binder.forField(seguridadModulo)
 			.asRequired("Módulo es requerido.")		
@@ -97,6 +99,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nº puerta (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -122,7 +125,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº puerta (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -148,6 +151,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -257,6 +261,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -280,6 +285,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, seguridadModulo, numeroFrom, numeroTo, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

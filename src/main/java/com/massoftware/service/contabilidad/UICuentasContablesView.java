@@ -15,6 +15,7 @@ import com.vaadin.flow.router.Route;
 
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Cuentas contables")
@@ -72,6 +73,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Cuenta contable
 		codigo = new TextField();
 		codigo.setPlaceholder("Cuenta contable");
@@ -94,6 +96,7 @@ public class UICuentasContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -116,6 +119,7 @@ public class UICuentasContablesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
 		ejercicioContable.setRequired(true);
@@ -123,7 +127,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();
 		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
 		ejercicioContableFiltro.setUnlimited(true);
-		java.util.List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
 		ejercicioContable.setItems(ejercicioContableItems);
 		binder.forField(ejercicioContable)
 			.asRequired("Ejercicio es requerido.")		
@@ -225,6 +229,7 @@ public class UICuentasContablesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -248,6 +253,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, nombre, ejercicioContable, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

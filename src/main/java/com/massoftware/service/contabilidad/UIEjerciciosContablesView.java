@@ -71,6 +71,7 @@ public class UIEjerciciosContablesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº ejercicio (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -96,7 +97,7 @@ public class UIEjerciciosContablesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº ejercicio (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -209,6 +210,7 @@ public class UIEjerciciosContablesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -232,6 +234,7 @@ public class UIEjerciciosContablesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

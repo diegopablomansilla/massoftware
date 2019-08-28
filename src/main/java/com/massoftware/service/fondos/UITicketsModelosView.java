@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Tickets modelos")
@@ -75,6 +76,7 @@ public class UITicketsModelosView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº modelo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -100,7 +102,7 @@ public class UITicketsModelosView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº modelo (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -126,6 +128,7 @@ public class UITicketsModelosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -148,6 +151,7 @@ public class UITicketsModelosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// ticket
 		ticket = new ComboBox<>();
 		ticket.setRequired(true);
@@ -155,7 +159,7 @@ public class UITicketsModelosView extends VerticalLayout {
 		TicketService ticketService = new TicketService();
 		TicketsFiltro ticketFiltro = new TicketsFiltro();
 		ticketFiltro.setUnlimited(true);
-		java.util.List<Tickets> ticketItems = ticketService.find(ticketFiltro);
+		List<Tickets> ticketItems = ticketService.find(ticketFiltro);
 		ticket.setItems(ticketItems);
 		binder.forField(ticket)
 			.asRequired("ticket es requerido.")		
@@ -257,6 +261,7 @@ public class UITicketsModelosView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -280,6 +285,7 @@ public class UITicketsModelosView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, ticket, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

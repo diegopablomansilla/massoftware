@@ -1,7 +1,6 @@
 package com.massoftware.service.monedas;
 
 import com.massoftware.service.*;
-import com.massoftware.service.monedas.Moneda;
 
 public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneable {
 

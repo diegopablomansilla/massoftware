@@ -1,7 +1,7 @@
 package com.massoftware.service.fondos;
 
 import com.massoftware.service.*;
-import com.massoftware.service.fondos.banco.Banco;
+import com.massoftware.service.fondos.banco.Bancos;
 
 public class CuentasFondosFiltro extends GenericFilter implements Cloneable {
 

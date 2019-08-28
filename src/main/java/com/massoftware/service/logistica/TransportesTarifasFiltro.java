@@ -1,7 +1,6 @@
 package com.massoftware.service.logistica;
 
 import com.massoftware.service.*;
-import com.massoftware.service.logistica.Transporte;
 
 public class TransportesTarifasFiltro extends GenericFilter implements Cloneable {
 

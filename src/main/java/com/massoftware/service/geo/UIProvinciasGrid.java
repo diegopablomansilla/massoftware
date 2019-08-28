@@ -4,14 +4,13 @@ package com.massoftware.service.geo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.ui.components.UIUtils;
+
 import com.massoftware.ui.views.GridCustom;
-import com.vaadin.flow.component.Component;
 //import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 //import com.vaadin.flow.data.renderer.TemplateRenderer;
+
+
 
 public class UIProvinciasGrid extends GridCustom<Provincias> {
 
@@ -53,6 +52,30 @@ public class UIProvinciasGrid extends GridCustom<Provincias> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Provincias::getNombrePais, "nombrePais")
+			.setKey("nombrePais")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Pais");
+
+		addColumn(Provincias::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº provincia");
+
+		addColumn(Provincias::getAbreviatura, "abreviatura")
+			.setKey("abreviatura")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Abreviatura");
+
+		addColumn(Provincias::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

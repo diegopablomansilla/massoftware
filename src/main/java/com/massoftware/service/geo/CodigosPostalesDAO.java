@@ -26,6 +26,13 @@ public class CodigosPostalesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombrePais((String) row[++c]);
+				objRow.setNombreProvincia((String) row[++c]);
+				objRow.setNombreCiudad((String) row[++c]);
+				objRow.setCodigo((String) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setNumeroCalle((String) row[++c]);
+				objRow.setNombreCalle((String) row[++c]);
 
 				r.add(objRow);
 

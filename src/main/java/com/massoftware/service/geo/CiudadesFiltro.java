@@ -1,13 +1,17 @@
 package com.massoftware.service.geo;
 
 import com.massoftware.service.*;
-import com.massoftware.service.geo.Pais;
-import com.massoftware.service.geo.Provincia;
 
 public class CiudadesFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// País
+	private Paises pais;
+
+	// Provincia
+	private Provincias provincia;
 
 	// Nº ciudad (desde)
 	private Integer numeroFrom;
@@ -18,14 +22,28 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 	// Nombre
 	private String nombre;
 
-	// País
-	private Paises pais;
-
-	// Provincia
-	private Provincias provincia;
-
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET País
+	public Paises getPais() {
+		return this.pais;
+	}
+
+	// SET País
+	public void setPais(Paises pais){
+		this.pais = pais;
+	}
+
+	// GET Provincia
+	public Provincias getProvincia() {
+		return this.provincia;
+	}
+
+	// SET Provincia
+	public void setProvincia(Provincias provincia){
+		this.provincia = provincia;
+	}
 
 	// GET Nº ciudad (desde)
 	public Integer getNumeroFrom() {
@@ -56,26 +74,6 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 	public void setNombre(String nombre){
 		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
-
-	// GET País
-	public Paises getPais() {
-		return this.pais;
-	}
-
-	// SET País
-	public void setPais(Paises pais){
-		this.pais = pais;
-	}
-
-	// GET Provincia
-	public Provincias getProvincia() {
-		return this.provincia;
-	}
-
-	// SET Provincia
-	public void setProvincia(Provincias provincia){
-		this.provincia = provincia;
-	}
 		
 	public boolean equals(Object obj) {
 		
@@ -89,6 +87,42 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 		
 		CiudadesFiltro other = (CiudadesFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getPais() == null && this.getPais() != null) {
+			return false;
+		}
+		
+		if (other.getPais() != null && this.getPais() == null) {
+			return false;
+		}
+		
+		if (other.getPais() != null && this.getPais() != null) {
+		
+			if (other.getPais().equals(this.getPais()) == false) {
+				return false;
+			}
+		
+		}
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getProvincia() == null && this.getProvincia() != null) {
+			return false;
+		}
+		
+		if (other.getProvincia() != null && this.getProvincia() == null) {
+			return false;
+		}
+		
+		if (other.getProvincia() != null && this.getProvincia() != null) {
+		
+			if (other.getProvincia().equals(this.getProvincia()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -146,42 +180,6 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getPais() == null && this.getPais() != null) {
-			return false;
-		}
-		
-		if (other.getPais() != null && this.getPais() == null) {
-			return false;
-		}
-		
-		if (other.getPais() != null && this.getPais() != null) {
-		
-			if (other.getPais().equals(this.getPais()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
-		if (other.getProvincia() == null && this.getProvincia() != null) {
-			return false;
-		}
-		
-		if (other.getProvincia() != null && this.getProvincia() == null) {
-			return false;
-		}
-		
-		if (other.getProvincia() != null && this.getProvincia() != null) {
-		
-			if (other.getProvincia().equals(this.getProvincia()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -197,9 +195,6 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		
@@ -212,6 +207,9 @@ public class CiudadesFiltro extends GenericFilter implements Cloneable {
 		if (this.getProvincia() != null) {
 			other.setProvincia(this.getProvincia().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

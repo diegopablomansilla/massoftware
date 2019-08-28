@@ -70,6 +70,7 @@ public class UITalonariosControladoresFizcalesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº controlador
 		codigo = new TextField();
 		codigo.setPlaceholder("Nº controlador");
@@ -92,6 +93,7 @@ public class UITalonariosControladoresFizcalesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -201,6 +203,7 @@ public class UITalonariosControladoresFizcalesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -224,6 +227,7 @@ public class UITalonariosControladoresFizcalesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

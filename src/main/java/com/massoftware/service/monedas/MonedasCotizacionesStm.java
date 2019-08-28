@@ -13,20 +13,23 @@ public class MonedasCotizacionesStm extends StatementParam {
 					+ MonedasCotizacionesFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getCotizacionFechaFrom() == null || f.getCotizacionFechaFrom().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaFrom para filtrar la consulta");
-		}
-	
-		if (f.getCotizacionFechaTo() == null || f.getCotizacionFechaTo().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaTo para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getCotizacionFechaFrom() == null || f.getCotizacionFechaFrom().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaFrom para filtrar la consulta");
+			}
+			
+			if (f.getCotizacionFechaTo() == null || f.getCotizacionFechaTo().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MonedasCotizacionesFiltro.class.getCanonicalName() + ".cotizacionFechaTo para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
@@ -36,11 +39,13 @@ public class MonedasCotizacionesStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.MonedaCotizacion " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.MonedaCotizacion " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -82,13 +87,6 @@ public class MonedasCotizacionesStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

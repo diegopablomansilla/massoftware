@@ -3,6 +3,7 @@ package com.massoftware.service.fondos;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.fondos.TalonarioLetra;
 import com.massoftware.service.fondos.TalonarioControladorFizcal;
+import java.time.LocalDate;
 
 public class Talonario extends EntityId implements Cloneable {
 
@@ -47,13 +48,13 @@ public class Talonario extends EntityId implements Cloneable {
 	private Integer cantidadMinimaComprobantes;
 
 	// Fecha
-	private java.time.LocalDate fecha;
+	private LocalDate fecha;
 
 	// Nº C.A.I
 	private Long numeroCAI;
 
 	// Vencimiento C.A.I
-	private java.time.LocalDate vencimiento;
+	private LocalDate vencimiento;
 
 	// Días aviso vto.
 	private Integer diasAvisoVencimiento;
@@ -191,12 +192,12 @@ public class Talonario extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha
-	public java.time.LocalDate getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 
 	// SET Fecha
-	public void setFecha(java.time.LocalDate fecha ){
+	public void setFecha(LocalDate fecha ){
 		this.fecha = fecha;
 	}
 
@@ -211,12 +212,12 @@ public class Talonario extends EntityId implements Cloneable {
 	}
 
 	// GET Vencimiento C.A.I
-	public java.time.LocalDate getVencimiento() {
+	public LocalDate getVencimiento() {
 		return this.vencimiento;
 	}
 
 	// SET Vencimiento C.A.I
-	public void setVencimiento(java.time.LocalDate vencimiento ){
+	public void setVencimiento(LocalDate vencimiento ){
 		this.vencimiento = vencimiento;
 	}
 

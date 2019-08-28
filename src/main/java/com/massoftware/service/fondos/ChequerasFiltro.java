@@ -1,7 +1,6 @@
 package com.massoftware.service.fondos;
 
 import com.massoftware.service.*;
-import com.massoftware.service.fondos.CuentaFondo;
 
 public class ChequerasFiltro extends GenericFilter implements Cloneable {
 

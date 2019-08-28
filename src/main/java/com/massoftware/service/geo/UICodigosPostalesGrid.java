@@ -4,14 +4,13 @@ package com.massoftware.service.geo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.ui.components.UIUtils;
+
 import com.massoftware.ui.views.GridCustom;
-import com.vaadin.flow.component.Component;
 //import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 //import com.vaadin.flow.data.renderer.TemplateRenderer;
+
+
 
 public class UICodigosPostalesGrid extends GridCustom<CodigosPostales> {
 
@@ -53,6 +52,48 @@ public class UICodigosPostalesGrid extends GridCustom<CodigosPostales> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(CodigosPostales::getNombrePais, "nombrePais")
+			.setKey("nombrePais")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Pais");
+
+		addColumn(CodigosPostales::getNombreProvincia, "nombreProvincia")
+			.setKey("nombreProvincia")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Provincia");
+
+		addColumn(CodigosPostales::getNombreCiudad, "nombreCiudad")
+			.setKey("nombreCiudad")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Ciudad");
+
+		addColumn(CodigosPostales::getCodigo, "codigo")
+			.setKey("codigo")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Código");
+
+		addColumn(CodigosPostales::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("6")
+			.setHeader("Secuencia");
+
+		addColumn(CodigosPostales::getNumeroCalle, "numeroCalle")
+			.setKey("numeroCalle")
+			.setResizable(true)
+			.setSortProperty("7")
+			.setHeader("Número calle");
+
+		addColumn(CodigosPostales::getNombreCalle, "nombreCalle")
+			.setKey("nombreCalle")
+			.setResizable(true)
+			.setSortProperty("8")
+			.setHeader("Calle");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

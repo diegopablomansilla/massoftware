@@ -13,6 +13,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
@@ -44,6 +46,7 @@ public class UICargasView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<Transportes> transporte;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
@@ -73,6 +76,30 @@ public class UICargasView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
+		// Transporte
+		transporte = new ComboBox<>();
+		transporte.setRequired(true);
+		transporte.setPlaceholder("Transporte");
+		TransporteService transporteService = new TransporteService();
+		TransportesFiltro transporteFiltro = new TransportesFiltro();
+		transporteFiltro.setUnlimited(true);
+		List<Transportes> transporteItems = transporteService.find(transporteFiltro);
+		transporte.setItems(transporteItems);
+		binder.forField(transporte)
+			.asRequired("Transporte es requerido.")		
+			.bind(CargasFiltro::getTransporte, CargasFiltro::setTransporte);
+		if(transporteItems.size() > 0){
+			transporte.setValue(transporteItems.get(0));
+		}
+		transporte.addValueChangeListener(event -> {
+			search();
+		});
+		transporte.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
 		// Nº carga (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -80,7 +107,7 @@ public class UICargasView extends VerticalLayout {
 		numeroFrom.setPlaceholder("Nº cargadesde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
-		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
+		numeroFrom.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
 		binder.forField(numeroFrom)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -98,7 +125,7 @@ public class UICargasView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº carga (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -106,7 +133,7 @@ public class UICargasView extends VerticalLayout {
 		numeroTo.setPlaceholder("Nº carga hasta ");
 		numeroTo.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroTo.setClearButtonVisible(true);
-		numeroTo.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
+		numeroTo.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(numeroTo)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -124,6 +151,7 @@ public class UICargasView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -131,7 +159,7 @@ public class UICargasView extends VerticalLayout {
 		nombre.setWidthFull();
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
+		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
 		binder.forField(nombre)
 			.bind(CargasFiltro::getNombre, CargasFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
@@ -233,6 +261,7 @@ public class UICargasView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -254,8 +283,9 @@ public class UICargasView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, transporte, numeroFrom, numeroTo, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

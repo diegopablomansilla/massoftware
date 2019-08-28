@@ -3,6 +3,7 @@ package com.massoftware.service.logistica;
 import com.massoftware.service.EntityId;
 import com.massoftware.service.logistica.Carga;
 import com.massoftware.service.geo.Ciudad;
+import java.math.BigDecimal;
 
 public class TransporteTarifa extends EntityId implements Cloneable {
 
@@ -20,22 +21,22 @@ public class TransporteTarifa extends EntityId implements Cloneable {
 	private Ciudad ciudad;
 
 	// Precio flete
-	private java.math.BigDecimal precioFlete;
+	private BigDecimal precioFlete;
 
 	// Precio unidad facturación
-	private java.math.BigDecimal precioUnidadFacturacion;
+	private BigDecimal precioUnidadFacturacion;
 
 	// Precio unidad stock
-	private java.math.BigDecimal precioUnidadStock;
+	private BigDecimal precioUnidadStock;
 
 	// Precio bultos
-	private java.math.BigDecimal precioBultos;
+	private BigDecimal precioBultos;
 
 	// Importe mínimo por entrega
-	private java.math.BigDecimal importeMinimoEntrega;
+	private BigDecimal importeMinimoEntrega;
 
 	// Importe mínimo por carga
-	private java.math.BigDecimal importeMinimoCarga;
+	private BigDecimal importeMinimoCarga;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -80,62 +81,62 @@ public class TransporteTarifa extends EntityId implements Cloneable {
 	}
 
 	// GET Precio flete
-	public java.math.BigDecimal getPrecioFlete() {
+	public BigDecimal getPrecioFlete() {
 		return this.precioFlete;
 	}
 
 	// SET Precio flete
-	public void setPrecioFlete(java.math.BigDecimal precioFlete ){
+	public void setPrecioFlete(BigDecimal precioFlete ){
 		this.precioFlete = precioFlete;
 	}
 
 	// GET Precio unidad facturación
-	public java.math.BigDecimal getPrecioUnidadFacturacion() {
+	public BigDecimal getPrecioUnidadFacturacion() {
 		return this.precioUnidadFacturacion;
 	}
 
 	// SET Precio unidad facturación
-	public void setPrecioUnidadFacturacion(java.math.BigDecimal precioUnidadFacturacion ){
+	public void setPrecioUnidadFacturacion(BigDecimal precioUnidadFacturacion ){
 		this.precioUnidadFacturacion = precioUnidadFacturacion;
 	}
 
 	// GET Precio unidad stock
-	public java.math.BigDecimal getPrecioUnidadStock() {
+	public BigDecimal getPrecioUnidadStock() {
 		return this.precioUnidadStock;
 	}
 
 	// SET Precio unidad stock
-	public void setPrecioUnidadStock(java.math.BigDecimal precioUnidadStock ){
+	public void setPrecioUnidadStock(BigDecimal precioUnidadStock ){
 		this.precioUnidadStock = precioUnidadStock;
 	}
 
 	// GET Precio bultos
-	public java.math.BigDecimal getPrecioBultos() {
+	public BigDecimal getPrecioBultos() {
 		return this.precioBultos;
 	}
 
 	// SET Precio bultos
-	public void setPrecioBultos(java.math.BigDecimal precioBultos ){
+	public void setPrecioBultos(BigDecimal precioBultos ){
 		this.precioBultos = precioBultos;
 	}
 
 	// GET Importe mínimo por entrega
-	public java.math.BigDecimal getImporteMinimoEntrega() {
+	public BigDecimal getImporteMinimoEntrega() {
 		return this.importeMinimoEntrega;
 	}
 
 	// SET Importe mínimo por entrega
-	public void setImporteMinimoEntrega(java.math.BigDecimal importeMinimoEntrega ){
+	public void setImporteMinimoEntrega(BigDecimal importeMinimoEntrega ){
 		this.importeMinimoEntrega = importeMinimoEntrega;
 	}
 
 	// GET Importe mínimo por carga
-	public java.math.BigDecimal getImporteMinimoCarga() {
+	public BigDecimal getImporteMinimoCarga() {
 		return this.importeMinimoCarga;
 	}
 
 	// SET Importe mínimo por carga
-	public void setImporteMinimoCarga(java.math.BigDecimal importeMinimoCarga ){
+	public void setImporteMinimoCarga(BigDecimal importeMinimoCarga ){
 		this.importeMinimoCarga = importeMinimoCarga;
 	}
 

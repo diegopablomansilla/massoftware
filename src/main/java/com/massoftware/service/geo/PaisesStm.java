@@ -13,26 +13,31 @@ public class PaisesStm extends StatementParam {
 					+ PaisesFiltro.class.getCanonicalName());
 		}
 		
-		
+		if(f.getUnlimited() == false) {
+			
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
-			atts = "Pais.id ";
+			atts = "Pais.id , Pais.numero, Pais.abreviatura, Pais.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.Pais " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.Pais " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -58,20 +63,20 @@ public class PaisesStm extends StatementParam {
 			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
-		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
-			String[] words =  f.getNombre().trim().split(" ");
-			for(String word : words) {
-				where += (where.trim().length() > 0 ) ? " AND " : "";
-				where += " TRANSLATE(LOWER(TRIM(Pais.Nombre))" + translate + ") LIKE ?";
-				this.addArg(buildArgTrimLower(word.trim(), String.class));
-			}
-		}
-	
 		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
 			String[] words =  f.getAbreviatura().trim().split(" ");
 			for(String word : words) {
 				where += (where.trim().length() > 0 ) ? " AND " : "";
 				where += " TRANSLATE(LOWER(TRIM(Pais.Abreviatura))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));
+			}
+		}
+	
+		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
+			String[] words =  f.getNombre().trim().split(" ");
+			for(String word : words) {
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(Pais.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
 		}
@@ -86,13 +91,6 @@ public class PaisesStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

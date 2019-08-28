@@ -4,14 +4,13 @@ package com.massoftware.service.logistica;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.ui.components.UIUtils;
+
 import com.massoftware.ui.views.GridCustom;
-import com.vaadin.flow.component.Component;
 //import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 //import com.vaadin.flow.data.renderer.TemplateRenderer;
+
+
 
 public class UITransportesGrid extends GridCustom<Transportes> {
 
@@ -53,6 +52,54 @@ public class UITransportesGrid extends GridCustom<Transportes> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Transportes::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº transporte");
+
+		addColumn(Transportes::getCuit, "cuit")
+			.setKey("cuit")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("CUIT");
+
+		addColumn(Transportes::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
+		addColumn(Transportes::getDomicilio, "domicilio")
+			.setKey("domicilio")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Domicilio");
+
+		addColumn(Transportes::getCodigoPostal, "codigoPostal")
+			.setKey("codigoPostal")
+			.setResizable(true)
+			.setSortProperty("6")
+			.setHeader("CP");
+
+		addColumn(Transportes::getNombreCiudad, "nombreCiudad")
+			.setKey("nombreCiudad")
+			.setResizable(true)
+			.setSortProperty("7")
+			.setHeader("Ciudad");
+
+		addColumn(Transportes::getNombreProvincia, "nombreProvincia")
+			.setKey("nombreProvincia")
+			.setResizable(true)
+			.setSortProperty("8")
+			.setHeader("Provincia");
+
+		addColumn(Transportes::getNombrePais, "nombrePais")
+			.setKey("nombrePais")
+			.setResizable(true)
+			.setSortProperty("9")
+			.setHeader("Pais");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

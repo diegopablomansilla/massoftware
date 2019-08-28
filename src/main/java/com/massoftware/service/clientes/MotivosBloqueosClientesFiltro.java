@@ -1,7 +1,6 @@
 package com.massoftware.service.clientes;
 
 import com.massoftware.service.*;
-import com.massoftware.service.clientes.ClasificacionCliente;
 
 public class MotivosBloqueosClientesFiltro extends GenericFilter implements Cloneable {
 

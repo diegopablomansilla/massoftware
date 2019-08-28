@@ -1,6 +1,7 @@
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
+import java.time.LocalDate;
 import com.massoftware.service.contabilidad.EjercicioContable;
 import com.massoftware.service.contabilidad.MinutaContable;
 import com.massoftware.service.empresa.Sucursal;
@@ -16,7 +17,7 @@ public class AsientoContable extends EntityId implements Cloneable {
 	private Integer numero;
 
 	// Fecha
-	private java.time.LocalDate fecha;
+	private LocalDate fecha;
 
 	// Detalle
 	private String detalle;
@@ -56,12 +57,12 @@ public class AsientoContable extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha
-	public java.time.LocalDate getFecha() {
+	public LocalDate getFecha() {
 		return this.fecha;
 	}
 
 	// SET Fecha
-	public void setFecha(java.time.LocalDate fecha ){
+	public void setFecha(LocalDate fecha ){
 		this.fecha = fecha;
 	}
 

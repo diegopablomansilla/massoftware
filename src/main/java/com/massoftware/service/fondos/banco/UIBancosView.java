@@ -76,6 +76,7 @@ public class UIBancosView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº banco (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -101,7 +102,7 @@ public class UIBancosView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº banco (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -127,6 +128,7 @@ public class UIBancosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Vigente
 		vigente = new ComboBox<>();
 		vigente.setPlaceholder("Vigente: Todos");
@@ -142,6 +144,7 @@ public class UIBancosView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -251,6 +254,7 @@ public class UIBancosView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -274,6 +278,7 @@ public class UIBancosView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

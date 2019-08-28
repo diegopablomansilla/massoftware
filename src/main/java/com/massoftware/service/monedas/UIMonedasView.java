@@ -74,6 +74,7 @@ public class UIMonedasView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº moneda (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -99,7 +100,7 @@ public class UIMonedasView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº moneda (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -125,6 +126,7 @@ public class UIMonedasView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -147,6 +149,7 @@ public class UIMonedasView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Abreviatura
 		abreviatura = new TextField();
 		abreviatura.setPlaceholder("Abreviatura");
@@ -256,6 +259,7 @@ public class UIMonedasView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -279,6 +283,7 @@ public class UIMonedasView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, abreviatura, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

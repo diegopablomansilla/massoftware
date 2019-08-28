@@ -4,6 +4,7 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.contabilidad.EjercicioContable;
 import com.massoftware.service.contabilidad.CuentaContableEstado;
 import com.massoftware.service.contabilidad.CentroCostoContable;
+import java.math.BigDecimal;
 import com.massoftware.service.contabilidad.PuntoEquilibrio;
 import com.massoftware.service.contabilidad.CostoVenta;
 import com.massoftware.service.seguridad.SeguridadPuerta;
@@ -48,7 +49,7 @@ public class CuentaContable extends EntityId implements Cloneable {
 	private String cuentaAgrupadora;
 
 	// Porcentaje
-	private java.math.BigDecimal porcentaje;
+	private BigDecimal porcentaje;
 
 	// Punto de equilibrio
 	private PuntoEquilibrio puntoEquilibrio;
@@ -182,12 +183,12 @@ public class CuentaContable extends EntityId implements Cloneable {
 	}
 
 	// GET Porcentaje
-	public java.math.BigDecimal getPorcentaje() {
+	public BigDecimal getPorcentaje() {
 		return this.porcentaje;
 	}
 
 	// SET Porcentaje
-	public void setPorcentaje(java.math.BigDecimal porcentaje ){
+	public void setPorcentaje(BigDecimal porcentaje ){
 		this.porcentaje = porcentaje;
 	}
 

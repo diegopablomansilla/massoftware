@@ -14,6 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Tarifas de transporte")
@@ -69,6 +70,7 @@ public class UITransportesTarifasView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Transporte
 		transporte = new ComboBox<>();
 		transporte.setRequired(true);
@@ -76,7 +78,7 @@ public class UITransportesTarifasView extends VerticalLayout {
 		TransporteService transporteService = new TransporteService();
 		TransportesFiltro transporteFiltro = new TransportesFiltro();
 		transporteFiltro.setUnlimited(true);
-		java.util.List<Transportes> transporteItems = transporteService.find(transporteFiltro);
+		List<Transportes> transporteItems = transporteService.find(transporteFiltro);
 		transporte.setItems(transporteItems);
 		binder.forField(transporte)
 			.asRequired("Transporte es requerido.")		
@@ -178,6 +180,7 @@ public class UITransportesTarifasView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -199,8 +202,9 @@ public class UITransportesTarifasView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, findBTN);
+		filterRow1.add(newBTN, transporte, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

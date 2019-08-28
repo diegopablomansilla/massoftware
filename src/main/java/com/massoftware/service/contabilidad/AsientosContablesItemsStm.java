@@ -13,24 +13,27 @@ public class AsientosContablesItemsStm extends StatementParam {
 					+ AsientosContablesItemsFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getNumeroFrom() == null || f.getNumeroFrom().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroFrom para filtrar la consulta");
-		}
-	
-		if (f.getNumeroTo() == null || f.getNumeroTo().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroTo para filtrar la consulta");
-		}
-	
-		if (f.getAsientoContable() == null || f.getAsientoContable().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".asientoContable para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getNumeroFrom() == null || f.getNumeroFrom().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroFrom para filtrar la consulta");
+			}
+			
+			if (f.getNumeroTo() == null || f.getNumeroTo().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".numeroTo para filtrar la consulta");
+			}
+			
+			if (f.getAsientoContable() == null || f.getAsientoContable().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + AsientosContablesItemsFiltro.class.getCanonicalName() + ".asientoContable para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
@@ -40,11 +43,13 @@ public class AsientosContablesItemsStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += "";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.AsientoContableItem " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.AsientoContableItem " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -95,13 +100,6 @@ public class AsientosContablesItemsStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

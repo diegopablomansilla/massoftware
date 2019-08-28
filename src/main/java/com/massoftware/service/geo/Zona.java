@@ -15,10 +15,10 @@ public class Zona extends EntityId implements Cloneable {
 	private String nombre;
 
 	// Bonificación
-	private java.math.BigDecimal bonificacion;
+	private Double bonificacion;
 
 	// Recargo
-	private java.math.BigDecimal recargo;
+	private Double recargo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -53,22 +53,22 @@ public class Zona extends EntityId implements Cloneable {
 	}
 
 	// GET Bonificación
-	public java.math.BigDecimal getBonificacion() {
+	public Double getBonificacion() {
 		return this.bonificacion;
 	}
 
 	// SET Bonificación
-	public void setBonificacion(java.math.BigDecimal bonificacion ){
+	public void setBonificacion(Double bonificacion ){
 		this.bonificacion = bonificacion;
 	}
 
 	// GET Recargo
-	public java.math.BigDecimal getRecargo() {
+	public Double getRecargo() {
 		return this.recargo;
 	}
 
 	// SET Recargo
-	public void setRecargo(java.math.BigDecimal recargo ){
+	public void setRecargo(Double recargo ){
 		this.recargo = recargo;
 	}
 

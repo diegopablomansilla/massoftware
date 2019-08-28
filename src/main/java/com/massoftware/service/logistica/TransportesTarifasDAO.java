@@ -26,6 +26,16 @@ public class TransportesTarifasDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombreTransporte((String) row[++c]);
+				objRow.setNumeroCarga((Integer) row[++c]);
+				objRow.setNombreCarga((String) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setNombreCiudad((String) row[++c]);
+				objRow.setPrecioFlete((java.math.BigDecimal) row[++c]);
+				objRow.setPrecioUnidadFacturacion((java.math.BigDecimal) row[++c]);
+				objRow.setPrecioUnidadStock((java.math.BigDecimal) row[++c]);
+				objRow.setPrecioBultos((java.math.BigDecimal) row[++c]);
+				objRow.setImporteMinimoEntrega((java.math.BigDecimal) row[++c]);
 
 				r.add(objRow);
 

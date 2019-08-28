@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Grupos de cuenta fondo")
@@ -75,6 +76,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº grupo (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -100,7 +102,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº grupo (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -126,6 +128,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -148,6 +151,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Rubro
 		cuentaFondoRubro = new ComboBox<>();
 		cuentaFondoRubro.setRequired(true);
@@ -155,7 +159,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 		CuentaFondoRubroService cuentaFondoRubroService = new CuentaFondoRubroService();
 		CuentasFondosRubrosFiltro cuentaFondoRubroFiltro = new CuentasFondosRubrosFiltro();
 		cuentaFondoRubroFiltro.setUnlimited(true);
-		java.util.List<CuentasFondosRubros> cuentaFondoRubroItems = cuentaFondoRubroService.find(cuentaFondoRubroFiltro);
+		List<CuentasFondosRubros> cuentaFondoRubroItems = cuentaFondoRubroService.find(cuentaFondoRubroFiltro);
 		cuentaFondoRubro.setItems(cuentaFondoRubroItems);
 		binder.forField(cuentaFondoRubro)
 			.asRequired("Rubro es requerido.")		
@@ -257,6 +261,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -280,6 +285,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, cuentaFondoRubro, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

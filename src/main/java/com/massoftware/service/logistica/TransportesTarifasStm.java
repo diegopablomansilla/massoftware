@@ -13,30 +13,35 @@ public class TransportesTarifasStm extends StatementParam {
 					+ TransportesTarifasFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getTransporte() == null || f.getTransporte().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TransportesTarifasFiltro.class.getCanonicalName() + ".transporte para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getTransporte() == null || f.getTransporte().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + TransportesTarifasFiltro.class.getCanonicalName() + ".transporte para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
 		String page = "";
+		String join = "";
 
 		if (count == false) {
 
-			atts = "TransporteTarifa.id ";
+			atts = "TransporteTarifa.id , Transporte.nombre AS nombreTransporte, Carga.numero AS numeroCarga, Carga.nombre AS nombreCarga, TransporteTarifa.numero, Ciudad.nombre AS nombreCiudad, TransporteTarifa.precioFlete, TransporteTarifa.precioUnidadFacturacion, TransporteTarifa.precioUnidadStock, TransporteTarifa.precioBultos, TransporteTarifa.importeMinimoEntrega";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
+			}						
 
 		}
+		
+		join += " LEFT JOIN massoftware.Carga ON Carga.id = TransporteTarifa.carga LEFT JOIN massoftware.Transporte ON Transporte.id = Carga.transporte LEFT JOIN massoftware.Ciudad ON Ciudad.id = TransporteTarifa.ciudad";
 
-		String sql = "SELECT  " + atts + " FROM massoftware.TransporteTarifa " + buildWhere(f) + orderBy + page;
+		String sql = "SELECT  " + atts + " FROM massoftware.TransporteTarifa " + join + buildWhere(f) + orderBy + page;
 
 		this.setSql(sql);
 
@@ -52,7 +57,7 @@ public class TransportesTarifasStm extends StatementParam {
 	
 		if (f.getTransporte() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " TransporteTarifa.Transporte = ?";
+			where += " Transporte.id = ?";
 			this.addArg(buildArgTrim(f.getTransporte().getId(), String.class));
 		}
 
@@ -66,13 +71,6 @@ public class TransportesTarifasStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return (arg == null || arg.toString().trim().isEmpty()) ? c : arg;
-	}
+	
 
 }

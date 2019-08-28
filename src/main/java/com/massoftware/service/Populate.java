@@ -447,9 +447,9 @@ public class Populate {
 
 				obj.setNombre(UtilPopulate.getStringRandom(null, 50, true));
 
-				obj.setBonificacion(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("0"), new java.math.BigDecimal("99999.9999"), false, 13, 5));
+				obj.setBonificacion(UtilPopulate.getDoubleRandom(0.0, 99999.9999, false));
 
-				obj.setRecargo(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("0"), new java.math.BigDecimal("99999.9999"), false, 13, 5));
+				obj.setRecargo(UtilPopulate.getDoubleRandom(0.0, 99999.9999, false));
 
 				service.insert(obj);
 

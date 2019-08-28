@@ -1,6 +1,7 @@
 package com.massoftware.service.monedas;
 
 import com.massoftware.service.EntityId;
+import java.math.BigDecimal;
 import com.massoftware.service.monedas.Moneda;
 import com.massoftware.service.seguridad.Usuario;
 
@@ -14,10 +15,10 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	private java.sql.Timestamp cotizacionFecha;
 
 	// Compra
-	private java.math.BigDecimal compra;
+	private BigDecimal compra;
 
 	// Venta
-	private java.math.BigDecimal venta;
+	private BigDecimal venta;
 
 	// Fecha cotización (Auditoria)
 	private java.sql.Timestamp cotizacionFechaAuditoria;
@@ -51,22 +52,22 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	}
 
 	// GET Compra
-	public java.math.BigDecimal getCompra() {
+	public BigDecimal getCompra() {
 		return this.compra;
 	}
 
 	// SET Compra
-	public void setCompra(java.math.BigDecimal compra ){
+	public void setCompra(BigDecimal compra ){
 		this.compra = compra;
 	}
 
 	// GET Venta
-	public java.math.BigDecimal getVenta() {
+	public BigDecimal getVenta() {
 		return this.venta;
 	}
 
 	// SET Venta
-	public void setVenta(java.math.BigDecimal venta ){
+	public void setVenta(BigDecimal venta ){
 		this.venta = venta;
 	}
 

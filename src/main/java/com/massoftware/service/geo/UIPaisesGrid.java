@@ -4,14 +4,13 @@ package com.massoftware.service.geo;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.massoftware.ui.components.UIUtils;
+
 import com.massoftware.ui.views.GridCustom;
-import com.vaadin.flow.component.Component;
 //import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 //import com.vaadin.flow.data.renderer.TemplateRenderer;
+
+
 
 public class UIPaisesGrid extends GridCustom<Paises> {
 
@@ -53,6 +52,24 @@ public class UIPaisesGrid extends GridCustom<Paises> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Paises::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº país");
+
+		addColumn(Paises::getAbreviatura, "abreviatura")
+			.setKey("abreviatura")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Abreviatura");
+
+		addColumn(Paises::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

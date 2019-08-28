@@ -1,12 +1,14 @@
 package com.massoftware.service.geo;
 
 import com.massoftware.service.*;
-import com.massoftware.service.geo.Pais;
 
 public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// País
+	private Paises pais;
 
 	// Nº provincia (desde)
 	private Integer numeroFrom;
@@ -14,17 +16,24 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 	// Nº provincia (hasta)
 	private Integer numeroTo;
 
-	// Nombre
-	private String nombre;
-
 	// Abreviatura
 	private String abreviatura;
 
-	// País
-	private Paises pais;
+	// Nombre
+	private String nombre;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET País
+	public Paises getPais() {
+		return this.pais;
+	}
+
+	// SET País
+	public void setPais(Paises pais){
+		this.pais = pais;
+	}
 
 	// GET Nº provincia (desde)
 	public Integer getNumeroFrom() {
@@ -46,16 +55,6 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		this.numeroTo = numeroTo;
 	}
 
-	// GET Nombre
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	// SET Nombre
-	public void setNombre(String nombre){
-		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
-	}
-
 	// GET Abreviatura
 	public String getAbreviatura() {
 		return this.abreviatura;
@@ -66,14 +65,14 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		this.abreviatura = (abreviatura == null || abreviatura.trim().length() == 0) ? null : abreviatura.trim();
 	}
 
-	// GET País
-	public Paises getPais() {
-		return this.pais;
+	// GET Nombre
+	public String getNombre() {
+		return this.nombre;
 	}
 
-	// SET País
-	public void setPais(Paises pais){
-		this.pais = pais;
+	// SET Nombre
+	public void setNombre(String nombre){
+		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
 		
 	public boolean equals(Object obj) {
@@ -88,6 +87,24 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		
 		ProvinciasFiltro other = (ProvinciasFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getPais() == null && this.getPais() != null) {
+			return false;
+		}
+		
+		if (other.getPais() != null && this.getPais() == null) {
+			return false;
+		}
+		
+		if (other.getPais() != null && this.getPais() != null) {
+		
+			if (other.getPais().equals(this.getPais()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -127,24 +144,6 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getNombre() == null && this.getNombre() != null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() == null) {
-			return false;
-		}
-		
-		if (other.getNombre() != null && this.getNombre() != null) {
-		
-			if (other.getNombre().equals(this.getNombre()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		if (other.getAbreviatura() == null && this.getAbreviatura() != null) {
 			return false;
 		}
@@ -163,17 +162,17 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getPais() == null && this.getPais() != null) {
+		if (other.getNombre() == null && this.getNombre() != null) {
 			return false;
 		}
 		
-		if (other.getPais() != null && this.getPais() == null) {
+		if (other.getNombre() != null && this.getNombre() == null) {
 			return false;
 		}
 		
-		if (other.getPais() != null && this.getPais() != null) {
+		if (other.getNombre() != null && this.getNombre() != null) {
 		
-			if (other.getPais().equals(this.getPais()) == false) {
+			if (other.getNombre().equals(this.getNombre()) == false) {
 				return false;
 			}
 		
@@ -196,16 +195,16 @@ public class ProvinciasFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
-		other.setAbreviatura(this.getAbreviatura());
 		
 		// -------------------------------------------------------------------
 		
 		if (this.getPais() != null) {
 			other.setPais(this.getPais().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setAbreviatura(this.getAbreviatura());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

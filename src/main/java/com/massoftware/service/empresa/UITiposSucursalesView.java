@@ -73,6 +73,7 @@ public class UITiposSucursalesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Nº tipo de sucursal (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
@@ -98,7 +99,7 @@ public class UITiposSucursalesView extends VerticalLayout {
 			search();
 		});
 
-
+		//-------------------------------------------------------------------
 		// Nº tipo de sucursal (hasta)
 		numeroTo = new NumberField();
 		numeroTo.setMin(1);
@@ -124,6 +125,7 @@ public class UITiposSucursalesView extends VerticalLayout {
 			search();
 		});
 
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -233,6 +235,7 @@ public class UITiposSucursalesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -256,6 +259,7 @@ public class UITiposSucursalesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

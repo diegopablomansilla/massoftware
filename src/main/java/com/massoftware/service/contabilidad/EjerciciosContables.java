@@ -1,6 +1,7 @@
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.service.EntityId;
+import java.time.LocalDate;
 
 public class EjerciciosContables extends EntityId implements Cloneable {
 
@@ -12,10 +13,10 @@ public class EjerciciosContables extends EntityId implements Cloneable {
 	private Integer numero;
 
 	// Apertura
-	private java.time.LocalDate apertura;
+	private LocalDate apertura;
 
 	// Cierre
-	private java.time.LocalDate cierre;
+	private LocalDate cierre;
 
 	// Cerrado
 	private Boolean cerrado;
@@ -46,22 +47,22 @@ public class EjerciciosContables extends EntityId implements Cloneable {
 	}
 
 	// GET Apertura
-	public java.time.LocalDate getApertura() {
+	public LocalDate getApertura() {
 		return this.apertura;
 	}
 
 	// SET Apertura
-	public void setApertura(java.time.LocalDate apertura ){
+	public void setApertura(LocalDate apertura ){
 		this.apertura = apertura;
 	}
 
 	// GET Cierre
-	public java.time.LocalDate getCierre() {
+	public LocalDate getCierre() {
 		return this.cierre;
 	}
 
 	// SET Cierre
-	public void setCierre(java.time.LocalDate cierre ){
+	public void setCierre(LocalDate cierre ){
 		this.cierre = cierre;
 	}
 

@@ -14,6 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Cotizaciones de monedas")
@@ -69,13 +70,14 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Moneda
 		moneda = new ComboBox<>();
 		moneda.setPlaceholder("Moneda");
 		MonedaService monedaService = new MonedaService();
 		MonedasFiltro monedaFiltro = new MonedasFiltro();
 		monedaFiltro.setUnlimited(true);
-		java.util.List<Monedas> monedaItems = monedaService.find(monedaFiltro);
+		List<Monedas> monedaItems = monedaService.find(monedaFiltro);
 		moneda.setItems(monedaItems);
 		binder.forField(moneda)
 			.bind(MonedasCotizacionesFiltro::getMoneda, MonedasCotizacionesFiltro::setMoneda);
@@ -176,6 +178,7 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -199,6 +202,7 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, moneda, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {

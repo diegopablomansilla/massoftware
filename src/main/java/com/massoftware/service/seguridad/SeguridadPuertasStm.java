@@ -13,12 +13,14 @@ public class SeguridadPuertasStm extends StatementParam {
 					+ SeguridadPuertasFiltro.class.getCanonicalName());
 		}
 		
-		
-	
-		if (f.getSeguridadModulo() == null || f.getSeguridadModulo().toString().trim().isEmpty()) {
-			throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + SeguridadPuertasFiltro.class.getCanonicalName() + ".seguridadModulo para filtrar la consulta");
-		}
+		if(f.getUnlimited() == false) {
+			
+			
+			if (f.getSeguridadModulo() == null || f.getSeguridadModulo().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + SeguridadPuertasFiltro.class.getCanonicalName() + ".seguridadModulo para filtrar la consulta");
+			}
 
+		}
 
 		String atts = " COUNT(*)::INTEGER ";
 		String orderBy = "";
@@ -33,11 +35,11 @@ public class SeguridadPuertasStm extends StatementParam {
 
 			if (f.getUnlimited() == false) {
 				page = " LIMIT " + f.getLimit() + " OFFSET " + f.getOffset();
-			}
-			
-			join += " LEFT JOIN massoftware.SeguridadModulo ON SeguridadModulo.id = SeguridadPuerta.seguridadModulo";
+			}						
 
 		}
+		
+		join += " LEFT JOIN massoftware.SeguridadModulo ON SeguridadModulo.id = SeguridadPuerta.seguridadModulo";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.SeguridadPuerta " + join + buildWhere(f) + orderBy + page;
 
@@ -53,16 +55,22 @@ public class SeguridadPuertasStm extends StatementParam {
 		
 		
 	
+		if (f.getSeguridadModulo() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " SeguridadPuerta.SeguridadModulo = ?";
+			this.addArg(buildArgTrim(f.getSeguridadModulo().getId(), String.class));
+		}
+	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " SeguridadPuerta.Numero >= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroFrom(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroFrom(), Integer.class));
 		}
 	
 		if (f.getNumeroTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " SeguridadPuerta.Numero <= ?";
-			this.addArg(buildArgTrimLower(f.getNumeroTo(), Integer.class));
+			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
@@ -72,12 +80,6 @@ public class SeguridadPuertasStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(SeguridadPuerta.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getSeguridadModulo() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " SeguridadPuerta.SeguridadModulo = ?";
-			this.addArg(buildArgTrim(f.getSeguridadModulo().getId(), String.class));
 		}
 
 		
@@ -90,13 +92,6 @@ public class SeguridadPuertasStm extends StatementParam {
 		return where;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private Object buildArgTrimLower(Object arg, Class c) {
-		if (c == String.class) {
-			return (arg == null || arg.toString().trim().isEmpty()) ? c
-					: "%" + arg.toString().trim().toLowerCase() + "%";
-		}
-		return buildArg(arg, c) ;
-	}	
+	
 
 }

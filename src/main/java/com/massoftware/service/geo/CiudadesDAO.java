@@ -26,6 +26,10 @@ public class CiudadesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombrePais((String) row[++c]);
+				objRow.setNombreProvincia((String) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setNombre((String) row[++c]);
 
 				r.add(objRow);
 

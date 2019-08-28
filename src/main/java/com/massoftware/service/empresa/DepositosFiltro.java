@@ -1,7 +1,6 @@
 package com.massoftware.service.empresa;
 
 import com.massoftware.service.*;
-import com.massoftware.service.empresa.Sucursal;
 
 public class DepositosFiltro extends GenericFilter implements Cloneable {
 

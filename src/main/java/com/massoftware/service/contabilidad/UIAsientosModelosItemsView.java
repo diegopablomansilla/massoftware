@@ -14,6 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 
 
 @PageTitle("Items de asiento modelo")
@@ -69,6 +70,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		// Controls ------------------------
 		
 
+		//-------------------------------------------------------------------
 		// Asiento modelo
 		asientoModelo = new ComboBox<>();
 		asientoModelo.setRequired(true);
@@ -76,7 +78,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		AsientoModeloService asientoModeloService = new AsientoModeloService();
 		AsientosModelosFiltro asientoModeloFiltro = new AsientosModelosFiltro();
 		asientoModeloFiltro.setUnlimited(true);
-		java.util.List<AsientosModelos> asientoModeloItems = asientoModeloService.find(asientoModeloFiltro);
+		List<AsientosModelos> asientoModeloItems = asientoModeloService.find(asientoModeloFiltro);
 		asientoModelo.setItems(asientoModeloItems);
 		binder.forField(asientoModelo)
 			.asRequired("Asiento modelo es requerido.")		
@@ -178,6 +180,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 			search();
 		});
 */
+		//-------------------------------------------------------------------
 
 		// Button New ítem
 		newBTN = new Button();
@@ -201,6 +204,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
 		filterRow1.add(newBTN, asientoModelo, findBTN);
 
+		//-------------------------------------------------------------------
 	}
 
 	private void buildGrid() throws Exception {
