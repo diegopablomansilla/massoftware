@@ -52,6 +52,18 @@ public class UIMotivosComentarioGrid extends GridCustom<MotivosComentario> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(MotivosComentario::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº motivo");
+
+		addColumn(MotivosComentario::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

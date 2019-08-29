@@ -15,6 +15,10 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 		
 		if(f.getUnlimited() == false) {
 			
+			
+			if (f.getClasificacionCliente() == null || f.getClasificacionCliente().toString().trim().isEmpty()) {
+				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + MotivosBloqueosClientesFiltro.class.getCanonicalName() + ".clasificacionCliente para filtrar la consulta");
+			}
 
 		}
 
@@ -25,7 +29,7 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MotivoBloqueoCliente.id ";
+			atts = "MotivoBloqueoCliente.id , ClasificacionCliente.nombre AS nombreClasificacionCliente, MotivoBloqueoCliente.numero, MotivoBloqueoCliente.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -35,7 +39,7 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.ClasificacionCliente ON ClasificacionCliente.id = MotivoBloqueoCliente.clasificacionCliente";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.MotivoBloqueoCliente " + join + buildWhere(f) + orderBy + page;
 
@@ -50,6 +54,12 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 		//-----------------
 		
 		
+	
+		if (f.getClasificacionCliente() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " MotivoBloqueoCliente.ClasificacionCliente = ?";
+			this.addArg(buildArgTrim(f.getClasificacionCliente().getId(), String.class));
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
@@ -70,12 +80,6 @@ public class MotivosBloqueosClientesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(MotivoBloqueoCliente.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getClasificacionCliente() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " MotivoBloqueoCliente.ClasificacionCliente = ?";
-			this.addArg(buildArgTrim(f.getClasificacionCliente().getId(), String.class));
 		}
 
 		

@@ -28,7 +28,7 @@ public class TalonariosControladoresFizcales extends EntityId implements Cloneab
 		
 	public TalonariosControladoresFizcales clone() {
 		
-		TalonariosControladoresFizcales other = (TalonariosControladoresFizcales) super.clone();
+		TalonariosControladoresFizcales other = new TalonariosControladoresFizcales();
 		
 		other.setId(this.getId());
 		

@@ -76,7 +76,7 @@ public class JuridiccionConvnioMultilateral extends EntityId implements Cloneabl
 		
 	public JuridiccionConvnioMultilateral clone() {
 		
-		JuridiccionConvnioMultilateral other = (JuridiccionConvnioMultilateral) super.clone();
+		JuridiccionConvnioMultilateral other = new JuridiccionConvnioMultilateral();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

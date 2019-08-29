@@ -28,7 +28,7 @@ public class CuentasFondosRubros extends EntityId implements Cloneable {
 		
 	public CuentasFondosRubros clone() {
 		
-		CuentasFondosRubros other = (CuentasFondosRubros) super.clone();
+		CuentasFondosRubros other = new CuentasFondosRubros();
 		
 		other.setId(this.getId());
 		

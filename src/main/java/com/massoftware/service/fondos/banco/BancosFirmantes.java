@@ -28,7 +28,7 @@ public class BancosFirmantes extends EntityId implements Cloneable {
 		
 	public BancosFirmantes clone() {
 		
-		BancosFirmantes other = (BancosFirmantes) super.clone();
+		BancosFirmantes other = new BancosFirmantes();
 		
 		other.setId(this.getId());
 		

@@ -62,7 +62,7 @@ public class ComprobanteFondoModelo extends EntityId implements Cloneable {
 		
 	public ComprobanteFondoModelo clone() {
 		
-		ComprobanteFondoModelo other = (ComprobanteFondoModelo) super.clone();
+		ComprobanteFondoModelo other = new ComprobanteFondoModelo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

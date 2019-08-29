@@ -62,7 +62,7 @@ public class TipoPuntoEquilibrio extends EntityId implements Cloneable {
 		
 	public TipoPuntoEquilibrio clone() {
 		
-		TipoPuntoEquilibrio other = (TipoPuntoEquilibrio) super.clone();
+		TipoPuntoEquilibrio other = new TipoPuntoEquilibrio();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

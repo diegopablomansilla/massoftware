@@ -154,7 +154,7 @@ public class Transporte extends EntityId implements Cloneable {
 		
 	public Transporte clone() {
 		
-		Transporte other = (Transporte) super.clone();
+		Transporte other = new Transporte();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

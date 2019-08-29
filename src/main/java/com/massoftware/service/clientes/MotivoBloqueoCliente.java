@@ -76,7 +76,7 @@ public class MotivoBloqueoCliente extends EntityId implements Cloneable {
 		
 	public MotivoBloqueoCliente clone() {
 		
-		MotivoBloqueoCliente other = (MotivoBloqueoCliente) super.clone();
+		MotivoBloqueoCliente other = new MotivoBloqueoCliente();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

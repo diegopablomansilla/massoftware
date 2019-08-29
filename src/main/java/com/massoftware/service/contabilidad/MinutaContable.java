@@ -62,7 +62,7 @@ public class MinutaContable extends EntityId implements Cloneable {
 		
 	public MinutaContable clone() {
 		
-		MinutaContable other = (MinutaContable) super.clone();
+		MinutaContable other = new MinutaContable();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

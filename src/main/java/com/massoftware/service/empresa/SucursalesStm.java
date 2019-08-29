@@ -25,7 +25,7 @@ public class SucursalesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Sucursal.id ";
+			atts = "Sucursal.id , TipoSucursal.nombre AS nombreTiposucursal, Sucursal.numero, Sucursal.abreviatura, Sucursal.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -35,7 +35,7 @@ public class SucursalesStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.TipoSucursal ON TipoSucursal.id = Sucursal.tipoSucursal";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.Sucursal " + join + buildWhere(f) + orderBy + page;
 
@@ -51,6 +51,12 @@ public class SucursalesStm extends StatementParam {
 		
 		
 	
+		if (f.getTipoSucursal() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " Sucursal.TipoSucursal = ?";
+			this.addArg(buildArgTrim(f.getTipoSucursal().getId(), String.class));
+		}
+	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Sucursal.Numero >= ?";
@@ -61,6 +67,15 @@ public class SucursalesStm extends StatementParam {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " Sucursal.Numero <= ?";
 			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
+		}
+	
+		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
+			String[] words =  f.getAbreviatura().trim().split(" ");
+			for(String word : words) {
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(Sucursal.Abreviatura))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));
+			}
 		}
 	
 		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {

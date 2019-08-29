@@ -62,7 +62,7 @@ public class TipoDocumentoAFIP extends EntityId implements Cloneable {
 		
 	public TipoDocumentoAFIP clone() {
 		
-		TipoDocumentoAFIP other = (TipoDocumentoAFIP) super.clone();
+		TipoDocumentoAFIP other = new TipoDocumentoAFIP();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

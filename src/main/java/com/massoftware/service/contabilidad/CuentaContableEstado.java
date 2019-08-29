@@ -62,7 +62,7 @@ public class CuentaContableEstado extends EntityId implements Cloneable {
 		
 	public CuentaContableEstado clone() {
 		
-		CuentaContableEstado other = (CuentaContableEstado) super.clone();
+		CuentaContableEstado other = new CuentaContableEstado();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -1,4 +1,3 @@
-
 package com.massoftware.service.logistica;
 
 import com.massoftware.ui.components.UIUtils;
@@ -104,7 +103,7 @@ public class UICargasView extends VerticalLayout {
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº cargadesde ");
+		numeroFrom.setPlaceholder("Nº carga desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
 		numeroFrom.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);

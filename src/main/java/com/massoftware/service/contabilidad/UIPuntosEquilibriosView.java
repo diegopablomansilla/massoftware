@@ -1,4 +1,3 @@
-
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.ui.components.UIUtils;
@@ -13,11 +12,11 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.combobox.ComboBox;
-import java.util.List;
 
 
 @PageTitle("Puntos equilibrio")
@@ -46,10 +45,10 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<EjerciciosContables> ejercicioContable;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
-	private ComboBox<EjerciciosContables> ejercicioContable;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -77,14 +76,37 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		
 
 		//-------------------------------------------------------------------
+		// Ejercicio
+		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setRequired(true);
+		ejercicioContable.setPlaceholder("Ejercicio");
+		EjercicioContableService ejercicioContableService = new EjercicioContableService();
+		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
+		ejercicioContableFiltro.setUnlimited(true);
+		List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
+		ejercicioContable.setItems(ejercicioContableItems);
+		binder.forField(ejercicioContable)
+			.asRequired("Ejercicio es requerido.")		
+			.bind(PuntosEquilibriosFiltro::getEjercicioContable, PuntosEquilibriosFiltro::setEjercicioContable);
+		if(ejercicioContableItems.size() > 0){
+			ejercicioContable.setValue(ejercicioContableItems.get(0));
+		}
+		ejercicioContable.addValueChangeListener(event -> {
+			search();
+		});
+		ejercicioContable.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
 		// Nº cc (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº ccdesde ");
+		numeroFrom.setPlaceholder("Nº cc desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
-		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
+		numeroFrom.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
 		binder.forField(numeroFrom)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -110,7 +132,7 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		numeroTo.setPlaceholder("Nº cc hasta ");
 		numeroTo.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroTo.setClearButtonVisible(true);
-		numeroTo.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
+		numeroTo.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(numeroTo)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -136,7 +158,7 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		nombre.setWidthFull();
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
+		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
 		binder.forField(nombre)
 			.bind(PuntosEquilibriosFiltro::getNombre, PuntosEquilibriosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
@@ -148,29 +170,6 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
-			search();
-		});
-
-		//-------------------------------------------------------------------
-		// Ejercicio
-		ejercicioContable = new ComboBox<>();
-		ejercicioContable.setRequired(true);
-		ejercicioContable.setPlaceholder("Ejercicio");
-		EjercicioContableService ejercicioContableService = new EjercicioContableService();
-		EjerciciosContablesFiltro ejercicioContableFiltro = new EjerciciosContablesFiltro();
-		ejercicioContableFiltro.setUnlimited(true);
-		List<EjerciciosContables> ejercicioContableItems = ejercicioContableService.find(ejercicioContableFiltro);
-		ejercicioContable.setItems(ejercicioContableItems);
-		binder.forField(ejercicioContable)
-			.asRequired("Ejercicio es requerido.")		
-			.bind(PuntosEquilibriosFiltro::getEjercicioContable, PuntosEquilibriosFiltro::setEjercicioContable);
-		if(ejercicioContableItems.size() > 0){
-			ejercicioContable.setValue(ejercicioContableItems.get(0));
-		}
-		ejercicioContable.addValueChangeListener(event -> {
-			search();
-		});
-		ejercicioContable.addBlurListener(event -> {
 			search();
 		});
 
@@ -283,7 +282,7 @@ public class UIPuntosEquilibriosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, ejercicioContable, findBTN);
+		filterRow1.add(newBTN, ejercicioContable, numeroFrom, numeroTo, nombre, findBTN);
 
 		//-------------------------------------------------------------------
 	}

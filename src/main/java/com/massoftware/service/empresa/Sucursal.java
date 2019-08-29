@@ -271,7 +271,7 @@ public class Sucursal extends EntityId implements Cloneable {
 		
 	public Sucursal clone() {
 		
-		Sucursal other = (Sucursal) super.clone();
+		Sucursal other = new Sucursal();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

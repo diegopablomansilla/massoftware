@@ -88,7 +88,7 @@ public class Bancos extends EntityId implements Cloneable {
 		
 	public Bancos clone() {
 		
-		Bancos other = (Bancos) super.clone();
+		Bancos other = new Bancos();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

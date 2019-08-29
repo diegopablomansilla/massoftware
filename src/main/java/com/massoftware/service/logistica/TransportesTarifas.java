@@ -167,7 +167,7 @@ public class TransportesTarifas extends EntityId implements Cloneable {
 		
 	public TransportesTarifas clone() {
 		
-		TransportesTarifas other = (TransportesTarifas) super.clone();
+		TransportesTarifas other = new TransportesTarifas();
 		
 		other.setId(this.getId());
 		other.setNombreTransporte(this.getNombreTransporte());

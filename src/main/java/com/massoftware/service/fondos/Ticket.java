@@ -117,7 +117,7 @@ public class Ticket extends EntityId implements Cloneable {
 		
 	public Ticket clone() {
 		
-		Ticket other = (Ticket) super.clone();
+		Ticket other = new Ticket();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -10,30 +10,30 @@ import java.util.List;
 
 public class Entity implements Cloneable {
 
-	@Override
-	public Object clone() {
+//	@Override
+//	public Object clone() {
+//
+//		return clone(this.getClass());
+//	}
 
-		return clone(this.getClass());
-	}
-
-	protected Object clone(@SuppressWarnings("rawtypes") Class clazz) {
-
-		Object other;
-
-		try {
-
-			other = clazz.newInstance();
-
-			Object o = clone(this, clazz, other);
-
-			return o;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-
-	}
+//	protected Object clone(@SuppressWarnings("rawtypes") Class clazz) {
+//
+//		Object other;
+//
+//		try {
+//
+//			other = clazz.newInstance();
+//
+//			Object o = clone(this, clazz, other);
+//
+//			return o;
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException(e);
+//		}
+//
+//	}
 
 	protected Object clone(Object originalIsntance, @SuppressWarnings("rawtypes") Class clazz, Object other)
 			throws Exception {

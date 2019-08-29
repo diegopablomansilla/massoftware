@@ -52,6 +52,18 @@ public class UITiposClientesGrid extends GridCustom<TiposClientes> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(TiposClientes::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº tipo de cliente");
+
+		addColumn(TiposClientes::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

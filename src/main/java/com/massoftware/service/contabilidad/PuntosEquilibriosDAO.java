@@ -26,6 +26,10 @@ public class PuntosEquilibriosDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombreEjercicioContable((Integer) row[++c]);
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setNombre((String) row[++c]);
+				objRow.setNombreTipoPuntoEquilibrio((String) row[++c]);
 
 				r.add(objRow);
 

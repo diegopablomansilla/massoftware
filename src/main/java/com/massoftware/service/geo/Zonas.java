@@ -88,7 +88,7 @@ public class Zonas extends EntityId implements Cloneable {
 		
 	public Zonas clone() {
 		
-		Zonas other = (Zonas) super.clone();
+		Zonas other = new Zonas();
 		
 		other.setId(this.getId());
 		other.setCodigo(this.getCodigo());

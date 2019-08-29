@@ -56,6 +56,42 @@ public class UICuentasContablesGrid extends GridCustom<CuentasContables> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(CuentasContables::getNombreEjercicioContable, "nombreEjercicioContable")
+			.setKey("nombreEjercicioContable")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Ejercicio");
+
+		addColumn(CuentasContables::getCodigo, "codigo")
+			.setKey("codigo")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Cuenta contable");
+
+		addColumn(CuentasContables::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
+		addColumn(CuentasContables::getNombreCentroCostoContable, "nombreCentroCostoContable")
+			.setKey("nombreCentroCostoContable")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Ctro. Costo");
+
+		addColumn(CuentasContables::getCuentaAgrupadora, "cuentaAgrupadora")
+			.setKey("cuentaAgrupadora")
+			.setResizable(true)
+			.setSortProperty("6")
+			.setHeader("Cuenta agrupadora");
+
+		addColumn(CuentasContables::getPorcentaje, "porcentaje")
+			.setKey("porcentaje")
+			.setResizable(true)
+			.setSortProperty("7")
+			.setHeader("Porcentaje");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

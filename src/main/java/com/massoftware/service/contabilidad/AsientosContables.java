@@ -89,7 +89,7 @@ public class AsientosContables extends EntityId implements Cloneable {
 		
 	public AsientosContables clone() {
 		
-		AsientosContables other = (AsientosContables) super.clone();
+		AsientosContables other = new AsientosContables();
 		
 		other.setId(this.getId());
 		other.setNumeroEjercicio(this.getNumeroEjercicio());

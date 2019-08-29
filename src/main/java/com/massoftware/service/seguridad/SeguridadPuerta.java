@@ -89,7 +89,7 @@ public class SeguridadPuerta extends EntityId implements Cloneable {
 		
 	public SeguridadPuerta clone() {
 		
-		SeguridadPuerta other = (SeguridadPuerta) super.clone();
+		SeguridadPuerta other = new SeguridadPuerta();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

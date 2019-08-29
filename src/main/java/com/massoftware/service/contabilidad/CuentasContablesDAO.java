@@ -26,6 +26,12 @@ public class CuentasContablesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNombreEjercicioContable((Integer) row[++c]);
+				objRow.setCodigo((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
+				objRow.setNombreCentroCostoContable((String) row[++c]);
+				objRow.setCuentaAgrupadora((String) row[++c]);
+				objRow.setPorcentaje((Double) row[++c]);
 
 				r.add(objRow);
 

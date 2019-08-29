@@ -16,10 +16,6 @@ public class CentrosCostosContablesStm extends StatementParam {
 		if(f.getUnlimited() == false) {
 			
 			
-			if (f.getAbreviatura() == null || f.getAbreviatura().toString().trim().isEmpty()) {
-				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".abreviatura para filtrar la consulta");
-			}
-			
 			if (f.getEjercicioContable() == null || f.getEjercicioContable().toString().trim().isEmpty()) {
 				throw new IllegalArgumentException("QUERY: Se esperaba un valor para el campo " + CentrosCostosContablesFiltro.class.getCanonicalName() + ".ejercicioContable para filtrar la consulta");
 			}
@@ -33,7 +29,7 @@ public class CentrosCostosContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CentroCostoContable.id ";
+			atts = "CentroCostoContable.id , EjercicioContable.numero AS nombreEjercicioContable, CentroCostoContable.numero, CentroCostoContable.abreviatura, CentroCostoContable.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -43,7 +39,7 @@ public class CentrosCostosContablesStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.EjercicioContable ON EjercicioContable.id = CentroCostoContable.ejercicioContable";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.CentroCostoContable " + join + buildWhere(f) + orderBy + page;
 
@@ -58,6 +54,12 @@ public class CentrosCostosContablesStm extends StatementParam {
 		//-----------------
 		
 		
+	
+		if (f.getEjercicioContable() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " CentroCostoContable.EjercicioContable = ?";
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
@@ -78,21 +80,6 @@ public class CentrosCostosContablesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CentroCostoContable.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
-			String[] words =  f.getAbreviatura().trim().split(" ");
-			for(String word : words) {
-				where += (where.trim().length() > 0 ) ? " AND " : "";
-				where += " TRANSLATE(LOWER(TRIM(CentroCostoContable.Abreviatura))" + translate + ") LIKE ?";
-				this.addArg(buildArgTrimLower(word.trim(), String.class));
-			}
-		}
-	
-		if (f.getEjercicioContable() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " CentroCostoContable.EjercicioContable = ?";
-			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 
 		

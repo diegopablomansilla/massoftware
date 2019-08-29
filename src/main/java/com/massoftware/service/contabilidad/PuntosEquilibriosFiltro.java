@@ -7,6 +7,9 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
+	// Ejercicio
+	private EjerciciosContables ejercicioContable;
+
 	// Nº cc (desde)
 	private Integer numeroFrom;
 
@@ -16,11 +19,18 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 	// Nombre
 	private String nombre;
 
-	// Ejercicio
-	private EjerciciosContables ejercicioContable;
-
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Ejercicio
+	public EjerciciosContables getEjercicioContable() {
+		return this.ejercicioContable;
+	}
+
+	// SET Ejercicio
+	public void setEjercicioContable(EjerciciosContables ejercicioContable){
+		this.ejercicioContable = ejercicioContable;
+	}
 
 	// GET Nº cc (desde)
 	public Integer getNumeroFrom() {
@@ -51,16 +61,6 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 	public void setNombre(String nombre){
 		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
-
-	// GET Ejercicio
-	public EjerciciosContables getEjercicioContable() {
-		return this.ejercicioContable;
-	}
-
-	// SET Ejercicio
-	public void setEjercicioContable(EjerciciosContables ejercicioContable){
-		this.ejercicioContable = ejercicioContable;
-	}
 		
 	public boolean equals(Object obj) {
 		
@@ -74,6 +74,24 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 		
 		PuntosEquilibriosFiltro other = (PuntosEquilibriosFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getEjercicioContable() == null && this.getEjercicioContable() != null) {
+			return false;
+		}
+		
+		if (other.getEjercicioContable() != null && this.getEjercicioContable() == null) {
+			return false;
+		}
+		
+		if (other.getEjercicioContable() != null && this.getEjercicioContable() != null) {
+		
+			if (other.getEjercicioContable().equals(this.getEjercicioContable()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -131,24 +149,6 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getEjercicioContable() == null && this.getEjercicioContable() != null) {
-			return false;
-		}
-		
-		if (other.getEjercicioContable() != null && this.getEjercicioContable() == null) {
-			return false;
-		}
-		
-		if (other.getEjercicioContable() != null && this.getEjercicioContable() != null) {
-		
-			if (other.getEjercicioContable().equals(this.getEjercicioContable()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -164,15 +164,15 @@ public class PuntosEquilibriosFiltro extends GenericFilter implements Cloneable 
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		
 		if (this.getEjercicioContable() != null) {
 			other.setEjercicioContable(this.getEjercicioContable().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

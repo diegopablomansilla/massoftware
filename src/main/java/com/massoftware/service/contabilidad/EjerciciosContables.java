@@ -102,7 +102,7 @@ public class EjerciciosContables extends EntityId implements Cloneable {
 		
 	public EjerciciosContables clone() {
 		
-		EjerciciosContables other = (EjerciciosContables) super.clone();
+		EjerciciosContables other = new EjerciciosContables();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

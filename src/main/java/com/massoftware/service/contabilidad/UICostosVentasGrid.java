@@ -52,6 +52,18 @@ public class UICostosVentasGrid extends GridCustom<CostosVentas> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(CostosVentas::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº tipo");
+
+		addColumn(CostosVentas::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

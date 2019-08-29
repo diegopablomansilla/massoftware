@@ -1,4 +1,3 @@
-
 package com.massoftware.service.empresa;
 
 import com.massoftware.ui.components.UIUtils;
@@ -13,11 +12,11 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.combobox.ComboBox;
-import java.util.List;
 
 
 @PageTitle("Depósitos")
@@ -46,10 +45,10 @@ public class UIDepositosView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<Sucursales> sucursal;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
 	private TextField nombre;
-	private ComboBox<Sucursales> sucursal;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -77,14 +76,35 @@ public class UIDepositosView extends VerticalLayout {
 		
 
 		//-------------------------------------------------------------------
+		// Sucursal
+		sucursal = new ComboBox<>();
+		sucursal.setPlaceholder("Sucursal");
+		SucursalService sucursalService = new SucursalService();
+		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
+		sucursalFiltro.setUnlimited(true);
+		List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
+		sucursal.setItems(sucursalItems);
+		binder.forField(sucursal)
+			.bind(DepositosFiltro::getSucursal, DepositosFiltro::setSucursal);
+		if(sucursalItems.size() > 0){
+			sucursal.setValue(sucursalItems.get(0));
+		}
+		sucursal.addValueChangeListener(event -> {
+			search();
+		});
+		sucursal.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
 		// Nº depósito (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº depósitodesde ");
+		numeroFrom.setPlaceholder("Nº depósito desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
-		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
+		numeroFrom.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
 		binder.forField(numeroFrom)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -110,7 +130,7 @@ public class UIDepositosView extends VerticalLayout {
 		numeroTo.setPlaceholder("Nº depósito hasta ");
 		numeroTo.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroTo.setClearButtonVisible(true);
-		numeroTo.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
+		numeroTo.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(numeroTo)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -136,7 +156,7 @@ public class UIDepositosView extends VerticalLayout {
 		nombre.setWidthFull();
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
+		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
 		binder.forField(nombre)
 			.bind(DepositosFiltro::getNombre, DepositosFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
@@ -148,27 +168,6 @@ public class UIDepositosView extends VerticalLayout {
 			}
 		});
 		nombre.addBlurListener(event -> {
-			search();
-		});
-
-		//-------------------------------------------------------------------
-		// Sucursal
-		sucursal = new ComboBox<>();
-		sucursal.setPlaceholder("Sucursal");
-		SucursalService sucursalService = new SucursalService();
-		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();
-		sucursalFiltro.setUnlimited(true);
-		List<Sucursales> sucursalItems = sucursalService.find(sucursalFiltro);
-		sucursal.setItems(sucursalItems);
-		binder.forField(sucursal)
-			.bind(DepositosFiltro::getSucursal, DepositosFiltro::setSucursal);
-		if(sucursalItems.size() > 0){
-			sucursal.setValue(sucursalItems.get(0));
-		}
-		sucursal.addValueChangeListener(event -> {
-			search();
-		});
-		sucursal.addBlurListener(event -> {
 			search();
 		});
 
@@ -281,7 +280,7 @@ public class UIDepositosView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, sucursal, findBTN);
+		filterRow1.add(newBTN, sucursal, numeroFrom, numeroTo, nombre, findBTN);
 
 		//-------------------------------------------------------------------
 	}

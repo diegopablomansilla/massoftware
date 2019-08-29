@@ -28,7 +28,7 @@ public class Cajas extends EntityId implements Cloneable {
 		
 	public Cajas clone() {
 		
-		Cajas other = (Cajas) super.clone();
+		Cajas other = new Cajas();
 		
 		other.setId(this.getId());
 		

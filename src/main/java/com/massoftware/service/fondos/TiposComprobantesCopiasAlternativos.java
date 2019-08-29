@@ -28,7 +28,7 @@ public class TiposComprobantesCopiasAlternativos extends EntityId implements Clo
 		
 	public TiposComprobantesCopiasAlternativos clone() {
 		
-		TiposComprobantesCopiasAlternativos other = (TiposComprobantesCopiasAlternativos) super.clone();
+		TiposComprobantesCopiasAlternativos other = new TiposComprobantesCopiasAlternativos();
 		
 		other.setId(this.getId());
 		

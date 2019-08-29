@@ -28,7 +28,7 @@ public class TicketsModelos extends EntityId implements Cloneable {
 		
 	public TicketsModelos clone() {
 		
-		TicketsModelos other = (TicketsModelos) super.clone();
+		TicketsModelos other = new TicketsModelos();
 		
 		other.setId(this.getId());
 		

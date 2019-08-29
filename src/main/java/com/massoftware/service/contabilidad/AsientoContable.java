@@ -132,7 +132,7 @@ public class AsientoContable extends EntityId implements Cloneable {
 		
 	public AsientoContable clone() {
 		
-		AsientoContable other = (AsientoContable) super.clone();
+		AsientoContable other = new AsientoContable();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -1,4 +1,3 @@
-
 package com.massoftware.service.clientes;
 
 import com.massoftware.ui.components.UIUtils;
@@ -78,7 +77,7 @@ public class UIClasificacionesClientesView extends VerticalLayout {
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº clasificacióndesde ");
+		numeroFrom.setPlaceholder("Nº clasificación desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
 		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);

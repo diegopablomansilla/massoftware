@@ -56,6 +56,24 @@ public class UISucursalesGrid extends GridCustom<Sucursales> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Sucursales::getNombreTipoSucursal, "nombreTipoSucursal")
+			.setKey("nombreTipoSucursal")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Tipo sucursal");
+
+		addColumn(Sucursales::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº sucursal");
+
+		addColumn(Sucursales::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

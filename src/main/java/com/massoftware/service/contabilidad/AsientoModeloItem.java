@@ -77,7 +77,7 @@ public class AsientoModeloItem extends EntityId implements Cloneable {
 		
 	public AsientoModeloItem clone() {
 		
-		AsientoModeloItem other = (AsientoModeloItem) super.clone();
+		AsientoModeloItem other = new AsientoModeloItem();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

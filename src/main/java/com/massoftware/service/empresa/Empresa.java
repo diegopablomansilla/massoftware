@@ -155,7 +155,7 @@ public class Empresa extends EntityId implements Cloneable {
 		
 	public Empresa clone() {
 		
-		Empresa other = (Empresa) super.clone();
+		Empresa other = new Empresa();
 		
 		other.setId(this.getId());
 		

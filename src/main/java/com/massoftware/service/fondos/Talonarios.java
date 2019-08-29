@@ -28,7 +28,7 @@ public class Talonarios extends EntityId implements Cloneable {
 		
 	public Talonarios clone() {
 		
-		Talonarios other = (Talonarios) super.clone();
+		Talonarios other = new Talonarios();
 		
 		other.setId(this.getId());
 		

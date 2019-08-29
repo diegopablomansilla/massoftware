@@ -62,7 +62,7 @@ public class CostoVenta extends EntityId implements Cloneable {
 		
 	public CostoVenta clone() {
 		
-		CostoVenta other = (CostoVenta) super.clone();
+		CostoVenta other = new CostoVenta();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

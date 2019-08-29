@@ -25,7 +25,7 @@ public class TiposSucursalesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "TipoSucursal.id ";
+			atts = "TipoSucursal.id , TipoSucursal.numero, TipoSucursal.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

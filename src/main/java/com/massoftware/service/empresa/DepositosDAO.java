@@ -26,6 +26,11 @@ public class DepositosDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setNumero((Integer) row[++c]);
+				objRow.setAbreviatura((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
+				objRow.setNombreSucursal((String) row[++c]);
+				objRow.setNombreModulo((String) row[++c]);
 
 				r.add(objRow);
 

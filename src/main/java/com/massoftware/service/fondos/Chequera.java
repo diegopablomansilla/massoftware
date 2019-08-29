@@ -154,7 +154,7 @@ public class Chequera extends EntityId implements Cloneable {
 		
 	public Chequera clone() {
 		
-		Chequera other = (Chequera) super.clone();
+		Chequera other = new Chequera();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

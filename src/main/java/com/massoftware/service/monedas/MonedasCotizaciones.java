@@ -90,7 +90,7 @@ public class MonedasCotizaciones extends EntityId implements Cloneable {
 		
 	public MonedasCotizaciones clone() {
 		
-		MonedasCotizaciones other = (MonedasCotizaciones) super.clone();
+		MonedasCotizaciones other = new MonedasCotizaciones();
 		
 		other.setId(this.getId());
 		other.setCotizacionFecha(this.getCotizacionFecha());

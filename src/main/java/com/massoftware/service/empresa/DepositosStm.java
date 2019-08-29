@@ -25,7 +25,7 @@ public class DepositosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Deposito.id ";
+			atts = "Deposito.id , Deposito.numero, Deposito.abreviatura, Deposito.nombre, Sucursal.nombre AS nombreSucursal, DepositoModulo.nombre AS nombreModulo";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -35,7 +35,7 @@ public class DepositosStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.DepositoModulo ON DepositoModulo.id = Deposito.depositoModulo  LEFT JOIN massoftware.Sucursal ON Sucursal.id = Deposito.sucursal";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.Deposito " + join + buildWhere(f) + orderBy + page;
 
@@ -50,6 +50,12 @@ public class DepositosStm extends StatementParam {
 		//-----------------
 		
 		
+	
+		if (f.getSucursal() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " Deposito.Sucursal = ?";
+			this.addArg(buildArgTrim(f.getSucursal().getId(), String.class));
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
@@ -70,12 +76,6 @@ public class DepositosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(Deposito.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getSucursal() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " Deposito.Sucursal = ?";
-			this.addArg(buildArgTrim(f.getSucursal().getId(), String.class));
 		}
 
 		

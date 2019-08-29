@@ -62,7 +62,7 @@ public class TipoCliente extends EntityId implements Cloneable {
 		
 	public TipoCliente clone() {
 		
-		TipoCliente other = (TipoCliente) super.clone();
+		TipoCliente other = new TipoCliente();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

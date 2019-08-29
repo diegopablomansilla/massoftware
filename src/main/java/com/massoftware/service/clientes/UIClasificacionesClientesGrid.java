@@ -52,6 +52,24 @@ public class UIClasificacionesClientesGrid extends GridCustom<ClasificacionesCli
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(ClasificacionesClientes::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº clasificación");
+
+		addColumn(ClasificacionesClientes::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
+		addColumn(ClasificacionesClientes::getColor, "color")
+			.setKey("color")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Color");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

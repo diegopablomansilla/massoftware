@@ -88,7 +88,7 @@ public class Provincias extends EntityId implements Cloneable {
 		
 	public Provincias clone() {
 		
-		Provincias other = (Provincias) super.clone();
+		Provincias other = new Provincias();
 		
 		other.setId(this.getId());
 		other.setNombrePais(this.getNombrePais());

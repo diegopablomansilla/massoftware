@@ -8,6 +8,12 @@ public class MonedasAFIP extends EntityId implements Cloneable {
 
 	private String id;
 
+	// Código
+	private String codigo;
+
+	// Nombre
+	private String nombre;
+
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
@@ -20,17 +26,47 @@ public class MonedasAFIP extends EntityId implements Cloneable {
 		this.id = (id == null || id.trim().length() == 0) ? null : id.trim();
 	}
 
+	// GET Código
+	public String getCodigo() {
+		return this.codigo;
+	}
+
+	// SET Código
+	public void setCodigo(String codigo ){
+		this.codigo = (codigo == null || codigo.trim().length() == 0) ? null : codigo.trim();
+	}
+
+	// GET Nombre
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	// SET Nombre
+	public void setNombre(String nombre ){
+		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
+	}
+
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 	public String toString() {
+		if(this.getCodigo() != null && this.getNombre() != null){
+			return this.getCodigo() + " - " +  this.getNombre();
+		} else if(this.getCodigo() != null && this.getNombre() == null){
+			return this.getCodigo();
+		} else if(this.getCodigo() == null && this.getNombre() != null){
+			return this.getNombre();
+		} else {
 			return super.toString();
+		}
 	}
 		
 	public MonedasAFIP clone() {
 		
-		MonedasAFIP other = (MonedasAFIP) super.clone();
+		MonedasAFIP other = new MonedasAFIP();
 		
 		other.setId(this.getId());
+		other.setCodigo(this.getCodigo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

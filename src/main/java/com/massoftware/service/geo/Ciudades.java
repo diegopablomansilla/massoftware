@@ -88,7 +88,7 @@ public class Ciudades extends EntityId implements Cloneable {
 		
 	public Ciudades clone() {
 		
-		Ciudades other = (Ciudades) super.clone();
+		Ciudades other = new Ciudades();
 		
 		other.setId(this.getId());
 		other.setNombrePais(this.getNombrePais());

@@ -75,7 +75,7 @@ public class Cargas extends EntityId implements Cloneable {
 		
 	public Cargas clone() {
 		
-		Cargas other = (Cargas) super.clone();
+		Cargas other = new Cargas();
 		
 		other.setId(this.getId());
 		other.setNombreTransporte(this.getNombreTransporte());

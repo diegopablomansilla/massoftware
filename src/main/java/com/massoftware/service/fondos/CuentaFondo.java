@@ -11,8 +11,6 @@ import com.massoftware.service.fondos.banco.Banco;
 import java.math.BigDecimal;
 import com.massoftware.service.fondos.CuentaFondoBancoCopia;
 import com.massoftware.service.seguridad.SeguridadPuerta;
-import com.massoftware.service.seguridad.SeguridadPuerta;
-import com.massoftware.service.seguridad.SeguridadPuerta;
 
 public class CuentaFondo extends EntityId implements Cloneable {
 
@@ -399,7 +397,7 @@ public class CuentaFondo extends EntityId implements Cloneable {
 		
 	public CuentaFondo clone() {
 		
-		CuentaFondo other = (CuentaFondo) super.clone();
+		CuentaFondo other = new CuentaFondo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

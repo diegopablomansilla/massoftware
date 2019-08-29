@@ -28,7 +28,7 @@ public class ComportamientosComprobantes extends EntityId implements Cloneable {
 		
 	public ComportamientosComprobantes clone() {
 		
-		ComportamientosComprobantes other = (ComportamientosComprobantes) super.clone();
+		ComportamientosComprobantes other = new ComportamientosComprobantes();
 		
 		other.setId(this.getId());
 		

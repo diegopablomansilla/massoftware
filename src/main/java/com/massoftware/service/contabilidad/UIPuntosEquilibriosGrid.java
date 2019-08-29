@@ -52,6 +52,30 @@ public class UIPuntosEquilibriosGrid extends GridCustom<PuntosEquilibrios> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(PuntosEquilibrios::getNombreEjercicioContable, "nombreEjercicioContable")
+			.setKey("nombreEjercicioContable")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Ejercicio");
+
+		addColumn(PuntosEquilibrios::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº cc");
+
+		addColumn(PuntosEquilibrios::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
+		addColumn(PuntosEquilibrios::getNombreTipoPuntoEquilibrio, "nombreTipoPuntoEquilibrio")
+			.setKey("nombreTipoPuntoEquilibrio")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Tipo punto equilibrio");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

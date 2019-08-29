@@ -127,7 +127,7 @@ public class CodigosPostales extends EntityId implements Cloneable {
 		
 	public CodigosPostales clone() {
 		
-		CodigosPostales other = (CodigosPostales) super.clone();
+		CodigosPostales other = new CodigosPostales();
 		
 		other.setId(this.getId());
 		other.setNombrePais(this.getNombrePais());

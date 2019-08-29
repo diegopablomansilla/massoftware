@@ -62,7 +62,7 @@ public class Usuarios extends EntityId implements Cloneable {
 		
 	public Usuarios clone() {
 		
-		Usuarios other = (Usuarios) super.clone();
+		Usuarios other = new Usuarios();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

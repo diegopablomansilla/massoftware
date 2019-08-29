@@ -1626,7 +1626,7 @@ CREATE TABLE massoftware.Deposito
 	abreviatura VARCHAR(5) NOT NULL, 
 	
 	-- Sucursal
-	sucursal VARCHAR(36)  REFERENCES massoftware.Sucursal (id), 
+	sucursal VARCHAR(36)  NOT NULL  REFERENCES massoftware.Sucursal (id), 
 	
 	-- Módulo
 	depositoModulo VARCHAR(36)  NOT NULL  REFERENCES massoftware.DepositoModulo (id), 
@@ -2171,7 +2171,7 @@ CREATE TABLE massoftware.CuentaContable
 	cuentaAgrupadora VARCHAR(50), 
 	
 	-- Porcentaje
-	porcentaje DECIMAL(6,3) CONSTRAINT CuentaContable_porcentaje_chk CHECK ( porcentaje >= 0 AND porcentaje <= 999.99  ), 
+	porcentaje DOUBLE PRECISION, 
 	
 	-- Punto de equilibrio
 	puntoEquilibrio VARCHAR(36)  REFERENCES massoftware.PuntoEquilibrio (id), 

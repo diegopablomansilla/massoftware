@@ -4,7 +4,6 @@ import com.massoftware.service.EntityId;
 import com.massoftware.service.empresa.Sucursal;
 import com.massoftware.service.empresa.DepositoModulo;
 import com.massoftware.service.seguridad.SeguridadPuerta;
-import com.massoftware.service.seguridad.SeguridadPuerta;
 
 public class Deposito extends EntityId implements Cloneable {
 
@@ -131,7 +130,7 @@ public class Deposito extends EntityId implements Cloneable {
 		
 	public Deposito clone() {
 		
-		Deposito other = (Deposito) super.clone();
+		Deposito other = new Deposito();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

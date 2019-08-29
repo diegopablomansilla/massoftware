@@ -75,7 +75,7 @@ public class ClasificacionCliente extends EntityId implements Cloneable {
 		
 	public ClasificacionCliente clone() {
 		
-		ClasificacionCliente other = (ClasificacionCliente) super.clone();
+		ClasificacionCliente other = new ClasificacionCliente();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

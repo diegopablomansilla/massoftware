@@ -62,7 +62,7 @@ public class TalonarioControladorFizcal extends EntityId implements Cloneable {
 		
 	public TalonarioControladorFizcal clone() {
 		
-		TalonarioControladorFizcal other = (TalonarioControladorFizcal) super.clone();
+		TalonarioControladorFizcal other = new TalonarioControladorFizcal();
 		
 		other.setId(this.getId());
 		other.setCodigo(this.getCodigo());

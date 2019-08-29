@@ -75,7 +75,7 @@ public class Pais extends EntityId implements Cloneable {
 		
 	public Pais clone() {
 		
-		Pais other = (Pais) super.clone();
+		Pais other = new Pais();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

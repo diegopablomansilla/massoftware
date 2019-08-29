@@ -29,7 +29,7 @@ public class CuentasContablesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "CuentaContable.id ";
+			atts = "CuentaContable.id , EjercicioContable.numero AS nombreEjercicioContable, CuentaContable.codigo, CuentaContable.nombre, CentroCostoContable.nombre AS nombreCentroCostoContable, CuentaContable.cuentaAgrupadora, CuentaContable.porcentaje";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -39,7 +39,7 @@ public class CuentasContablesStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.EjercicioContable ON EjercicioContable.id = CuentaContable.ejercicioContable LEFT JOIN massoftware.CentroCostoContable ON CentroCostoContable.id = CuentaContable.centroCostoContable";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.CuentaContable " + join + buildWhere(f) + orderBy + page;
 
@@ -55,11 +55,38 @@ public class CuentasContablesStm extends StatementParam {
 		
 		
 	
+		if (f.getEjercicioContable() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " CuentaContable.EjercicioContable = ?";
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
+		}
+	
+		if (f.getCentroCostoContable() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " CuentaContable.CentroCostoContable = ?";
+			this.addArg(buildArgTrim(f.getCentroCostoContable().getId(), String.class));
+		}
+	
+		if (f.getPuntoEquilibrio() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " CuentaContable.PuntoEquilibrio = ?";
+			this.addArg(buildArgTrim(f.getPuntoEquilibrio().getId(), String.class));
+		}
+	
 		if (f.getCodigo() != null && f.getCodigo().trim().isEmpty() == false) {
 			String[] words =  f.getCodigo().trim().split(" ");
 			for(String word : words) {
 				where += (where.trim().length() > 0 ) ? " AND " : "";
 				where += " TRANSLATE(LOWER(TRIM(CuentaContable.Codigo))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));
+			}
+		}
+	
+		if (f.getCuentaAgrupadora() != null && f.getCuentaAgrupadora().trim().isEmpty() == false) {
+			String[] words =  f.getCuentaAgrupadora().trim().split(" ");
+			for(String word : words) {
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(CuentaContable.CuentaAgrupadora))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
 		}
@@ -71,12 +98,6 @@ public class CuentasContablesStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(CuentaContable.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getEjercicioContable() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " CuentaContable.EjercicioContable = ?";
-			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 
 		

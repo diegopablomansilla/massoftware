@@ -52,6 +52,18 @@ public class UIMonedasAFIPGrid extends GridCustom<MonedasAFIP> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(MonedasAFIP::getCodigo, "codigo")
+			.setKey("codigo")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Código");
+
+		addColumn(MonedasAFIP::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

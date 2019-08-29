@@ -62,7 +62,7 @@ public class ClaseComprobante extends EntityId implements Cloneable {
 		
 	public ClaseComprobante clone() {
 		
-		ClaseComprobante other = (ClaseComprobante) super.clone();
+		ClaseComprobante other = new ClaseComprobante();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

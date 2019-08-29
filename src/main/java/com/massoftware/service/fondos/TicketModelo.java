@@ -232,7 +232,7 @@ public class TicketModelo extends EntityId implements Cloneable {
 		
 	public TicketModelo clone() {
 		
-		TicketModelo other = (TicketModelo) super.clone();
+		TicketModelo other = new TicketModelo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

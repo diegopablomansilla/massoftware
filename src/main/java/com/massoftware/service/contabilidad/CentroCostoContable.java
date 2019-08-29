@@ -89,7 +89,7 @@ public class CentroCostoContable extends EntityId implements Cloneable {
 		
 	public CentroCostoContable clone() {
 		
-		CentroCostoContable other = (CentroCostoContable) super.clone();
+		CentroCostoContable other = new CentroCostoContable();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -1,4 +1,3 @@
-
 package com.massoftware.service.logistica;
 
 import com.massoftware.ui.components.UIUtils;

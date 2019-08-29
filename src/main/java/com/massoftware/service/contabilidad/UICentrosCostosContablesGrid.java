@@ -52,6 +52,30 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(CentrosCostosContables::getNombreEjercicioContable, "nombreEjercicioContable")
+			.setKey("nombreEjercicioContable")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Ejercicio");
+
+		addColumn(CentrosCostosContables::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº cc");
+
+		addColumn(CentrosCostosContables::getAbreviatura, "abreviatura")
+			.setKey("abreviatura")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Abreviatura");
+
+		addColumn(CentrosCostosContables::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -114,10 +138,6 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 			
 			
 	
-			if (filter.getAbreviatura() == null || filter.getAbreviatura().toString().trim().isEmpty()) {
-				return 0;
-			}
-	
 			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
 				return 0;
 			}
@@ -137,10 +157,6 @@ public class UICentrosCostosContablesGrid extends GridCustom<CentrosCostosContab
 		try {
 		
 			
-	
-			if (filter.getAbreviatura() == null || filter.getAbreviatura().toString().trim().isEmpty()) {
-				return new ArrayList<CentrosCostosContables>();
-			}
 	
 			if (filter.getEjercicioContable() == null || filter.getEjercicioContable().toString().trim().isEmpty()) {
 				return new ArrayList<CentrosCostosContables>();

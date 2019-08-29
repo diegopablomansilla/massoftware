@@ -131,7 +131,7 @@ public class AsientoContableItem extends EntityId implements Cloneable {
 		
 	public AsientoContableItem clone() {
 		
-		AsientoContableItem other = (AsientoContableItem) super.clone();
+		AsientoContableItem other = new AsientoContableItem();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

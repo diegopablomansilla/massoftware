@@ -129,7 +129,7 @@ public class Moneda extends EntityId implements Cloneable {
 		
 	public Moneda clone() {
 		
-		Moneda other = (Moneda) super.clone();
+		Moneda other = new Moneda();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

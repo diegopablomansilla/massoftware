@@ -1,4 +1,3 @@
-
 package com.massoftware.service.contabilidad;
 
 import com.massoftware.ui.components.UIUtils;

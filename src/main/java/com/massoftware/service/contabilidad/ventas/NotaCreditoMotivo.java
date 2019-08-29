@@ -62,7 +62,7 @@ public class NotaCreditoMotivo extends EntityId implements Cloneable {
 		
 	public NotaCreditoMotivo clone() {
 		
-		NotaCreditoMotivo other = (NotaCreditoMotivo) super.clone();
+		NotaCreditoMotivo other = new NotaCreditoMotivo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

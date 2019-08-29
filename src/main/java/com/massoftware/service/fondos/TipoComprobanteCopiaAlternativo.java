@@ -62,7 +62,7 @@ public class TipoComprobanteCopiaAlternativo extends EntityId implements Cloneab
 		
 	public TipoComprobanteCopiaAlternativo clone() {
 		
-		TipoComprobanteCopiaAlternativo other = (TipoComprobanteCopiaAlternativo) super.clone();
+		TipoComprobanteCopiaAlternativo other = new TipoComprobanteCopiaAlternativo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -25,7 +25,7 @@ public class ClasificacionesClientesStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "ClasificacionCliente.id ";
+			atts = "ClasificacionCliente.id , ClasificacionCliente.numero, ClasificacionCliente.nombre, ClasificacionCliente.color";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

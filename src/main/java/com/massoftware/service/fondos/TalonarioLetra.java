@@ -45,7 +45,7 @@ public class TalonarioLetra extends EntityId implements Cloneable {
 		
 	public TalonarioLetra clone() {
 		
-		TalonarioLetra other = (TalonarioLetra) super.clone();
+		TalonarioLetra other = new TalonarioLetra();
 		
 		other.setId(this.getId());
 		other.setNombre(this.getNombre());

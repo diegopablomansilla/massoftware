@@ -62,7 +62,7 @@ public class TipoComprobanteConcepto extends EntityId implements Cloneable {
 		
 	public TipoComprobanteConcepto clone() {
 		
-		TipoComprobanteConcepto other = (TipoComprobanteConcepto) super.clone();
+		TipoComprobanteConcepto other = new TipoComprobanteConcepto();
 		
 		other.setId(this.getId());
 		other.setCodigo(this.getCodigo());

@@ -62,7 +62,7 @@ public class DepositoModulo extends EntityId implements Cloneable {
 		
 	public DepositoModulo clone() {
 		
-		DepositoModulo other = (DepositoModulo) super.clone();
+		DepositoModulo other = new DepositoModulo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

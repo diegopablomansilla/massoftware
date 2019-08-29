@@ -26,6 +26,8 @@ public class MonedasAFIPDAO {
 
 				objRow.setId((String) row[++c]);				
 				
+				objRow.setCodigo((String) row[++c]);
+				objRow.setNombre((String) row[++c]);
 
 				r.add(objRow);
 

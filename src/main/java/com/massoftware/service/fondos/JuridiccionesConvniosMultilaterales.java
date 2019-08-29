@@ -28,7 +28,7 @@ public class JuridiccionesConvniosMultilaterales extends EntityId implements Clo
 		
 	public JuridiccionesConvniosMultilaterales clone() {
 		
-		JuridiccionesConvniosMultilaterales other = (JuridiccionesConvniosMultilaterales) super.clone();
+		JuridiccionesConvniosMultilaterales other = new JuridiccionesConvniosMultilaterales();
 		
 		other.setId(this.getId());
 		

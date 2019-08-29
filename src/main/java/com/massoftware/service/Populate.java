@@ -1562,7 +1562,7 @@ public class Populate {
 
 				obj.setCuentaAgrupadora(UtilPopulate.getStringRandom(null, 50, false));
 
-				obj.setPorcentaje(UtilPopulate.getBigDecimalRandom(new java.math.BigDecimal("0"), new java.math.BigDecimal("999.99"), false, 6, 3));
+				obj.setPorcentaje(UtilPopulate.getDoubleRandom(0.0, 999.99, false));
 
 				PuntosEquilibriosFiltro puntoEquilibrioFiltro = new PuntosEquilibriosFiltro();
 				int puntoEquilibrioIndex = UtilPopulate.getIntegerRandom(0, puntoEquilibrioCount.intValue()-1);

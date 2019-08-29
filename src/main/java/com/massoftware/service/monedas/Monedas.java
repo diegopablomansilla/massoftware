@@ -28,7 +28,7 @@ public class Monedas extends EntityId implements Cloneable {
 		
 	public Monedas clone() {
 		
-		Monedas other = (Monedas) super.clone();
+		Monedas other = new Monedas();
 		
 		other.setId(this.getId());
 		

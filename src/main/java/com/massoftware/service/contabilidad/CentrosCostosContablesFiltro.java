@@ -7,6 +7,9 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
+	// Ejercicio
+	private EjerciciosContables ejercicioContable;
+
 	// Nº cc (desde)
 	private Integer numeroFrom;
 
@@ -16,14 +19,18 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 	// Nombre
 	private String nombre;
 
-	// Abreviatura
-	private String abreviatura;
-
-	// Ejercicio
-	private EjerciciosContables ejercicioContable;
-
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Ejercicio
+	public EjerciciosContables getEjercicioContable() {
+		return this.ejercicioContable;
+	}
+
+	// SET Ejercicio
+	public void setEjercicioContable(EjerciciosContables ejercicioContable){
+		this.ejercicioContable = ejercicioContable;
+	}
 
 	// GET Nº cc (desde)
 	public Integer getNumeroFrom() {
@@ -54,26 +61,6 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 	public void setNombre(String nombre){
 		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
-
-	// GET Abreviatura
-	public String getAbreviatura() {
-		return this.abreviatura;
-	}
-
-	// SET Abreviatura
-	public void setAbreviatura(String abreviatura){
-		this.abreviatura = (abreviatura == null || abreviatura.trim().length() == 0) ? null : abreviatura.trim();
-	}
-
-	// GET Ejercicio
-	public EjerciciosContables getEjercicioContable() {
-		return this.ejercicioContable;
-	}
-
-	// SET Ejercicio
-	public void setEjercicioContable(EjerciciosContables ejercicioContable){
-		this.ejercicioContable = ejercicioContable;
-	}
 		
 	public boolean equals(Object obj) {
 		
@@ -87,6 +74,24 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 		
 		CentrosCostosContablesFiltro other = (CentrosCostosContablesFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getEjercicioContable() == null && this.getEjercicioContable() != null) {
+			return false;
+		}
+		
+		if (other.getEjercicioContable() != null && this.getEjercicioContable() == null) {
+			return false;
+		}
+		
+		if (other.getEjercicioContable() != null && this.getEjercicioContable() != null) {
+		
+			if (other.getEjercicioContable().equals(this.getEjercicioContable()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -144,42 +149,6 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getAbreviatura() == null && this.getAbreviatura() != null) {
-			return false;
-		}
-		
-		if (other.getAbreviatura() != null && this.getAbreviatura() == null) {
-			return false;
-		}
-		
-		if (other.getAbreviatura() != null && this.getAbreviatura() != null) {
-		
-			if (other.getAbreviatura().equals(this.getAbreviatura()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
-		if (other.getEjercicioContable() == null && this.getEjercicioContable() != null) {
-			return false;
-		}
-		
-		if (other.getEjercicioContable() != null && this.getEjercicioContable() == null) {
-			return false;
-		}
-		
-		if (other.getEjercicioContable() != null && this.getEjercicioContable() != null) {
-		
-			if (other.getEjercicioContable().equals(this.getEjercicioContable()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -195,16 +164,15 @@ public class CentrosCostosContablesFiltro extends GenericFilter implements Clone
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
-		other.setAbreviatura(this.getAbreviatura());
 		
 		// -------------------------------------------------------------------
 		
 		if (this.getEjercicioContable() != null) {
 			other.setEjercicioContable(this.getEjercicioContable().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

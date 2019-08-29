@@ -102,7 +102,7 @@ public class Ciudad extends EntityId implements Cloneable {
 		
 	public Ciudad clone() {
 		
-		Ciudad other = (Ciudad) super.clone();
+		Ciudad other = new Ciudad();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

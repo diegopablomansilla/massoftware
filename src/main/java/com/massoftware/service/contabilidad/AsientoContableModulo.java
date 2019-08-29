@@ -62,7 +62,7 @@ public class AsientoContableModulo extends EntityId implements Cloneable {
 		
 	public AsientoContableModulo clone() {
 		
-		AsientoContableModulo other = (AsientoContableModulo) super.clone();
+		AsientoContableModulo other = new AsientoContableModulo();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

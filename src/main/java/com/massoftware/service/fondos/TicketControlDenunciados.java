@@ -62,7 +62,7 @@ public class TicketControlDenunciados extends EntityId implements Cloneable {
 		
 	public TicketControlDenunciados clone() {
 		
-		TicketControlDenunciados other = (TicketControlDenunciados) super.clone();
+		TicketControlDenunciados other = new TicketControlDenunciados();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -52,6 +52,18 @@ public class UITiposPuntosEquilibriosGrid extends GridCustom<TiposPuntosEquilibr
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(TiposPuntosEquilibrios::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº tipo");
+
+		addColumn(TiposPuntosEquilibrios::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

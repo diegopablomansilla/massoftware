@@ -62,7 +62,7 @@ public class TipoSucursal extends EntityId implements Cloneable {
 		
 	public TipoSucursal clone() {
 		
-		TipoSucursal other = (TipoSucursal) super.clone();
+		TipoSucursal other = new TipoSucursal();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

@@ -62,7 +62,7 @@ public class MonedaAFIP extends EntityId implements Cloneable {
 		
 	public MonedaAFIP clone() {
 		
-		MonedaAFIP other = (MonedaAFIP) super.clone();
+		MonedaAFIP other = new MonedaAFIP();
 		
 		other.setId(this.getId());
 		other.setCodigo(this.getCodigo());

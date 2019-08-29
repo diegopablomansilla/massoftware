@@ -7,6 +7,9 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
+	// Clasificación de cliente
+	private ClasificacionesClientes clasificacionCliente;
+
 	// Nº motivo (desde)
 	private Integer numeroFrom;
 
@@ -16,11 +19,18 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 	// Nombre
 	private String nombre;
 
-	// Clasificación de cliente
-	private ClasificacionesClientes clasificacionCliente;
-
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Clasificación de cliente
+	public ClasificacionesClientes getClasificacionCliente() {
+		return this.clasificacionCliente;
+	}
+
+	// SET Clasificación de cliente
+	public void setClasificacionCliente(ClasificacionesClientes clasificacionCliente){
+		this.clasificacionCliente = clasificacionCliente;
+	}
 
 	// GET Nº motivo (desde)
 	public Integer getNumeroFrom() {
@@ -51,16 +61,6 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 	public void setNombre(String nombre){
 		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
-
-	// GET Clasificación de cliente
-	public ClasificacionesClientes getClasificacionCliente() {
-		return this.clasificacionCliente;
-	}
-
-	// SET Clasificación de cliente
-	public void setClasificacionCliente(ClasificacionesClientes clasificacionCliente){
-		this.clasificacionCliente = clasificacionCliente;
-	}
 		
 	public boolean equals(Object obj) {
 		
@@ -74,6 +74,24 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 		
 		MotivosBloqueosClientesFiltro other = (MotivosBloqueosClientesFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getClasificacionCliente() == null && this.getClasificacionCliente() != null) {
+			return false;
+		}
+		
+		if (other.getClasificacionCliente() != null && this.getClasificacionCliente() == null) {
+			return false;
+		}
+		
+		if (other.getClasificacionCliente() != null && this.getClasificacionCliente() != null) {
+		
+			if (other.getClasificacionCliente().equals(this.getClasificacionCliente()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -131,24 +149,6 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getClasificacionCliente() == null && this.getClasificacionCliente() != null) {
-			return false;
-		}
-		
-		if (other.getClasificacionCliente() != null && this.getClasificacionCliente() == null) {
-			return false;
-		}
-		
-		if (other.getClasificacionCliente() != null && this.getClasificacionCliente() != null) {
-		
-			if (other.getClasificacionCliente().equals(this.getClasificacionCliente()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -164,15 +164,15 @@ public class MotivosBloqueosClientesFiltro extends GenericFilter implements Clon
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		
 		if (this.getClasificacionCliente() != null) {
 			other.setClasificacionCliente(this.getClasificacionCliente().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

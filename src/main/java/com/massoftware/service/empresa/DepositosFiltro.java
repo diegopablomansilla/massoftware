@@ -7,6 +7,9 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 	// ---------------------------------------------------------------------------------------------------------------------------
 
 
+	// Sucursal
+	private Sucursales sucursal;
+
 	// Nº depósito (desde)
 	private Integer numeroFrom;
 
@@ -16,11 +19,18 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 	// Nombre
 	private String nombre;
 
-	// Sucursal
-	private Sucursales sucursal;
-
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+
+	// GET Sucursal
+	public Sucursales getSucursal() {
+		return this.sucursal;
+	}
+
+	// SET Sucursal
+	public void setSucursal(Sucursales sucursal){
+		this.sucursal = sucursal;
+	}
 
 	// GET Nº depósito (desde)
 	public Integer getNumeroFrom() {
@@ -51,16 +61,6 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 	public void setNombre(String nombre){
 		this.nombre = (nombre == null || nombre.trim().length() == 0) ? null : nombre.trim();
 	}
-
-	// GET Sucursal
-	public Sucursales getSucursal() {
-		return this.sucursal;
-	}
-
-	// SET Sucursal
-	public void setSucursal(Sucursales sucursal){
-		this.sucursal = sucursal;
-	}
 		
 	public boolean equals(Object obj) {
 		
@@ -74,6 +74,24 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 		
 		DepositosFiltro other = (DepositosFiltro) obj;
 		
+		
+		// -------------------------------------------------------------------
+		
+		if (other.getSucursal() == null && this.getSucursal() != null) {
+			return false;
+		}
+		
+		if (other.getSucursal() != null && this.getSucursal() == null) {
+			return false;
+		}
+		
+		if (other.getSucursal() != null && this.getSucursal() != null) {
+		
+			if (other.getSucursal().equals(this.getSucursal()) == false) {
+				return false;
+			}
+		
+		}
 		
 		// -------------------------------------------------------------------
 		
@@ -131,24 +149,6 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 		
 		// -------------------------------------------------------------------
 		
-		if (other.getSucursal() == null && this.getSucursal() != null) {
-			return false;
-		}
-		
-		if (other.getSucursal() != null && this.getSucursal() == null) {
-			return false;
-		}
-		
-		if (other.getSucursal() != null && this.getSucursal() != null) {
-		
-			if (other.getSucursal().equals(this.getSucursal()) == false) {
-				return false;
-			}
-		
-		}
-		
-		// -------------------------------------------------------------------
-		
 		return true;
 		
 		// -------------------------------------------------------------------
@@ -164,15 +164,15 @@ public class DepositosFiltro extends GenericFilter implements Cloneable {
 		other.setOrderByDesc(this.getOrderByDesc());
 		other.setUnlimited(this.getUnlimited());
 		
-		other.setNumeroFrom(this.getNumeroFrom());
-		other.setNumeroTo(this.getNumeroTo());
-		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		
 		if (this.getSucursal() != null) {
 			other.setSucursal(this.getSucursal().clone());
 		}
+		other.setNumeroFrom(this.getNumeroFrom());
+		other.setNumeroTo(this.getNumeroTo());
+		other.setNombre(this.getNombre());
 		
 		// -------------------------------------------------------------------
 		

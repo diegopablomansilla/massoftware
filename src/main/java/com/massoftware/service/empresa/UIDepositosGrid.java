@@ -52,6 +52,36 @@ public class UIDepositosGrid extends GridCustom<Depositos> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Depositos::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº depósito");
+
+		addColumn(Depositos::getAbreviatura, "abreviatura")
+			.setKey("abreviatura")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Abreviatura");
+
+		addColumn(Depositos::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
+		addColumn(Depositos::getNombreSucursal, "nombreSucursal")
+			.setKey("nombreSucursal")
+			.setResizable(true)
+			.setSortProperty("5")
+			.setHeader("Nombre sucursal");
+
+		addColumn(Depositos::getNombreModulo, "nombreModulo")
+			.setKey("nombreModulo")
+			.setResizable(true)
+			.setSortProperty("6")
+			.setHeader("Nombre módulo");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

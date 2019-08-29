@@ -25,7 +25,7 @@ public class MotivosComentarioStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MotivoComentario.id ";
+			atts = "MotivoComentario.id , MotivoComentario.numero, MotivoComentario.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

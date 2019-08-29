@@ -128,7 +128,7 @@ public class Provincia extends EntityId implements Cloneable {
 		
 	public Provincia clone() {
 		
-		Provincia other = (Provincia) super.clone();
+		Provincia other = new Provincia();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

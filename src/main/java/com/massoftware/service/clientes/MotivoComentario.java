@@ -62,7 +62,7 @@ public class MotivoComentario extends EntityId implements Cloneable {
 		
 	public MotivoComentario clone() {
 		
-		MotivoComentario other = (MotivoComentario) super.clone();
+		MotivoComentario other = new MotivoComentario();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

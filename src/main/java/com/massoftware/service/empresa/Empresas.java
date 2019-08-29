@@ -28,7 +28,7 @@ public class Empresas extends EntityId implements Cloneable {
 		
 	public Empresas clone() {
 		
-		Empresas other = (Empresas) super.clone();
+		Empresas other = new Empresas();
 		
 		other.setId(this.getId());
 		

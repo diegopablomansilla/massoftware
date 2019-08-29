@@ -25,7 +25,7 @@ public class MonedasAFIPStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "MonedaAFIP.id ";
+			atts = "MonedaAFIP.id , MonedaAFIP.codigo, MonedaAFIP.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 

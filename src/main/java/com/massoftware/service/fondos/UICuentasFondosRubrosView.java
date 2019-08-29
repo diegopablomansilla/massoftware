@@ -1,4 +1,3 @@
-
 package com.massoftware.service.fondos;
 
 import com.massoftware.ui.components.UIUtils;
@@ -78,7 +77,7 @@ public class UICuentasFondosRubrosView extends VerticalLayout {
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº rubrodesde ");
+		numeroFrom.setPlaceholder("Nº rubro desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
 		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);

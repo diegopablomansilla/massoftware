@@ -29,7 +29,7 @@ public class PuntosEquilibriosStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "PuntoEquilibrio.id ";
+			atts = "PuntoEquilibrio.id , EjercicioContable.numero AS nombreEjercicioContable, PuntoEquilibrio.numero, PuntoEquilibrio.nombre, TipoPuntoEquilibrio.nombre AS nombreTipoPuntoEquilibrio";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -39,7 +39,7 @@ public class PuntosEquilibriosStm extends StatementParam {
 
 		}
 		
-		join += "";
+		join += " LEFT JOIN massoftware.EjercicioContable ON EjercicioContable.id = PuntoEquilibrio.ejercicioContable LEFT JOIN massoftware.TipoPuntoEquilibrio ON TipoPuntoEquilibrio.id = PuntoEquilibrio.tipoPuntoEquilibrio";
 
 		String sql = "SELECT  " + atts + " FROM massoftware.PuntoEquilibrio " + join + buildWhere(f) + orderBy + page;
 
@@ -54,6 +54,12 @@ public class PuntosEquilibriosStm extends StatementParam {
 		//-----------------
 		
 		
+	
+		if (f.getEjercicioContable() != null) {
+			where += (where.trim().length() > 0 ) ? " AND " : "";
+			where += " PuntoEquilibrio.EjercicioContable = ?";
+			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
+		}
 	
 		if (f.getNumeroFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
@@ -74,12 +80,6 @@ public class PuntosEquilibriosStm extends StatementParam {
 				where += " TRANSLATE(LOWER(TRIM(PuntoEquilibrio.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
-		}
-	
-		if (f.getEjercicioContable() != null) {
-			where += (where.trim().length() > 0 ) ? " AND " : "";
-			where += " PuntoEquilibrio.EjercicioContable = ?";
-			this.addArg(buildArgTrim(f.getEjercicioContable().getId(), String.class));
 		}
 
 		

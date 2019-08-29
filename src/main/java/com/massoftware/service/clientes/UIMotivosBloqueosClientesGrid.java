@@ -52,6 +52,24 @@ public class UIMotivosBloqueosClientesGrid extends GridCustom<MotivosBloqueosCli
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(MotivosBloqueosClientes::getNombreClasificacionCliente, "nombreClasificacionCliente")
+			.setKey("nombreClasificacionCliente")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Clasificación de cliente");
+
+		addColumn(MotivosBloqueosClientes::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nº motivo");
+
+		addColumn(MotivosBloqueosClientes::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("4")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")
@@ -113,6 +131,10 @@ public class UIMotivosBloqueosClientesGrid extends GridCustom<MotivosBloqueosCli
 		try {
 			
 			
+	
+			if (filter.getClasificacionCliente() == null || filter.getClasificacionCliente().toString().trim().isEmpty()) {
+				return 0;
+			}
 
 		
 			return service.count(filter);
@@ -129,6 +151,10 @@ public class UIMotivosBloqueosClientesGrid extends GridCustom<MotivosBloqueosCli
 		try {
 		
 			
+	
+			if (filter.getClasificacionCliente() == null || filter.getClasificacionCliente().toString().trim().isEmpty()) {
+				return new ArrayList<MotivosBloqueosClientes>();
+			}
 
 
 			filter.setOffset(offset);

@@ -1,4 +1,3 @@
-
 package com.massoftware.service.empresa;
 
 import com.massoftware.ui.components.UIUtils;
@@ -13,6 +12,8 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import com.vaadin.flow.component.combobox.ComboBox;
+import java.util.List;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
@@ -44,8 +45,10 @@ public class UISucursalesView extends VerticalLayout {
 	//private NumberField numeroTo;
 	//private TextField nombre;
 	
+	private ComboBox<TiposSucursales> tipoSucursal;
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
+	private TextField abreviatura;
 	private TextField nombre;
 
 	private Button newBTN;
@@ -74,14 +77,35 @@ public class UISucursalesView extends VerticalLayout {
 		
 
 		//-------------------------------------------------------------------
+		// Tipo sucursal
+		tipoSucursal = new ComboBox<>();
+		tipoSucursal.setPlaceholder("Tipo sucursal");
+		TipoSucursalService tipoSucursalService = new TipoSucursalService();
+		TiposSucursalesFiltro tipoSucursalFiltro = new TiposSucursalesFiltro();
+		tipoSucursalFiltro.setUnlimited(true);
+		List<TiposSucursales> tipoSucursalItems = tipoSucursalService.find(tipoSucursalFiltro);
+		tipoSucursal.setItems(tipoSucursalItems);
+		binder.forField(tipoSucursal)
+			.bind(SucursalesFiltro::getTipoSucursal, SucursalesFiltro::setTipoSucursal);
+		if(tipoSucursalItems.size() > 0){
+			tipoSucursal.setValue(tipoSucursalItems.get(0));
+		}
+		tipoSucursal.addValueChangeListener(event -> {
+			search();
+		});
+		tipoSucursal.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
 		// Nº sucursal (desde)
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº sucursaldesde ");
+		numeroFrom.setPlaceholder("Nº sucursal desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
-		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
+		numeroFrom.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
 		binder.forField(numeroFrom)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -107,7 +131,7 @@ public class UISucursalesView extends VerticalLayout {
 		numeroTo.setPlaceholder("Nº sucursal hasta ");
 		numeroTo.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroTo.setClearButtonVisible(true);
-		numeroTo.addFocusShortcut(Key.DIGIT_2, KeyModifier.ALT);
+		numeroTo.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(numeroTo)
 			.withConverter(new DoubleToIntegerConverter())
 			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
@@ -126,6 +150,29 @@ public class UISucursalesView extends VerticalLayout {
 		});
 
 		//-------------------------------------------------------------------
+		// Abreviatura
+		abreviatura = new TextField();
+		abreviatura.setPlaceholder("Abreviatura");
+		abreviatura.setPrefixComponent(VaadinIcon.SEARCH.create());
+		abreviatura.setWidthFull();
+		abreviatura.setClearButtonVisible(true);
+		abreviatura.setAutoselect(true);
+		abreviatura.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
+		binder.forField(abreviatura)
+			.bind(SucursalesFiltro::getAbreviatura, SucursalesFiltro::setAbreviatura);
+		abreviatura.addKeyPressListener(Key.ENTER, event -> {
+			search();
+		});
+		abreviatura.addValueChangeListener(event -> {
+			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
+				search();
+			}
+		});
+		abreviatura.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
 		// Nombre
 		nombre = new TextField();
 		nombre.setPlaceholder("Nombre");
@@ -133,7 +180,7 @@ public class UISucursalesView extends VerticalLayout {
 		nombre.setWidthFull();
 		nombre.setClearButtonVisible(true);
 		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
+		nombre.addFocusShortcut(Key.DIGIT_5, KeyModifier.ALT);
 		binder.forField(nombre)
 			.bind(SucursalesFiltro::getNombre, SucursalesFiltro::setNombre);
 		nombre.addKeyPressListener(Key.ENTER, event -> {
@@ -257,7 +304,7 @@ public class UISucursalesView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
+		filterRow1.add(newBTN, tipoSucursal, numeroFrom, numeroTo, abreviatura, nombre, findBTN);
 
 		//-------------------------------------------------------------------
 	}

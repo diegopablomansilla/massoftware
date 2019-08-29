@@ -62,7 +62,7 @@ public class CuentaFondoTipoBanco extends EntityId implements Cloneable {
 		
 	public CuentaFondoTipoBanco clone() {
 		
-		CuentaFondoTipoBanco other = (CuentaFondoTipoBanco) super.clone();
+		CuentaFondoTipoBanco other = new CuentaFondoTipoBanco();
 		
 		other.setId(this.getId());
 		other.setNumero(this.getNumero());

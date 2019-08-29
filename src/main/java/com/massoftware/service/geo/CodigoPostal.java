@@ -102,7 +102,7 @@ public class CodigoPostal extends EntityId implements Cloneable {
 		
 	public CodigoPostal clone() {
 		
-		CodigoPostal other = (CodigoPostal) super.clone();
+		CodigoPostal other = new CodigoPostal();
 		
 		other.setId(this.getId());
 		other.setCodigo(this.getCodigo());

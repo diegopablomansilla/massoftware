@@ -1,4 +1,3 @@
-
 package com.massoftware.service.geo;
 
 import com.massoftware.ui.components.UIUtils;
@@ -79,7 +78,7 @@ public class UIPaisesView extends VerticalLayout {
 		numeroFrom = new NumberField();
 		numeroFrom.setMin(1);
 		numeroFrom.setMax(Integer.MAX_VALUE);
-		numeroFrom.setPlaceholder("Nº paísdesde ");
+		numeroFrom.setPlaceholder("Nº país desde ");
 		numeroFrom.setPrefixComponent(VaadinIcon.SEARCH.create());
 		numeroFrom.setClearButtonVisible(true);
 		numeroFrom.addFocusShortcut(Key.DIGIT_1, KeyModifier.ALT);
