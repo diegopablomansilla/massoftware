@@ -174,6 +174,37 @@ public class DepositoService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Deposito> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Deposito> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Deposito.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Deposito>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Depositos> find(DepositosFiltro f) throws Exception {
 
 		if (f == null) {

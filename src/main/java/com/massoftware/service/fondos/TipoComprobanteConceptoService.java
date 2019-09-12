@@ -174,6 +174,37 @@ public class TipoComprobanteConceptoService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TipoComprobanteConcepto> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TipoComprobanteConcepto> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TipoComprobanteConcepto.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TipoComprobanteConcepto>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TiposComprobantesConceptos> find(TiposComprobantesConceptosFiltro f) throws Exception {
 
 		if (f == null) {

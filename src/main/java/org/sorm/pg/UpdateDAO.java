@@ -2,7 +2,7 @@ package org.sorm.pg;
 
 import java.util.List;
 
-import org.dsw.jdbc.ConnectionWrapper;
+import org.dsw.ConnectionWrapper;
 import org.sorm.model.Identifiable;
 import org.sorm.pg.stm.builder.StmBuilderUpdate;
 import org.sorm.stm.StatementParam;

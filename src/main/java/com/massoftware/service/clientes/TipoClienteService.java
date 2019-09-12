@@ -174,6 +174,37 @@ public class TipoClienteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TipoCliente> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TipoCliente> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TipoCliente.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TipoCliente>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TiposClientes> find(TiposClientesFiltro f) throws Exception {
 
 		if (f == null) {

@@ -174,6 +174,37 @@ public class NotaCreditoMotivoService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<NotaCreditoMotivo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<NotaCreditoMotivo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(NotaCreditoMotivo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<NotaCreditoMotivo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<NotasCreditoMotivo> find(NotasCreditoMotivoFiltro f) throws Exception {
 
 		if (f == null) {

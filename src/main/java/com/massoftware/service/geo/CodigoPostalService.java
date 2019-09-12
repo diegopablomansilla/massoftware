@@ -174,6 +174,37 @@ public class CodigoPostalService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CodigoPostal> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CodigoPostal> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CodigoPostal.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CodigoPostal>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CodigosPostales> find(CodigosPostalesFiltro f) throws Exception {
 
 		if (f == null) {

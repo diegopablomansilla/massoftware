@@ -153,6 +153,7 @@ public class UIChequerasView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Cuenta fondo
 		cuentaFondo = new ComboBox<>();
+		cuentaFondo.setWidthFull();
 		cuentaFondo.setRequired(true);
 		cuentaFondo.setPlaceholder("Cuenta fondo");
 		CuentaFondoService cuentaFondoService = new CuentaFondoService();

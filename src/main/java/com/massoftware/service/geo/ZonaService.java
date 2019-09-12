@@ -174,6 +174,37 @@ public class ZonaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Zona> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Zona> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Zona.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Zona>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Zonas> find(ZonasFiltro f) throws Exception {
 
 		if (f == null) {

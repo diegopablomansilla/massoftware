@@ -174,6 +174,37 @@ public class EjercicioContableService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<EjercicioContable> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<EjercicioContable> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(EjercicioContable.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<EjercicioContable>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<EjerciciosContables> find(EjerciciosContablesFiltro f) throws Exception {
 
 		if (f == null) {

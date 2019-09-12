@@ -174,6 +174,37 @@ public class TicketModeloService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TicketModelo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TicketModelo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TicketModelo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TicketModelo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TicketsModelos> find(TicketsModelosFiltro f) throws Exception {
 
 		if (f == null) {

@@ -174,6 +174,37 @@ public class TalonarioControladorFizcalService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TalonarioControladorFizcal> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TalonarioControladorFizcal> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TalonarioControladorFizcal.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TalonarioControladorFizcal>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TalonariosControladoresFizcales> find(TalonariosControladoresFizcalesFiltro f) throws Exception {
 
 		if (f == null) {

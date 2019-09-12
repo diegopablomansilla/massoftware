@@ -174,6 +174,37 @@ public class SucursalService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Sucursal> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Sucursal> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Sucursal.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Sucursal>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Sucursales> find(SucursalesFiltro f) throws Exception {
 
 		if (f == null) {

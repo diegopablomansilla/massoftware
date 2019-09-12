@@ -174,6 +174,37 @@ public class ProvinciaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Provincia> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Provincia> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Provincia.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Provincia>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Provincias> find(ProvinciasFiltro f) throws Exception {
 
 		if (f == null) {

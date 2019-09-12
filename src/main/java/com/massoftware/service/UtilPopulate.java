@@ -3,6 +3,7 @@ package com.massoftware.service;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
@@ -244,8 +245,8 @@ public class UtilPopulate {
 		return value;
 
 	}
-	
-	public static Long getTimestampRandom(Integer min, Integer max, boolean required) {
+
+	public static Long getLongTimestampRandom(Integer min, Integer max, boolean required) {
 
 		long offset = Timestamp.valueOf(min + "-01-01 00:00:00").getTime();
 		long end = Timestamp.valueOf(max + "-01-01 00:00:00").getTime();
@@ -254,24 +255,63 @@ public class UtilPopulate {
 
 		if (required == false) {
 			value = (new Random().nextBoolean()) ? value : 0;
-		}		
+		}
 
-		return value;		
+		return value;
 
 	}
 
-	public static LocalDate getDateRandom(Integer min, Integer max, boolean required) {
+	public static Long getLongDateRandom(Integer min, Integer max, boolean required) {
 
 		long offset = Timestamp.valueOf(min + "-01-01 00:00:00").getTime();
 		long end = Timestamp.valueOf(max + "-01-01 00:00:00").getTime();
 		long diff = end - offset + 1;
 		long value = offset + (long) (Math.random() * diff);
 
-		if (required == false) {
+		if (required == false) {						
 			value = (new Random().nextBoolean()) ? value : 0;
-		}		
+		}
 
-		return new Date(value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();		
+		return value;
+
+	}
+	
+	public static LocalDate getDateRandom(Integer min, Integer max, boolean required) {
+
+//		long offset = Timestamp.valueOf(min + "-01-01 00:00:00").getTime();
+//		long end = Timestamp.valueOf(max + "-01-01 00:00:00").getTime();
+//		long diff = end - offset + 1;
+//		long value = offset + (long) (Math.random() * diff);
+//
+//		if (required == false) {
+//			value = (new Random().nextBoolean()) ? value : 0;
+//		}
+
+//		return new Date(value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		
+		LocalDate r = null;
+		
+		Date t = new java.util.Date(getLongDateRandom(min, max, required));
+
+		if (t != null) {
+			r =  t.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		}
+
+		return r;
+
+	}
+
+	public static LocalDateTime getDateTimeRandom(Integer min, Integer max, boolean required) {
+		LocalDateTime r = null;
+		
+		Timestamp t = new java.sql.Timestamp(getLongTimestampRandom(min, max, required));
+
+		if (t != null) {
+			r =  t.toLocalDateTime();
+		}
+
+		return r;
 
 	}
 

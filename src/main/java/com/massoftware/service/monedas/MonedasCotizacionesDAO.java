@@ -4,7 +4,7 @@ package com.massoftware.service.monedas;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dsw.jdbc.ConnectionWrapper;
+import org.dsw.ConnectionWrapper;
 
 public class MonedasCotizacionesDAO {
 
@@ -26,7 +26,7 @@ public class MonedasCotizacionesDAO {
 
 				objRow.setId((String) row[++c]);				
 				
-				objRow.setCotizacionFecha((java.sql.Timestamp) row[++c]);
+				objRow.setCotizacionFecha((java.time.LocalDateTime) row[++c]);
 				objRow.setCompra((java.math.BigDecimal) row[++c]);
 				objRow.setVenta((java.math.BigDecimal) row[++c]);
 				objRow.setMoneda((Moneda) row[++c]);

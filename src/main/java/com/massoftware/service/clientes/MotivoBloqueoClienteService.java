@@ -174,6 +174,37 @@ public class MotivoBloqueoClienteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<MotivoBloqueoCliente> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<MotivoBloqueoCliente> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(MotivoBloqueoCliente.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<MotivoBloqueoCliente>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<MotivosBloqueosClientes> find(MotivosBloqueosClientesFiltro f) throws Exception {
 
 		if (f == null) {

@@ -153,6 +153,7 @@ public class UITicketsModelosView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// ticket
 		ticket = new ComboBox<>();
+		ticket.setWidthFull();
 		ticket.setRequired(true);
 		ticket.setPlaceholder("ticket");
 		TicketService ticketService = new TicketService();

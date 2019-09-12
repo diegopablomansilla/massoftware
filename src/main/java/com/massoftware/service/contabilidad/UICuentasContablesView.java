@@ -78,6 +78,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setWidthFull();
 		ejercicioContable.setRequired(true);
 		ejercicioContable.setPlaceholder("Ejercicio");
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();
@@ -101,6 +102,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Estado
 		centroCostoContable = new ComboBox<>();
+		centroCostoContable.setWidthFull();
 		centroCostoContable.setPlaceholder("Estado");
 		CentroCostoContableService centroCostoContableService = new CentroCostoContableService();
 		CentrosCostosContablesFiltro centroCostoContableFiltro = new CentrosCostosContablesFiltro();
@@ -122,6 +124,7 @@ public class UICuentasContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Punto de equilibrio
 		puntoEquilibrio = new ComboBox<>();
+		puntoEquilibrio.setWidthFull();
 		puntoEquilibrio.setPlaceholder("Punto de equilibrio");
 		PuntoEquilibrioService puntoEquilibrioService = new PuntoEquilibrioService();
 		PuntosEquilibriosFiltro puntoEquilibrioFiltro = new PuntosEquilibriosFiltro();

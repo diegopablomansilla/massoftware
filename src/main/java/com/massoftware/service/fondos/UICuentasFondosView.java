@@ -156,6 +156,7 @@ public class UICuentasFondosView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// banco
 		banco = new ComboBox<>();
+		banco.setWidthFull();
 		banco.setPlaceholder("banco");
 		BancoService bancoService = new BancoService();
 		BancosFiltro bancoFiltro = new BancosFiltro();

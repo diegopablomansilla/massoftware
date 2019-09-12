@@ -174,6 +174,37 @@ public class ClaseComprobanteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<ClaseComprobante> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<ClaseComprobante> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(ClaseComprobante.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<ClaseComprobante>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<ClasesComprobantes> find(ClasesComprobantesFiltro f) throws Exception {
 
 		if (f == null) {

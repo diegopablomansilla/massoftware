@@ -1,12 +1,20 @@
 package com.massoftware.service.contabilidad;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.KeyModifier;
+//import com.vaadin.flow.component.Key;
+//import com.vaadin.flow.component.KeyModifier;
+//import com.vaadin.flow.component.icon.VaadinIcon;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
+import com.vaadin.flow.data.binder.BindingValidationStatus;
+//import com.vaadin.flow.data.validator.StringLengthValidator;
+//import com.vaadin.flow.data.validator.IntegerRangeValidator;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -15,44 +23,44 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.massoftware.service.FBoolean;
-import com.vaadin.flow.component.textfield.TextField;
+import java.util.Locale;
+import com.massoftware.service.UIDatePickerI18n_es_AR;
+import com.vaadin.flow.component.checkbox.Checkbox;
+import com.vaadin.flow.component.textfield.TextArea;
 
 
 @PageTitle("Ejercicio")
 @Route("EjercicioContable")
 public class UIEjercicioContableView extends VerticalLayout implements HasUrlParameter<String> {
 
+	private EjercicioContableService service;		
+
 	// Binder
 	private EjercicioContable item;
 	private Binder<EjercicioContable> binder;
 
-	// Filter control
+	// Control's
 	private FormLayout form;
-
+	private HorizontalLayout actions;
+	private Button save;
 	
 	private NumberField numero;
 	private DatePicker apertura;
 	private DatePicker cierre;
-	private ComboBox<FBoolean> cerrado;
-	private ComboBox<FBoolean> cerradoModulos;
-	private TextField comentario;
-
-
-//	private Button newBTN;
-//	private Button findBTN;	
-
+	private Checkbox cerrado;
+	private Checkbox cerradoModulos;
+	private TextArea comentario;
+	
 	@Override
 	public void setParameter(BeforeEvent event, String id) {
 		this.search(id);
 	}
 
 	public UIEjercicioContableView() throws Exception {
+		service = new EjercicioContableService();		
 		buildBinder();
 		buildForm();
 		this.setHeightFull();
-//		this.search();
 	}
 
 	private void buildBinder() {
@@ -63,81 +71,176 @@ public class UIEjercicioContableView extends VerticalLayout implements HasUrlPar
 
 	private void buildForm() throws Exception {
 
-		// Controls ------------------------
-		
-
-		//-------------------------------------------------------------------
-		// Nº ejercicio ()
-		numero = new NumberField();
-		numero.setMin(1);
-		numero.setMax(Integer.MAX_VALUE);
-		numero.setPlaceholder("Nº ejercicio ");
-		numero.setPrefixComponent(VaadinIcon.SEARCH.create());
-		numero.setClearButtonVisible(true);
-		binder.forField(numero)
-			.asRequired("Nº ejercicio es requerido.")		
-			.withConverter(new DoubleToIntegerConverter())
-			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
-			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
-			.bind(EjercicioContable::getNumero, EjercicioContable::setNumero);
-
-		//-------------------------------------------------------------------
-		// Cerrado
-
-		//-------------------------------------------------------------------
-		// Cerrado módulos
-
-		//-------------------------------------------------------------------
-		// Coemntario
-		comentario = new TextField();
-		comentario.setPlaceholder("Coemntario");
-		comentario.setPrefixComponent(VaadinIcon.SEARCH.create());
-		comentario.setWidthFull();
-		comentario.setClearButtonVisible(true);
-		comentario.setAutoselect(true);
-		binder.forField(comentario)
-			.bind(EjercicioContable::getComentario, EjercicioContable::setComentario);
-	
-
 		// -------------------------------------------------------------------
-
-		// Button New ítem
-//		newBTN = new Button();
-//		UIUtils.setTooltip("Nuevo", newBTN);
-//		newBTN.setIcon(VaadinIcon.PLUS.create());
-
-		// Button Search ítem's
-//		findBTN = new Button();
-//		UIUtils.setTooltip("Buscar", findBTN);
-//		findBTN.setIcon(VaadinIcon.SEARCH.create());
-//		findBTN.addClickListener(event -> {
-//			search();
-//		});
-
-		// Layout ------------------------
+		// Controls 
+		// -------------------------------------------------------------------
+		
+		buildSave();
+		
+		buildNumero();
+		buildApertura();
+		buildCierre();
+		buildCerrado();
+		buildCerradoModulos();
+		buildComentario();
+		
+		// -------------------------------------------------------------------
+		// Layout's
+		// ------------------------------------------------------------------- 
 
 		form = new FormLayout();
 		form.setWidthFull();
 
 		add(form);
-
-//		form.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
-		form.add(numero, apertura, cierre, cerrado, cerradoModulos, comentario);
-
+		
+		form.add(numero);
+		form.add(apertura);
+		form.add(cierre);
+		form.add(cerrado);
+		form.add(cerradoModulos);
+		form.add(comentario);
+		
+		actions = new HorizontalLayout();
+		actions.add(save);
+		add(actions);
+				
 		// -------------------------------------------------------------------
+	}
+	
+	private void buildSave() throws Exception {		
+		save = new Button("Guardar");
+		save.addClickListener(event -> {
+			save();
+		});		
+	}	
+	
+
+	private void buildNumero() throws Exception {
+		// Nº ejercicio
+		numero = new NumberField();
+		numero.setLabel("Nº ejercicio");
+		numero.setWidthFull();
+		numero.setClearButtonVisible(true);
+		numero.setMin(1);
+		numero.setMax(Integer.MAX_VALUE);
+		binder.forField(numero)
+			.asRequired("Nº ejercicio es requerido.")		
+			.withValidator(value -> (value != null) ? value % 1 == 0 : true, "El valor tiene que ser entero")
+			.withConverter(new DoubleToIntegerConverter())
+			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
+			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
+			.bind(EjercicioContable::getNumero, EjercicioContable::setNumero);
+	}
+
+	private void buildApertura() throws Exception {
+		// Apertura
+		apertura = new DatePicker();
+		apertura.setLabel("Apertura");
+		apertura.setWidthFull();
+		apertura.setRequired(true);
+		apertura.setLocale(new Locale("es_AR"));
+		apertura.setI18n(new UIDatePickerI18n_es_AR());
+		binder.forField(apertura)
+			.asRequired("Apertura es requerido.")		
+			.bind(EjercicioContable::getApertura, EjercicioContable::setApertura);
+	}
+
+	private void buildCierre() throws Exception {
+		// Cierre
+		cierre = new DatePicker();
+		cierre.setLabel("Cierre");
+		cierre.setWidthFull();
+		cierre.setRequired(true);
+		cierre.setLocale(new Locale("es_AR"));
+		cierre.setI18n(new UIDatePickerI18n_es_AR());
+		binder.forField(cierre)
+			.asRequired("Cierre es requerido.")		
+			.bind(EjercicioContable::getCierre, EjercicioContable::setCierre);
+	}
+
+	private void buildCerrado() throws Exception {
+		// Cerrado
+		cerrado = new Checkbox();
+		cerrado.setLabel("Cerrado");
+		cerrado.setWidthFull();
+		binder.forField(cerrado)
+			.bind(EjercicioContable::getCerrado, EjercicioContable::setCerrado);
+	}
+
+	private void buildCerradoModulos() throws Exception {
+		// Cerrado módulos
+		cerradoModulos = new Checkbox();
+		cerradoModulos.setLabel("Cerrado módulos");
+		cerradoModulos.setWidthFull();
+		binder.forField(cerradoModulos)
+			.bind(EjercicioContable::getCerradoModulos, EjercicioContable::setCerradoModulos);
+	}
+
+	private void buildComentario() throws Exception {
+		// Coemntario
+		comentario = new TextArea();
+		comentario.setLabel("Coemntario");
+		comentario.setWidthFull();
+		comentario.setClearButtonVisible(true);
+		comentario.setAutoselect(true);
+		binder.forField(comentario)
+			.withValidator(value -> (value != null) ? value.length() <= 250 : true, "El valor tiene que contener menos de 250 caracteres")
+			.bind(EjercicioContable::getComentario, EjercicioContable::setComentario);
 	}
 
 	public void search(String id) {
 
 		try {
-
-			EjercicioContableService service = new EjercicioContableService();
+			
 			item = service.findById(id);
 			binder.setBean(item);
+			
+			binder.validate();
+
+			if (binder.isValid()) {											
+				Notification.show("El ítem '" + item + "' se cargó con éxito !");				
+			} else {								
+				BinderValidationStatus<EjercicioContable> validate = binder.validate();
+		        String errorText = validate.getFieldValidationStatuses()
+		                .stream().filter(BindingValidationStatus::isError)
+		                .map(BindingValidationStatus::getMessage)
+		                .map(Optional::get).distinct()
+		                .collect(Collectors.joining(", "));
+		        
+		        Notification.show("Uno o mas valores del ítem son incorrectos." + errorText);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notification.show("No se pudo buscar el ítem !!");
+		}
+
+	}
+	
+	public void save() {
+
+		try {
+
+			binder.validate();
+
+			if (binder.isValid()) {								
+				item = service.update(item);
+				Notification.show("El ítem '" + item + "' se guardo con éxito !");
+				search(item.getId());
+			} else {								
+				BinderValidationStatus<EjercicioContable> validate = binder.validate();
+		        String errorText = validate.getFieldValidationStatuses()
+		                .stream().filter(BindingValidationStatus::isError)
+		                .map(BindingValidationStatus::getMessage)
+		                .map(Optional::get).distinct()
+		                .collect(Collectors.joining(", "));
+		        
+		        Notification.show("Uno o mas valores del ítem son incorrectos." + errorText);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notification.show("No se pudo guardar el ítem !!");
 		}
 
 	}

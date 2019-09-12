@@ -72,6 +72,7 @@ public class UIAsientosModelosItemsView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Asiento modelo
 		asientoModelo = new ComboBox<>();
+		asientoModelo.setWidthFull();
 		asientoModelo.setRequired(true);
 		asientoModelo.setPlaceholder("Asiento modelo");
 		AsientoModeloService asientoModeloService = new AsientoModeloService();

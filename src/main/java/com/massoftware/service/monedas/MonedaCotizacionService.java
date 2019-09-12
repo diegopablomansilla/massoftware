@@ -174,6 +174,37 @@ public class MonedaCotizacionService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<MonedaCotizacion> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<MonedaCotizacion> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(MonedaCotizacion.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<MonedaCotizacion>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<MonedasCotizaciones> find(MonedasCotizacionesFiltro f) throws Exception {
 
 		if (f == null) {

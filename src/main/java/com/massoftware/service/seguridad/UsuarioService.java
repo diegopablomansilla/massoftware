@@ -174,6 +174,37 @@ public class UsuarioService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Usuario> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Usuario> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Usuario.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Usuario>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Usuarios> find(UsuariosFiltro f) throws Exception {
 
 		if (f == null) {

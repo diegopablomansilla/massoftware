@@ -174,6 +174,37 @@ public class CuentaFondoTipoService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CuentaFondoTipo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CuentaFondoTipo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CuentaFondoTipo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CuentaFondoTipo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CuentasFondosTipos> find(CuentasFondosTiposFiltro f) throws Exception {
 
 		if (f == null) {

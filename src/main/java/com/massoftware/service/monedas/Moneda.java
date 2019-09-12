@@ -2,6 +2,7 @@ package com.massoftware.service.monedas;
 
 import com.massoftware.service.EntityId;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import com.massoftware.service.afip.MonedaAFIP;
 
 public class Moneda extends EntityId implements Cloneable {
@@ -23,7 +24,7 @@ public class Moneda extends EntityId implements Cloneable {
 	private BigDecimal cotizacion;
 
 	// Fecha cotización
-	private java.sql.Timestamp cotizacionFecha;
+	private LocalDateTime cotizacionFecha;
 
 	// Control de actualizacion
 	private Boolean controlActualizacion;
@@ -84,12 +85,12 @@ public class Moneda extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha cotización
-	public java.sql.Timestamp getCotizacionFecha() {
+	public LocalDateTime getCotizacionFecha() {
 		return this.cotizacionFecha;
 	}
 
 	// SET Fecha cotización
-	public void setCotizacionFecha(java.sql.Timestamp cotizacionFecha ){
+	public void setCotizacionFecha(LocalDateTime cotizacionFecha ){
 		this.cotizacionFecha = cotizacionFecha;
 	}
 

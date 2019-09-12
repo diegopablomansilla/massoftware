@@ -81,6 +81,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// País
 		pais = new ComboBox<>();
+		pais.setWidthFull();
 		pais.setRequired(true);
 		pais.setPlaceholder("País");
 		PaisService paisService = new PaisService();
@@ -104,6 +105,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Provincia
 		provincia = new ComboBox<>();
+		provincia.setWidthFull();
 		provincia.setRequired(true);
 		provincia.setPlaceholder("Provincia");
 		ProvinciaService provinciaService = new ProvinciaService();
@@ -127,6 +129,7 @@ public class UICodigosPostalesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Ciudad
 		ciudad = new ComboBox<>();
+		ciudad.setWidthFull();
 		ciudad.setRequired(true);
 		ciudad.setPlaceholder("Ciudad");
 		CiudadService ciudadService = new CiudadService();

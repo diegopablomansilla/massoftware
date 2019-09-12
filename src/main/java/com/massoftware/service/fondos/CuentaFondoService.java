@@ -174,6 +174,37 @@ public class CuentaFondoService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CuentaFondo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CuentaFondo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CuentaFondo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CuentaFondo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CuentasFondos> find(CuentasFondosFiltro f) throws Exception {
 
 		if (f == null) {

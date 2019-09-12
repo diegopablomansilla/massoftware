@@ -174,6 +174,37 @@ public class ComprobanteFondoModeloService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<ComprobanteFondoModelo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<ComprobanteFondoModelo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(ComprobanteFondoModelo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<ComprobanteFondoModelo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<ComprobantesFondosModelos> find(ComprobantesFondosModelosFiltro f) throws Exception {
 
 		if (f == null) {

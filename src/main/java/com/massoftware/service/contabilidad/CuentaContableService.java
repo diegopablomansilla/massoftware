@@ -174,6 +174,37 @@ public class CuentaContableService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CuentaContable> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CuentaContable> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CuentaContable.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CuentaContable>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CuentasContables> find(CuentasContablesFiltro f) throws Exception {
 
 		if (f == null) {

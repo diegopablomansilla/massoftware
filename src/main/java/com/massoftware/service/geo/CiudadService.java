@@ -174,6 +174,37 @@ public class CiudadService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Ciudad> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Ciudad> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Ciudad.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Ciudad>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Ciudades> find(CiudadesFiltro f) throws Exception {
 
 		if (f == null) {

@@ -1,12 +1,20 @@
 package com.massoftware.service.fondos;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.KeyModifier;
+//import com.vaadin.flow.component.Key;
+//import com.vaadin.flow.component.KeyModifier;
+//import com.vaadin.flow.component.icon.VaadinIcon;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
+import com.vaadin.flow.data.binder.BindingValidationStatus;
+//import com.vaadin.flow.data.validator.StringLengthValidator;
+//import com.vaadin.flow.data.validator.IntegerRangeValidator;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.PageTitle;
@@ -15,22 +23,25 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.massoftware.ui.util.DoubleToIntegerConverter;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.combobox.ComboBox;
 import java.util.List;
-import com.massoftware.service.FBoolean;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.checkbox.Checkbox;
 
 
 @PageTitle("Chequera")
 @Route("Chequera")
 public class UIChequeraView extends VerticalLayout implements HasUrlParameter<String> {
 
+	private ChequeraService service;		
+
 	// Binder
 	private Chequera item;
 	private Binder<Chequera> binder;
 
-	// Filter control
+	// Control's
 	private FormLayout form;
-
+	private HorizontalLayout actions;
+	private Button save;
 	
 	private NumberField numero;
 	private TextField nombre;
@@ -38,24 +49,20 @@ public class UIChequeraView extends VerticalLayout implements HasUrlParameter<St
 	private NumberField primerNumero;
 	private NumberField ultimoNumero;
 	private NumberField proximoNumero;
-	private ComboBox<FBoolean> bloqueado;
-	private ComboBox<FBoolean> impresionDiferida;
+	private Checkbox bloqueado;
+	private Checkbox impresionDiferida;
 	private TextField formato;
-
-
-//	private Button newBTN;
-//	private Button findBTN;	
-
+	
 	@Override
 	public void setParameter(BeforeEvent event, String id) {
 		this.search(id);
 	}
 
 	public UIChequeraView() throws Exception {
+		service = new ChequeraService();		
 		buildBinder();
 		buildForm();
 		this.setHeightFull();
-//		this.search();
 	}
 
 	private void buildBinder() {
@@ -66,145 +73,231 @@ public class UIChequeraView extends VerticalLayout implements HasUrlParameter<St
 
 	private void buildForm() throws Exception {
 
-		// Controls ------------------------
-		
-
-		//-------------------------------------------------------------------
-		// Nº chequera ()
-		numero = new NumberField();
-		numero.setMin(1);
-		numero.setMax(Integer.MAX_VALUE);
-		numero.setPlaceholder("Nº chequera ");
-		numero.setPrefixComponent(VaadinIcon.SEARCH.create());
-		numero.setClearButtonVisible(true);
-		binder.forField(numero)
-			.asRequired("Nº chequera es requerido.")		
-			.withConverter(new DoubleToIntegerConverter())
-			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
-			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
-			.bind(Chequera::getNumero, Chequera::setNumero);
-
-		//-------------------------------------------------------------------
-		// Nombre
-		nombre = new TextField();
-		nombre.setRequired(true);
-		nombre.setPlaceholder("Nombre");
-		nombre.setPrefixComponent(VaadinIcon.SEARCH.create());
-		nombre.setWidthFull();
-		nombre.setClearButtonVisible(true);
-		nombre.setAutoselect(true);
-		binder.forField(nombre)
-			.asRequired("Nombre es requerido.")		
-			.bind(Chequera::getNombre, Chequera::setNombre);
-
-		//-------------------------------------------------------------------
-		// Cuenta fondo
-		cuentaFondo = new ComboBox<>();
-		cuentaFondo.setRequired(true);
-		cuentaFondo.setPlaceholder("Cuenta fondo");
-		binder.forField(cuentaFondo)
-			.asRequired("Cuenta fondo es requerido.")		
-			.bind(Chequera::getCuentaFondo, Chequera::setCuentaFondo);
-
-		//-------------------------------------------------------------------
-		// Primer número ()
-		primerNumero = new NumberField();
-		primerNumero.setMin(0);
-		primerNumero.setMax(Integer.MAX_VALUE);
-		primerNumero.setPlaceholder("Primer número ");
-		primerNumero.setPrefixComponent(VaadinIcon.SEARCH.create());
-		primerNumero.setClearButtonVisible(true);
-		binder.forField(primerNumero)
-			.withConverter(new DoubleToIntegerConverter())
-			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
-			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
-			.bind(Chequera::getPrimerNumero, Chequera::setPrimerNumero);
-
-		//-------------------------------------------------------------------
-		// Último número ()
-		ultimoNumero = new NumberField();
-		ultimoNumero.setMin(0);
-		ultimoNumero.setMax(Integer.MAX_VALUE);
-		ultimoNumero.setPlaceholder("Último número ");
-		ultimoNumero.setPrefixComponent(VaadinIcon.SEARCH.create());
-		ultimoNumero.setClearButtonVisible(true);
-		binder.forField(ultimoNumero)
-			.withConverter(new DoubleToIntegerConverter())
-			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
-			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
-			.bind(Chequera::getUltimoNumero, Chequera::setUltimoNumero);
-
-		//-------------------------------------------------------------------
-		// Próximo número ()
-		proximoNumero = new NumberField();
-		proximoNumero.setMin(0);
-		proximoNumero.setMax(Integer.MAX_VALUE);
-		proximoNumero.setPlaceholder("Próximo número ");
-		proximoNumero.setPrefixComponent(VaadinIcon.SEARCH.create());
-		proximoNumero.setClearButtonVisible(true);
-		binder.forField(proximoNumero)
-			.withConverter(new DoubleToIntegerConverter())
-			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
-			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
-			.bind(Chequera::getProximoNumero, Chequera::setProximoNumero);
-
-		//-------------------------------------------------------------------
-		// Obsoleto
-
-		//-------------------------------------------------------------------
-		// Impresión diferida
-
-		//-------------------------------------------------------------------
-		// Formato
-		formato = new TextField();
-		formato.setPlaceholder("Formato");
-		formato.setPrefixComponent(VaadinIcon.SEARCH.create());
-		formato.setWidthFull();
-		formato.setClearButtonVisible(true);
-		formato.setAutoselect(true);
-		binder.forField(formato)
-			.bind(Chequera::getFormato, Chequera::setFormato);
-	
-
 		// -------------------------------------------------------------------
-
-		// Button New ítem
-//		newBTN = new Button();
-//		UIUtils.setTooltip("Nuevo", newBTN);
-//		newBTN.setIcon(VaadinIcon.PLUS.create());
-
-		// Button Search ítem's
-//		findBTN = new Button();
-//		UIUtils.setTooltip("Buscar", findBTN);
-//		findBTN.setIcon(VaadinIcon.SEARCH.create());
-//		findBTN.addClickListener(event -> {
-//			search();
-//		});
-
-		// Layout ------------------------
+		// Controls 
+		// -------------------------------------------------------------------
+		
+		buildSave();
+		
+		buildNumero();
+		buildNombre();
+		buildCuentaFondo();
+		buildPrimerNumero();
+		buildUltimoNumero();
+		buildProximoNumero();
+		buildBloqueado();
+		buildImpresionDiferida();
+		buildFormato();
+		
+		// -------------------------------------------------------------------
+		// Layout's
+		// ------------------------------------------------------------------- 
 
 		form = new FormLayout();
 		form.setWidthFull();
 
 		add(form);
-
-//		form.add(newBTN, numeroFrom, numeroTo, nombre, findBTN);
-		form.add(numero, nombre, cuentaFondo, primerNumero, ultimoNumero, proximoNumero, bloqueado, impresionDiferida, formato);
-
+		
+		form.add(numero);
+		form.add(nombre);
+		form.add(cuentaFondo);
+		form.add(primerNumero);
+		form.add(ultimoNumero);
+		form.add(proximoNumero);
+		form.add(bloqueado);
+		form.add(impresionDiferida);
+		form.add(formato);
+		
+		actions = new HorizontalLayout();
+		actions.add(save);
+		add(actions);
+				
 		// -------------------------------------------------------------------
+	}
+	
+	private void buildSave() throws Exception {		
+		save = new Button("Guardar");
+		save.addClickListener(event -> {
+			save();
+		});		
+	}	
+	
+
+	private void buildNumero() throws Exception {
+		// Nº chequera
+		numero = new NumberField();
+		numero.setLabel("Nº chequera");
+		numero.setWidthFull();
+		numero.setClearButtonVisible(true);
+		numero.setMin(1);
+		numero.setMax(Integer.MAX_VALUE);
+		binder.forField(numero)
+			.asRequired("Nº chequera es requerido.")		
+			.withValidator(value -> (value != null) ? value % 1 == 0 : true, "El valor tiene que ser entero")
+			.withConverter(new DoubleToIntegerConverter())
+			.withValidator(value -> (value != null) ? value >= 1 : true, "El valor tiene que ser >= 1")
+			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
+			.bind(Chequera::getNumero, Chequera::setNumero);
+	}
+
+	private void buildNombre() throws Exception {
+		// Nombre
+		nombre = new TextField();
+		nombre.setLabel("Nombre");
+		nombre.setWidthFull();
+		nombre.setClearButtonVisible(true);
+		nombre.setAutoselect(true);
+		nombre.setRequired(true);
+		binder.forField(nombre)
+			.asRequired("Nombre es requerido.")		
+			.withValidator(value -> (value != null) ? value.length() <= 50 : true, "El valor tiene que contener menos de 50 caracteres")
+			.bind(Chequera::getNombre, Chequera::setNombre);
+	}
+
+	private void buildCuentaFondo() throws Exception {
+		// Cuenta fondo
+		cuentaFondo = new ComboBox<>();
+		cuentaFondo.setLabel("Cuenta fondo");
+		cuentaFondo.setWidthFull();
+		cuentaFondo.setRequired(true);
+		List<CuentaFondo> items = new CuentaFondoService().find();
+		cuentaFondo.setItems(items);
+		binder.forField(cuentaFondo)
+			.asRequired("Cuenta fondo es requerido.")		
+			.bind(Chequera::getCuentaFondo, Chequera::setCuentaFondo);
+	}
+
+	private void buildPrimerNumero() throws Exception {
+		// Primer número
+		primerNumero = new NumberField();
+		primerNumero.setLabel("Primer número");
+		primerNumero.setWidthFull();
+		primerNumero.setClearButtonVisible(true);
+		primerNumero.setMin(0);
+		primerNumero.setMax(Integer.MAX_VALUE);
+		binder.forField(primerNumero)
+			.withValidator(value -> (value != null) ? value % 1 == 0 : true, "El valor tiene que ser entero")
+			.withConverter(new DoubleToIntegerConverter())
+			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
+			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
+			.bind(Chequera::getPrimerNumero, Chequera::setPrimerNumero);
+	}
+
+	private void buildUltimoNumero() throws Exception {
+		// Último número
+		ultimoNumero = new NumberField();
+		ultimoNumero.setLabel("Último número");
+		ultimoNumero.setWidthFull();
+		ultimoNumero.setClearButtonVisible(true);
+		ultimoNumero.setMin(0);
+		ultimoNumero.setMax(Integer.MAX_VALUE);
+		binder.forField(ultimoNumero)
+			.withValidator(value -> (value != null) ? value % 1 == 0 : true, "El valor tiene que ser entero")
+			.withConverter(new DoubleToIntegerConverter())
+			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
+			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
+			.bind(Chequera::getUltimoNumero, Chequera::setUltimoNumero);
+	}
+
+	private void buildProximoNumero() throws Exception {
+		// Próximo número
+		proximoNumero = new NumberField();
+		proximoNumero.setLabel("Próximo número");
+		proximoNumero.setWidthFull();
+		proximoNumero.setClearButtonVisible(true);
+		proximoNumero.setMin(0);
+		proximoNumero.setMax(Integer.MAX_VALUE);
+		binder.forField(proximoNumero)
+			.withValidator(value -> (value != null) ? value % 1 == 0 : true, "El valor tiene que ser entero")
+			.withConverter(new DoubleToIntegerConverter())
+			.withValidator(value -> (value != null) ? value >= 0 : true, "El valor tiene que ser >= 0")
+			.withValidator(value -> (value != null) ? value <= Integer.MAX_VALUE : true,"El valor tiene que ser <= " + Integer.MAX_VALUE)
+			.bind(Chequera::getProximoNumero, Chequera::setProximoNumero);
+	}
+
+	private void buildBloqueado() throws Exception {
+		// Obsoleto
+		bloqueado = new Checkbox();
+		bloqueado.setLabel("Obsoleto");
+		bloqueado.setWidthFull();
+		binder.forField(bloqueado)
+			.bind(Chequera::getBloqueado, Chequera::setBloqueado);
+	}
+
+	private void buildImpresionDiferida() throws Exception {
+		// Impresión diferida
+		impresionDiferida = new Checkbox();
+		impresionDiferida.setLabel("Impresión diferida");
+		impresionDiferida.setWidthFull();
+		binder.forField(impresionDiferida)
+			.bind(Chequera::getImpresionDiferida, Chequera::setImpresionDiferida);
+	}
+
+	private void buildFormato() throws Exception {
+		// Formato
+		formato = new TextField();
+		formato.setLabel("Formato");
+		formato.setWidthFull();
+		formato.setClearButtonVisible(true);
+		formato.setAutoselect(true);
+		binder.forField(formato)
+			.withValidator(value -> (value != null) ? value.length() <= 50 : true, "El valor tiene que contener menos de 50 caracteres")
+			.bind(Chequera::getFormato, Chequera::setFormato);
 	}
 
 	public void search(String id) {
 
 		try {
-
-			ChequeraService service = new ChequeraService();
+			
 			item = service.findById(id);
 			binder.setBean(item);
+			
+			binder.validate();
+
+			if (binder.isValid()) {											
+				Notification.show("El ítem '" + item + "' se cargó con éxito !");				
+			} else {								
+				BinderValidationStatus<Chequera> validate = binder.validate();
+		        String errorText = validate.getFieldValidationStatuses()
+		                .stream().filter(BindingValidationStatus::isError)
+		                .map(BindingValidationStatus::getMessage)
+		                .map(Optional::get).distinct()
+		                .collect(Collectors.joining(", "));
+		        
+		        Notification.show("Uno o mas valores del ítem son incorrectos." + errorText);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			Notification.show("No se pudo buscar el ítem !!");
+		}
+
+	}
+	
+	public void save() {
+
+		try {
+
+			binder.validate();
+
+			if (binder.isValid()) {								
+				item = service.update(item);
+				Notification.show("El ítem '" + item + "' se guardo con éxito !");
+				search(item.getId());
+			} else {								
+				BinderValidationStatus<Chequera> validate = binder.validate();
+		        String errorText = validate.getFieldValidationStatuses()
+		                .stream().filter(BindingValidationStatus::isError)
+		                .map(BindingValidationStatus::getMessage)
+		                .map(Optional::get).distinct()
+		                .collect(Collectors.joining(", "));
+		        
+		        Notification.show("Uno o mas valores del ítem son incorrectos." + errorText);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			Notification.show("No se pudo guardar el ítem !!");
 		}
 
 	}

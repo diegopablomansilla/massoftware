@@ -174,6 +174,37 @@ public class MotivoComentarioService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<MotivoComentario> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<MotivoComentario> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(MotivoComentario.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<MotivoComentario>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<MotivosComentario> find(MotivosComentarioFiltro f) throws Exception {
 
 		if (f == null) {

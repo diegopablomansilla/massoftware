@@ -3,7 +3,7 @@ package com.massoftware.service.fondos.banco;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dsw.jdbc.ConnectionWrapper;
+import org.dsw.ConnectionWrapper;
 
 public class XBancosDAO {
 

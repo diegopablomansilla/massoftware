@@ -174,6 +174,37 @@ public class MonedaAFIPService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<MonedaAFIP> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<MonedaAFIP> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(MonedaAFIP.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<MonedaAFIP>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<MonedasAFIP> find(MonedasAFIPFiltro f) throws Exception {
 
 		if (f == null) {

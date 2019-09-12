@@ -174,6 +174,37 @@ public class ComportamientoComprobanteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<ComportamientoComprobante> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<ComportamientoComprobante> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(ComportamientoComprobante.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<ComportamientoComprobante>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<ComportamientosComprobantes> find(ComportamientosComprobantesFiltro f) throws Exception {
 
 		if (f == null) {

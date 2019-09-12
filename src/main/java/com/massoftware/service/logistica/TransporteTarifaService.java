@@ -174,6 +174,37 @@ public class TransporteTarifaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TransporteTarifa> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TransporteTarifa> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TransporteTarifa.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TransporteTarifa>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TransportesTarifas> find(TransportesTarifasFiltro f) throws Exception {
 
 		if (f == null) {

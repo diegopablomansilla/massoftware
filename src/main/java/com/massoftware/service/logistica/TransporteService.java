@@ -174,6 +174,37 @@ public class TransporteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Transporte> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Transporte> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Transporte.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Transporte>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Transportes> find(TransportesFiltro f) throws Exception {
 
 		if (f == null) {

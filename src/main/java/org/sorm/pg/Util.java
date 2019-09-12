@@ -92,6 +92,8 @@ public class Util {
 			return true;
 		} else if (c.equals(Timestamp.class)) {
 			return true;
+		} else if (c.equals(java.time.LocalDateTime.class)) {
+			return true;
 		} else if (c.equals(Time.class)) {
 			return true;
 		} else {

@@ -174,6 +174,37 @@ public class PuntoEquilibrioService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<PuntoEquilibrio> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<PuntoEquilibrio> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(PuntoEquilibrio.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<PuntoEquilibrio>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<PuntosEquilibrios> find(PuntosEquilibriosFiltro f) throws Exception {
 
 		if (f == null) {

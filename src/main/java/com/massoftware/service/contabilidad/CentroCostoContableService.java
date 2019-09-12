@@ -174,6 +174,37 @@ public class CentroCostoContableService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CentroCostoContable> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CentroCostoContable> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CentroCostoContable.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CentroCostoContable>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CentrosCostosContables> find(CentrosCostosContablesFiltro f) throws Exception {
 
 		if (f == null) {

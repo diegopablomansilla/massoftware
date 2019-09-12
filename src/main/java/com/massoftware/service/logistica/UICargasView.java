@@ -78,6 +78,7 @@ public class UICargasView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Transporte
 		transporte = new ComboBox<>();
+		transporte.setWidthFull();
 		transporte.setRequired(true);
 		transporte.setPlaceholder("Transporte");
 		TransporteService transporteService = new TransporteService();

@@ -174,6 +174,37 @@ public class BancoFirmanteService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<BancoFirmante> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<BancoFirmante> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(BancoFirmante.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<BancoFirmante>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<BancosFirmantes> find(BancosFirmantesFiltro f) throws Exception {
 
 		if (f == null) {

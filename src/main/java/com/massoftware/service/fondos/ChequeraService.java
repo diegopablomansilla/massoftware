@@ -174,6 +174,37 @@ public class ChequeraService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Chequera> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Chequera> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Chequera.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Chequera>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Chequeras> find(ChequerasFiltro f) throws Exception {
 
 		if (f == null) {

@@ -1,4 +1,4 @@
-package org.dsw.jdbc;
+package org.dsw;
 
 import java.sql.SQLException;
 import java.time.ZonedDateTime;

@@ -79,6 +79,7 @@ public class UIProvinciasView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// País
 		pais = new ComboBox<>();
+		pais.setWidthFull();
 		pais.setRequired(true);
 		pais.setPlaceholder("País");
 		PaisService paisService = new PaisService();

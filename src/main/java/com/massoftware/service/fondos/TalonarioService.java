@@ -174,6 +174,37 @@ public class TalonarioService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Talonario> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Talonario> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Talonario.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Talonario>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Talonarios> find(TalonariosFiltro f) throws Exception {
 
 		if (f == null) {

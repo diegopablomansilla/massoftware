@@ -1,6 +1,7 @@
 package com.massoftware.service.monedas;
 
 import com.massoftware.service.EntityId;
+import java.time.LocalDateTime;
 import java.math.BigDecimal;
 import com.massoftware.service.monedas.Moneda;
 import com.massoftware.service.seguridad.Usuario;
@@ -12,7 +13,7 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	private String id;
 
 	// Fecha cotización
-	private java.sql.Timestamp cotizacionFecha;
+	private LocalDateTime cotizacionFecha;
 
 	// Compra
 	private BigDecimal compra;
@@ -21,7 +22,7 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	private BigDecimal venta;
 
 	// Fecha cotización (Auditoria)
-	private java.sql.Timestamp cotizacionFechaAuditoria;
+	private LocalDateTime cotizacionFechaAuditoria;
 
 	// Moneda
 	private Moneda moneda;
@@ -42,12 +43,12 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha cotización
-	public java.sql.Timestamp getCotizacionFecha() {
+	public LocalDateTime getCotizacionFecha() {
 		return this.cotizacionFecha;
 	}
 
 	// SET Fecha cotización
-	public void setCotizacionFecha(java.sql.Timestamp cotizacionFecha ){
+	public void setCotizacionFecha(LocalDateTime cotizacionFecha ){
 		this.cotizacionFecha = cotizacionFecha;
 	}
 
@@ -72,12 +73,12 @@ public class MonedaCotizacion extends EntityId implements Cloneable {
 	}
 
 	// GET Fecha cotización (Auditoria)
-	public java.sql.Timestamp getCotizacionFechaAuditoria() {
+	public LocalDateTime getCotizacionFechaAuditoria() {
 		return this.cotizacionFechaAuditoria;
 	}
 
 	// SET Fecha cotización (Auditoria)
-	public void setCotizacionFechaAuditoria(java.sql.Timestamp cotizacionFechaAuditoria ){
+	public void setCotizacionFechaAuditoria(LocalDateTime cotizacionFechaAuditoria ){
 		this.cotizacionFechaAuditoria = cotizacionFechaAuditoria;
 	}
 

@@ -153,6 +153,7 @@ public class UICuentasFondosGruposView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Rubro
 		cuentaFondoRubro = new ComboBox<>();
+		cuentaFondoRubro.setWidthFull();
 		cuentaFondoRubro.setRequired(true);
 		cuentaFondoRubro.setPlaceholder("Rubro");
 		CuentaFondoRubroService cuentaFondoRubroService = new CuentaFondoRubroService();

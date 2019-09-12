@@ -174,6 +174,37 @@ public class TalonarioLetraService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TalonarioLetra> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TalonarioLetra> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TalonarioLetra.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TalonarioLetra>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TalonariosLetras> find(TalonariosLetrasFiltro f) throws Exception {
 
 		if (f == null) {

@@ -174,6 +174,37 @@ public class TipoSucursalService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TipoSucursal> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TipoSucursal> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TipoSucursal.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TipoSucursal>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TiposSucursales> find(TiposSucursalesFiltro f) throws Exception {
 
 		if (f == null) {

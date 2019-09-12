@@ -2,6 +2,8 @@ package org.sorm.stm;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.sorm.pg.Util;
@@ -80,7 +82,27 @@ public class MapperByPaths {
 
 				Method methodSet = objSet.getClass().getDeclaredMethod("set" + util.toCamelCase(attName), argTypes);
 
-				methodSet.invoke(objSet, value);
+				if(methodGet.getReturnType().equals(java.time.LocalDate.class)) {
+					
+					LocalDate valueLD = (value != null) ? ((java.sql.Date)value).toLocalDate() : null;
+				
+					methodSet.invoke(objSet, valueLD);
+					
+					
+				} else if(methodGet.getReturnType().equals(java.time.LocalDateTime.class)) {
+					
+					LocalDateTime valueLD = (value != null) ? ((java.sql.Timestamp)value).toLocalDateTime() : null;
+				
+					methodSet.invoke(objSet, valueLD);
+					
+					
+				} else {
+					methodSet.invoke(objSet, value);
+				}
+				
+				
+				
+				
 
 			}
 

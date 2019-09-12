@@ -78,6 +78,7 @@ public class UIDepositosView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Sucursal
 		sucursal = new ComboBox<>();
+		sucursal.setWidthFull();
 		sucursal.setPlaceholder("Sucursal");
 		SucursalService sucursalService = new SucursalService();
 		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();

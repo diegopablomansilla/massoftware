@@ -78,6 +78,7 @@ public class UISeguridadPuertasView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Módulo
 		seguridadModulo = new ComboBox<>();
+		seguridadModulo.setWidthFull();
 		seguridadModulo.setRequired(true);
 		seguridadModulo.setPlaceholder("Módulo");
 		SeguridadModuloService seguridadModuloService = new SeguridadModuloService();

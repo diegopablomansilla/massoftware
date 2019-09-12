@@ -174,6 +174,37 @@ public class CuentaFondoBancoCopiaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CuentaFondoBancoCopia> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CuentaFondoBancoCopia> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CuentaFondoBancoCopia.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CuentaFondoBancoCopia>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CuentasFondosBancosCopias> find(CuentasFondosBancosCopiasFiltro f) throws Exception {
 
 		if (f == null) {

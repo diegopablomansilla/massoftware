@@ -56,6 +56,18 @@ public class UIMonedasGrid extends GridCustom<Monedas> {
 		
 		// --------------------------------------------------------------------------------------------------
 		
+		addColumn(Monedas::getNumero, "numero")
+			.setKey("numero")
+			.setResizable(true)
+			.setSortProperty("2")
+			.setHeader("Nº moneda");
+
+		addColumn(Monedas::getNombre, "nombre")
+			.setKey("nombre")
+			.setResizable(true)
+			.setSortProperty("3")
+			.setHeader("Nombre");
+
 		/* EJEMPLOS
 		addColumn(Bancos::getNumero, "numero")
 			.setKey("numero")

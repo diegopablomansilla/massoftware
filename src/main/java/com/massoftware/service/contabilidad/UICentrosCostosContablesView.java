@@ -78,6 +78,7 @@ public class UICentrosCostosContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setWidthFull();
 		ejercicioContable.setRequired(true);
 		ejercicioContable.setPlaceholder("Ejercicio");
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();

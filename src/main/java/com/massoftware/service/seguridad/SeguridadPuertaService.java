@@ -174,6 +174,37 @@ public class SeguridadPuertaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<SeguridadPuerta> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<SeguridadPuerta> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(SeguridadPuerta.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<SeguridadPuerta>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<SeguridadPuertas> find(SeguridadPuertasFiltro f) throws Exception {
 
 		if (f == null) {

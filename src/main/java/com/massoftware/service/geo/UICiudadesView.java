@@ -79,6 +79,7 @@ public class UICiudadesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// País
 		pais = new ComboBox<>();
+		pais.setWidthFull();
 		pais.setRequired(true);
 		pais.setPlaceholder("País");
 		PaisService paisService = new PaisService();
@@ -102,6 +103,7 @@ public class UICiudadesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Provincia
 		provincia = new ComboBox<>();
+		provincia.setWidthFull();
 		provincia.setRequired(true);
 		provincia.setPlaceholder("Provincia");
 		ProvinciaService provinciaService = new ProvinciaService();

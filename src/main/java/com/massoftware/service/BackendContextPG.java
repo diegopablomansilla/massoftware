@@ -5,9 +5,9 @@ import java.util.Properties;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.cx.AbstractContext;
-import org.dsw.jdbc.ConnectionWrapper;
-import org.dsw.jdbc.DataSourceProperties;
-import org.dsw.jdbc.DataSourceWrapper;
+import org.dsw.ConnectionWrapper;
+import org.dsw.DataSourceProperties;
+import org.dsw.DataSourceWrapper;
 
 public class BackendContextPG extends AbstractContext {
 

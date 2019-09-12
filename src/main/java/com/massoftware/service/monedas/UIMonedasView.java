@@ -45,8 +45,8 @@ public class UIMonedasView extends VerticalLayout {
 	
 	private NumberField numeroFrom;
 	private NumberField numeroTo;
-	private TextField nombre;
 	private TextField abreviatura;
+	private TextField nombre;
 
 	private Button newBTN;
 	private Button findBTN;
@@ -126,29 +126,6 @@ public class UIMonedasView extends VerticalLayout {
 		});
 
 		//-------------------------------------------------------------------
-		// Nombre
-		nombre = new TextField();
-		nombre.setPlaceholder("Nombre");
-		nombre.setPrefixComponent(VaadinIcon.SEARCH.create());
-		nombre.setWidthFull();
-		nombre.setClearButtonVisible(true);
-		nombre.setAutoselect(true);
-		nombre.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
-		binder.forField(nombre)
-			.bind(MonedasFiltro::getNombre, MonedasFiltro::setNombre);
-		nombre.addKeyPressListener(Key.ENTER, event -> {
-			search();
-		});
-		nombre.addValueChangeListener(event -> {
-			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
-				search();
-			}
-		});
-		nombre.addBlurListener(event -> {
-			search();
-		});
-
-		//-------------------------------------------------------------------
 		// Abreviatura
 		abreviatura = new TextField();
 		abreviatura.setPlaceholder("Abreviatura");
@@ -156,7 +133,7 @@ public class UIMonedasView extends VerticalLayout {
 		abreviatura.setWidthFull();
 		abreviatura.setClearButtonVisible(true);
 		abreviatura.setAutoselect(true);
-		abreviatura.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
+		abreviatura.addFocusShortcut(Key.DIGIT_3, KeyModifier.ALT);
 		binder.forField(abreviatura)
 			.bind(MonedasFiltro::getAbreviatura, MonedasFiltro::setAbreviatura);
 		abreviatura.addKeyPressListener(Key.ENTER, event -> {
@@ -168,6 +145,29 @@ public class UIMonedasView extends VerticalLayout {
 			}
 		});
 		abreviatura.addBlurListener(event -> {
+			search();
+		});
+
+		//-------------------------------------------------------------------
+		// Nombre
+		nombre = new TextField();
+		nombre.setPlaceholder("Nombre");
+		nombre.setPrefixComponent(VaadinIcon.SEARCH.create());
+		nombre.setWidthFull();
+		nombre.setClearButtonVisible(true);
+		nombre.setAutoselect(true);
+		nombre.addFocusShortcut(Key.DIGIT_4, KeyModifier.ALT);
+		binder.forField(nombre)
+			.bind(MonedasFiltro::getNombre, MonedasFiltro::setNombre);
+		nombre.addKeyPressListener(Key.ENTER, event -> {
+			search();
+		});
+		nombre.addValueChangeListener(event -> {
+			if (event.getValue() == null || event.getValue().toString().trim().length() == 0) {
+				search();
+			}
+		});
+		nombre.addBlurListener(event -> {
 			search();
 		});
 
@@ -280,7 +280,7 @@ public class UIMonedasView extends VerticalLayout {
 		add(filterRow1);
 
 		//filterRow1.add(newBTN, numeroFrom, numeroTo, vigente, nombre, findBTN);
-		filterRow1.add(newBTN, numeroFrom, numeroTo, nombre, abreviatura, findBTN);
+		filterRow1.add(newBTN, numeroFrom, numeroTo, abreviatura, nombre, findBTN);
 
 		//-------------------------------------------------------------------
 	}

@@ -155,6 +155,7 @@ public class UIAsientosContablesItemsView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Asiento contable
 		asientoContable = new ComboBox<>();
+		asientoContable.setWidthFull();
 		asientoContable.setRequired(true);
 		asientoContable.setPlaceholder("Asiento contable");
 		AsientoContableService asientoContableService = new AsientoContableService();

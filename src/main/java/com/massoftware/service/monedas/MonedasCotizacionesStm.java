@@ -68,13 +68,13 @@ public class MonedasCotizacionesStm extends StatementParam {
 		if (f.getCotizacionFechaFrom() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha >= ?";
-			this.addArg(buildArgTrim(f.getCotizacionFechaFrom(), java.sql.Timestamp.class));
+			this.addArg(buildArgTrim(f.getCotizacionFechaFrom(), java.time.LocalDateTime.class));
 		}
 	
 		if (f.getCotizacionFechaTo() != null) {
 			where += (where.trim().length() > 0 ) ? " AND " : "";
 			where += " MonedaCotizacion.CotizacionFecha <= ?";
-			this.addArg(buildArgTrim(f.getCotizacionFechaTo(), java.sql.Timestamp.class));
+			this.addArg(buildArgTrim(f.getCotizacionFechaTo(), java.time.LocalDateTime.class));
 		}
 
 		

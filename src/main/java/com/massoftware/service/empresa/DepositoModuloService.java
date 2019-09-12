@@ -174,6 +174,37 @@ public class DepositoModuloService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<DepositoModulo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<DepositoModulo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(DepositoModulo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<DepositoModulo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<DepositosModulos> find(DepositosModulosFiltro f) throws Exception {
 
 		if (f == null) {

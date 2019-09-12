@@ -4,7 +4,7 @@ package com.massoftware.service.contabilidad;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dsw.jdbc.ConnectionWrapper;
+import org.dsw.ConnectionWrapper;
 
 public class AsientosContablesModulosDAO {
 

@@ -1,4 +1,4 @@
-package org.dsw.jdbc;
+package org.dsw;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,6 +8,8 @@ import java.time.ZonedDateTime;
 import javax.sql.DataSource;
 
 public class DataSourceWrapper {
+	
+	private final String SEP = "\n\n=================================================================================\n\n";
 
 	private final String OPERATION_TYPE_START_POOL_CONECTION = "START_POOL_CONECTION";
 	private final String OPERATION_TYPE_START_CONNECTION = "START_CONNECTION";
@@ -102,7 +104,7 @@ public class DataSourceWrapper {
 
 		if (isVerbose()) {
 
-			System.out.println(Util.sep() + "\n\n[..] Conectandose a\n\n"
+			System.out.println(SEP + "\n\n[..] Conectandose a\n\n"
 					+ dataSourceProperties);
 		}
 
@@ -158,7 +160,7 @@ public class DataSourceWrapper {
 			System.out.println("\n\nConectado a\n\n" + dataSourceMetaData);
 
 			System.out.println("\n\n[OK] Conectado a\n\n"
-					+ dataSourceMetaData.getUrl() + Util.sep());
+					+ dataSourceMetaData.getUrl() + SEP);
 		}
 
 		return dataSourceMetaData;

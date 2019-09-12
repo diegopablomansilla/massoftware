@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dsw.jdbc.ConnectionWrapper;
-import org.dsw.jdbc.DataSourceWrapper;
+import org.dsw.ConnectionWrapper;
+import org.dsw.DataSourceWrapper;
 import org.sorm.model.Identifiable;
 
 public class DataBasePG {
@@ -259,6 +259,21 @@ public class DataBasePG {
 	public List fillAllObjects(Class instanceClass, Class mappingClass, int leftLevel) throws Exception {
 		return queryDAO.fillAllObjects(connectionWrapper, instanceClass, mappingClass, leftLevel);
 	}
+	
+//	@SuppressWarnings("rawtypes")
+//	public List fillAllObjectsByIdFk(String idFk, Class mappingClass) throws Exception {
+//		return queryDAO.fillAllObjects(connectionWrapper, mappingClass);
+//	}
+//
+//	@SuppressWarnings("rawtypes")
+//	public List fillAllObjectsByIdFk(String idFk, Class mappingClass, int leftLevel) throws Exception {
+//		return queryDAO.fillAllObjects(connectionWrapper, mappingClass, leftLevel);
+//	}
+//
+//	@SuppressWarnings("rawtypes")
+//	public List fillAllObjectsByIdFk(String idFk, Class instanceClass, Class mappingClass, int leftLevel) throws Exception {
+//		return queryDAO.fillAllObjects(connectionWrapper, instanceClass, mappingClass, leftLevel);
+//	}
 
 	// -------------------------------------------------
 

@@ -25,7 +25,7 @@ public class MonedasStm extends StatementParam {
 
 		if (count == false) {
 
-			atts = "Moneda.id ";
+			atts = "Moneda.id , Moneda.numero, Moneda.nombre";
 
 			orderBy = " ORDER BY " + f.getOrderBy() + " " + (f.getOrderByDesc() ? "DESC" : "");
 
@@ -63,20 +63,20 @@ public class MonedasStm extends StatementParam {
 			this.addArg(buildArgTrim(f.getNumeroTo(), Integer.class));
 		}
 	
-		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
-			String[] words =  f.getNombre().trim().split(" ");
-			for(String word : words) {
-				where += (where.trim().length() > 0 ) ? " AND " : "";
-				where += " TRANSLATE(LOWER(TRIM(Moneda.Nombre))" + translate + ") LIKE ?";
-				this.addArg(buildArgTrimLower(word.trim(), String.class));
-			}
-		}
-	
 		if (f.getAbreviatura() != null && f.getAbreviatura().trim().isEmpty() == false) {
 			String[] words =  f.getAbreviatura().trim().split(" ");
 			for(String word : words) {
 				where += (where.trim().length() > 0 ) ? " AND " : "";
 				where += " TRANSLATE(LOWER(TRIM(Moneda.Abreviatura))" + translate + ") LIKE ?";
+				this.addArg(buildArgTrimLower(word.trim(), String.class));
+			}
+		}
+	
+		if (f.getNombre() != null && f.getNombre().trim().isEmpty() == false) {
+			String[] words =  f.getNombre().trim().split(" ");
+			for(String word : words) {
+				where += (where.trim().length() > 0 ) ? " AND " : "";
+				where += " TRANSLATE(LOWER(TRIM(Moneda.Nombre))" + translate + ") LIKE ?";
 				this.addArg(buildArgTrimLower(word.trim(), String.class));
 			}
 		}

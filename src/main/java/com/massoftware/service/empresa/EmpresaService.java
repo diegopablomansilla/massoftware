@@ -174,6 +174,37 @@ public class EmpresaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Empresa> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Empresa> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Empresa.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Empresa>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Empresas> find(EmpresasFiltro f) throws Exception {
 
 		if (f == null) {

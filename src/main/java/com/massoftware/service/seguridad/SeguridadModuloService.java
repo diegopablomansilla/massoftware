@@ -174,6 +174,37 @@ public class SeguridadModuloService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<SeguridadModulo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<SeguridadModulo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(SeguridadModulo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<SeguridadModulo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<SeguridadModulos> find(SeguridadModulosFiltro f) throws Exception {
 
 		if (f == null) {

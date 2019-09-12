@@ -174,6 +174,37 @@ public class JuridiccionConvnioMultilateralService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<JuridiccionConvnioMultilateral> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<JuridiccionConvnioMultilateral> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(JuridiccionConvnioMultilateral.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<JuridiccionConvnioMultilateral>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<JuridiccionesConvniosMultilaterales> find(JuridiccionesConvniosMultilateralesFiltro f) throws Exception {
 
 		if (f == null) {

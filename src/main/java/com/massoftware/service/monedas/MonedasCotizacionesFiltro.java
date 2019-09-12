@@ -1,6 +1,7 @@
 package com.massoftware.service.monedas;
 
 import com.massoftware.service.*;
+import java.time.LocalDateTime;
 
 public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneable {
 
@@ -11,10 +12,10 @@ public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneabl
 	private Monedas moneda;
 
 	// Fecha cotización (desde)
-	private java.sql.Timestamp cotizacionFechaFrom;
+	private LocalDateTime cotizacionFechaFrom;
 
 	// Fecha cotización (hasta)
-	private java.sql.Timestamp cotizacionFechaTo;
+	private LocalDateTime cotizacionFechaTo;
 
 	// ---------------------------------------------------------------------------------------------------------------------------
 
@@ -30,22 +31,22 @@ public class MonedasCotizacionesFiltro extends GenericFilter implements Cloneabl
 	}
 
 	// GET Fecha cotización (desde)
-	public java.sql.Timestamp getCotizacionFechaFrom() {
+	public LocalDateTime getCotizacionFechaFrom() {
 		return this.cotizacionFechaFrom;
 	}
 
 	// SET Fecha cotización (desde)
-	public void setCotizacionFechaFrom(java.sql.Timestamp cotizacionFechaFrom){
+	public void setCotizacionFechaFrom(LocalDateTime cotizacionFechaFrom){
 		this.cotizacionFechaFrom = cotizacionFechaFrom;
 	}
 
 	// GET Fecha cotización (hasta)
-	public java.sql.Timestamp getCotizacionFechaTo() {
+	public LocalDateTime getCotizacionFechaTo() {
 		return this.cotizacionFechaTo;
 	}
 
 	// SET Fecha cotización (hasta)
-	public void setCotizacionFechaTo(java.sql.Timestamp cotizacionFechaTo){
+	public void setCotizacionFechaTo(LocalDateTime cotizacionFechaTo){
 		this.cotizacionFechaTo = cotizacionFechaTo;
 	}
 		

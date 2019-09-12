@@ -174,6 +174,37 @@ public class CostoVentaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<CostoVenta> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<CostoVenta> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(CostoVenta.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<CostoVenta>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<CostosVentas> find(CostosVentasFiltro f) throws Exception {
 
 		if (f == null) {

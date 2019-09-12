@@ -162,6 +162,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Ejercicio
 		ejercicioContable = new ComboBox<>();
+		ejercicioContable.setWidthFull();
 		ejercicioContable.setRequired(true);
 		ejercicioContable.setPlaceholder("Ejercicio");
 		EjercicioContableService ejercicioContableService = new EjercicioContableService();
@@ -185,6 +186,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Minuta contable
 		minutaContable = new ComboBox<>();
+		minutaContable.setWidthFull();
 		minutaContable.setPlaceholder("Minuta contable");
 		MinutaContableService minutaContableService = new MinutaContableService();
 		MinutasContablesFiltro minutaContableFiltro = new MinutasContablesFiltro();
@@ -206,6 +208,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Módulo
 		asientoContableModulo = new ComboBox<>();
+		asientoContableModulo.setWidthFull();
 		asientoContableModulo.setPlaceholder("Módulo");
 		AsientoContableModuloService asientoContableModuloService = new AsientoContableModuloService();
 		AsientosContablesModulosFiltro asientoContableModuloFiltro = new AsientosContablesModulosFiltro();
@@ -227,6 +230,7 @@ public class UIAsientosContablesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Sucursal
 		sucursal = new ComboBox<>();
+		sucursal.setWidthFull();
 		sucursal.setPlaceholder("Sucursal");
 		SucursalService sucursalService = new SucursalService();
 		SucursalesFiltro sucursalFiltro = new SucursalesFiltro();

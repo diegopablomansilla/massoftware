@@ -174,6 +174,37 @@ public class MonedaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<Moneda> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<Moneda> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(Moneda.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<Moneda>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<Monedas> find(MonedasFiltro f) throws Exception {
 
 		if (f == null) {

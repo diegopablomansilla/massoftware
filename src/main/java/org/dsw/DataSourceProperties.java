@@ -1,4 +1,4 @@
-package org.dsw.jdbc;
+package org.dsw;
 
 public class DataSourceProperties {
 

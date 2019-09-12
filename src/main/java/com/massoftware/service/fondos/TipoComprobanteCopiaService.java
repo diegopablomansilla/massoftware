@@ -174,6 +174,37 @@ public class TipoComprobanteCopiaService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TipoComprobanteCopia> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TipoComprobanteCopia> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TipoComprobanteCopia.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TipoComprobanteCopia>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TiposComprobantesCopias> find(TiposComprobantesCopiasFiltro f) throws Exception {
 
 		if (f == null) {

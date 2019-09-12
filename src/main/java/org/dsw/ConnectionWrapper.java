@@ -1,4 +1,4 @@
-package org.dsw.jdbc;
+package org.dsw;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -11,7 +11,6 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -619,6 +618,10 @@ public class ConnectionWrapper {
 
 				preparedStatement.setTimestamp(i, (Timestamp) value);
 
+			} else if (value.getClass() == java.time.LocalDateTime.class) {
+
+				preparedStatement.setObject(i, (java.time.LocalDateTime) value);
+
 			} else if (value.getClass() == Time.class) {
 
 				preparedStatement.setTime(i, (Time) value);
@@ -650,6 +653,8 @@ public class ConnectionWrapper {
 				} else if (c.equals(java.time.LocalDate.class)) {
 					preparedStatement.setNull(i, Types.DATE);
 				} else if (c.equals(Timestamp.class)) {
+					preparedStatement.setNull(i, Types.TIMESTAMP);
+				} else if (c.equals(java.time.LocalDateTime.class)) {
 					preparedStatement.setNull(i, Types.TIMESTAMP);
 				} else if (c.equals(Time.class)) {
 					preparedStatement.setNull(i, Types.TIME);

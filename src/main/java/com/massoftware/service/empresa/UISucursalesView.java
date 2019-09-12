@@ -79,6 +79,7 @@ public class UISucursalesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Tipo sucursal
 		tipoSucursal = new ComboBox<>();
+		tipoSucursal.setWidthFull();
 		tipoSucursal.setPlaceholder("Tipo sucursal");
 		TipoSucursalService tipoSucursalService = new TipoSucursalService();
 		TiposSucursalesFiltro tipoSucursalFiltro = new TiposSucursalesFiltro();

@@ -174,6 +174,37 @@ public class TipoDocumentoAFIPService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TipoDocumentoAFIP> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TipoDocumentoAFIP> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TipoDocumentoAFIP.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TipoDocumentoAFIP>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TiposDocumentosAFIP> find(TiposDocumentosAFIPFiltro f) throws Exception {
 
 		if (f == null) {

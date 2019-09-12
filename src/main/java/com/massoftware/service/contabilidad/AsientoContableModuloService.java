@@ -174,6 +174,37 @@ public class AsientoContableModuloService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<AsientoContableModulo> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<AsientoContableModulo> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(AsientoContableModulo.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<AsientoContableModulo>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<AsientosContablesModulos> find(AsientosContablesModulosFiltro f) throws Exception {
 
 		if (f == null) {

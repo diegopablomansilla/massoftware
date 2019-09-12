@@ -72,6 +72,7 @@ public class UIMonedasCotizacionesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Moneda
 		moneda = new ComboBox<>();
+		moneda.setWidthFull();
 		moneda.setPlaceholder("Moneda");
 		MonedaService monedaService = new MonedaService();
 		MonedasFiltro monedaFiltro = new MonedasFiltro();

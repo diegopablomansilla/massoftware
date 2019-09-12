@@ -78,6 +78,7 @@ public class UIMotivosBloqueosClientesView extends VerticalLayout {
 		//-------------------------------------------------------------------
 		// Clasificación de cliente
 		clasificacionCliente = new ComboBox<>();
+		clasificacionCliente.setWidthFull();
 		clasificacionCliente.setRequired(true);
 		clasificacionCliente.setPlaceholder("Clasificación de cliente");
 		ClasificacionClienteService clasificacionClienteService = new ClasificacionClienteService();

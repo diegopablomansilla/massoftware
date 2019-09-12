@@ -174,6 +174,37 @@ public class MinutaContableService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<MinutaContable> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<MinutaContable> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(MinutaContable.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<MinutaContable>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<MinutasContables> find(MinutasContablesFiltro f) throws Exception {
 
 		if (f == null) {

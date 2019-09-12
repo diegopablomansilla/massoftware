@@ -174,6 +174,37 @@ public class TicketControlDenunciadosService {
 	
 	// ---------------------------------------------------------------------------------------------------------------------------
 
+	@SuppressWarnings("unchecked")
+	public List<TicketControlDenunciados> find() throws Exception {		
+
+		DataBase db = BackendContextPG.get().getDataBase();
+
+		List<TicketControlDenunciados> listado = null;
+
+		try {
+
+			db.begint();
+
+			listado = db.fillAllObjects(TicketControlDenunciados.class);
+
+			db.commit();
+
+		} catch (Exception e) {
+			db.rollBack();
+			throw e;
+		} finally {
+			db.close();
+		}
+
+		if (listado == null) {
+			listado = new ArrayList<TicketControlDenunciados>();
+		}
+
+		return listado;
+	}
+	
+	// ---------------------------------------------------------------------------------------------------------------------------
+
 	public List<TicketsControlesDenunciados> find(TicketsControlesDenunciadosFiltro f) throws Exception {
 
 		if (f == null) {
